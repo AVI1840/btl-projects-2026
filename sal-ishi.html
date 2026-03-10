@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סל אישי בסיעוד — רפורמת ביזור | מינהל גמלאות | ביטוח לאומי</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #1B3A5C;
+  --secondary: #2A5A8C;
+  --accent: #E8A020;
+  --light: #F0F4F8;
+  --text: #1A2332;
+  --muted: #6B7A8D;
+  --success: #1A7A4E;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Heebo', Arial, sans-serif; background: var(--light); color: var(--text); direction: rtl; }
+
+/* ── ONE PAGER ── */
+.page {
+  max-width: 860px;
+  margin: 28px auto;
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 28px rgba(27,58,92,0.18);
+}
+
+/* Header */
+.header {
+  background: var(--primary);
+  color: white;
+  padding: 26px 36px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+}
+.logo-block { display: flex; align-items: center; gap: 12px; }
+.logo-circle {
+  width: 50px; height: 50px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 800;
+}
+.logo-label { font-size: 12px; opacity: 0.8; line-height: 1.5; }
+.logo-label strong { font-size: 14px; display: block; }
+.title-block { text-align: center; }
+.project-title { font-size: 27px; font-weight: 900; letter-spacing: -0.5px; }
+.project-sub { font-size: 13px; opacity: 0.8; margin-top: 4px; line-height: 1.4; }
+.badge-block {
+  background: rgba(232,160,32,0.25);
+  border: 1.5px solid rgba(232,160,32,0.6);
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #FFD080;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Color bar */
+.bar { height: 5px; background: linear-gradient(90deg, #E8A020, #2A5A8C, #1B3A5C); }
+
+/* Content grid */
+.content { padding: 26px 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.card {
+  padding: 18px 20px;
+  border-radius: 10px;
+  border: 1.5px solid #E0EAF4;
+}
+.card-problem { background: #FFF8EE; border-color: #F5C870; }
+.card-solution { background: #EEF5FF; border-color: #90B8E8; }
+.card-next {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  border: none;
+}
+.card-metrics { grid-column: 1 / -1; background: var(--light); border: none; padding: 20px; }
+
+.card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.card-icon { font-size: 19px; }
+.card-title { font-size: 15px; font-weight: 700; color: var(--primary); }
+.card-next .card-title { color: white; }
+.card-text { font-size: 13.5px; line-height: 1.75; }
+.card-next .card-text { color: rgba(255,255,255,0.92); }
+
+/* Metrics */
+.metrics-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 14px; }
+.metric-box {
+  background: white;
+  border-radius: 10px;
+  padding: 14px 10px;
+  text-align: center;
+  border: 2px solid #B8D0E8;
+  box-shadow: 0 2px 8px rgba(27,58,92,0.07);
+}
+.metric-val { font-size: 30px; font-weight: 900; color: var(--primary); line-height: 1.1; }
+.metric-unit { font-size: 14px; font-weight: 700; color: var(--secondary); }
+.metric-desc { font-size: 11.5px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+
+/* Footer */
+.footer {
+  background: var(--primary);
+  color: white;
+  padding: 14px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+}
+.footer-contact { opacity: 0.85; line-height: 1.5; }
+.footer-right { display: flex; align-items: center; gap: 14px; }
+.live-btn {
+  background: var(--accent);
+  color: var(--primary);
+  padding: 7px 18px;
+  border-radius: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 12px;
+  font-family: 'Heebo', Arial, sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.qr { width: 56px; height: 56px; border: 2px solid rgba(255,255,255,0.5); border-radius: 6px; }
+.back-link { font-size: 12px; opacity: 0.7; color: white; text-decoration: none; }
+.back-link:hover { opacity: 1; }
+
+/* ── FEEDBACK SYSTEM ── */
+.fb-btn {
+  position: fixed; bottom: 24px; left: 24px;
+  background: var(--accent); color: var(--primary);
+  border: none; padding: 11px 20px;
+  border-radius: 50px;
+  font-family: 'Heebo', Arial, sans-serif;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.22);
+  z-index: 100;
+  display: flex; align-items: center; gap: 8px;
+  transition: transform 0.2s;
+}
+.fb-btn:hover { transform: scale(1.06); }
+.fb-badge {
+  background: var(--primary); color: white;
+  border-radius: 50%; width: 20px; height: 20px;
+  font-size: 11px; font-weight: 700;
+  display: none; align-items: center; justify-content: center;
+}
+
+.fb-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4); z-index: 199;
+}
+.fb-overlay.open { display: block; }
+
+.fb-panel {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -6px 32px rgba(0,0,0,0.22);
+  z-index: 200;
+  padding: 26px 32px 32px;
+  max-height: 82vh; overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  direction: rtl;
+}
+.fb-panel.open { transform: translateY(0); }
+
+.fb-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.fb-title { font-size: 18px; font-weight: 700; color: var(--primary); }
+.fb-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--muted); line-height: 1; }
+
+.fb-tabs { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+.fb-tab {
+  padding: 7px 16px; border-radius: 20px;
+  border: 2px solid #B8D0E8; background: none;
+  font-family: 'Heebo', Arial, sans-serif; font-size: 13px;
+  cursor: pointer; color: var(--secondary); font-weight: 600;
+  transition: all 0.15s;
+}
+.fb-tab.active { background: var(--secondary); color: white; border-color: var(--secondary); }
+
+.fb-section { display: none; }
+.fb-section.active { display: block; }
+
+.fb-label { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.stars { display: flex; gap: 6px; margin-bottom: 12px; }
+.star { font-size: 26px; cursor: pointer; color: #DDD; transition: color 0.1s; user-select: none; }
+.star.on { color: var(--accent); }
+
+textarea.fb-txt {
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid #D8E4F0; border-radius: 8px;
+  font-family: 'Heebo', Arial, sans-serif; font-size: 13.5px;
+  resize: vertical; min-height: 80px; direction: rtl;
+  color: var(--text);
+}
+textarea.fb-txt:focus { outline: none; border-color: var(--secondary); }
+
+.fb-submit {
+  width: 100%; margin-top: 16px;
+  background: var(--primary); color: white;
+  border: none; padding: 12px;
+  border-radius: 8px;
+  font-family: 'Heebo', Arial, sans-serif;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  transition: background 0.2s;
+}
+.fb-submit:hover { background: var(--secondary); }
+.fb-hint { text-align: center; font-size: 11px; color: var(--muted); margin-top: 8px; }
+
+.fb-history-item {
+  border: 1.5px solid #E8EDF4; border-radius: 8px;
+  padding: 14px; margin-bottom: 12px;
+}
+.fb-history-date { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+.fb-history-row { font-size: 13px; margin-bottom: 5px; }
+.fb-export {
+  width: 100%; margin-top: 14px;
+  background: var(--secondary); color: white;
+  border: none; padding: 10px;
+  border-radius: 8px;
+  font-family: 'Heebo', Arial, sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer;
+}
+.fb-email {
+  width: 100%; margin-top: 8px;
+  background: #EEF5FF; color: var(--secondary);
+  border: 1.5px solid #B8D0E8; padding: 9px;
+  border-radius: 8px;
+  font-family: 'Heebo', Arial, sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; text-decoration: none; display: block; text-align: center;
+}
+
+/* Print */
+@media print {
+  body { background: white; }
+  .page { margin: 0; box-shadow: none; border-radius: 0; max-width: 100%; }
+  .fb-btn, .fb-panel, .fb-overlay { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ONE PAGER -->
+<div class="page">
+
+  <header class="header">
+    <div class="logo-block">
+      <div class="logo-circle">ב"ל</div>
+      <div class="logo-label"><strong>ביטוח לאומי</strong>מינהל גמלאות</div>
+    </div>
+    <div class="title-block">
+      <div class="project-title">סל אישי בסיעוד</div>
+      <div class="project-sub">מנגנון סל שירות מותאם אישית במסגרת רפורמת ביזור הסיעוד — 21 ספקים, מבוטח אחד, תמהיל שלו</div>
+    </div>
+    <div class="badge-block">בתכנון</div>
+  </header>
+  <div class="bar"></div>
+
+  <div class="content">
+
+    <div class="card card-problem">
+      <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">הבעיה</span></div>
+      <p class="card-text">
+        <strong>220,000 מקבלי גמלת סיעוד</strong> מקבלים שירות אחיד שאינו מותאם לצרכיהם האישיים. הרפורמה לביזור יוצרת <strong>21 ספקי שירות מאושרים</strong> — אך ללא כלי לתיאום ובניית תמהיל מותאם לכל מבוטח.
+      </p>
+    </div>
+
+    <div class="card card-solution">
+      <div class="card-head"><span class="card-icon">💡</span><span class="card-title">הפתרון</span></div>
+      <p class="card-text">
+        מנגנון סל אישי דיגיטלי המאפשר לכל מקבל סיעוד לבנות <strong>תמהיל שירות מותאם</strong> מ-21 ספקים מאושרים — לפי צרכיו, לוח זמניו ומיקומו. מעקב שוטף אחר ניצול הסל, התאמות גמישות ודיווח אוטומטי.
+      </p>
+    </div>
+
+    <div class="card-metrics card">
+      <div class="card-head"><span class="card-icon">📊</span><span class="card-title">מדדים מרכזיים</span></div>
+      <div class="metrics-row">
+        <div class="metric-box">
+          <div class="metric-val">220<span class="metric-unit">K</span></div>
+          <div class="metric-desc">מקבלי סיעוד — אוכלוסיית יעד</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">21</div>
+          <div class="metric-desc">ספקי שירות מאושרים במרשם</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">✓</div>
+          <div class="metric-desc">הלימה לרפורמת ביזור הממשלה</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-next">
+      <div class="card-head"><span class="card-icon">🚀</span><span class="card-title">שלב הבא — נדרשת החלטה</span></div>
+      <p class="card-text">
+        <strong>גיבוש מדיניות ובחירת מיישם לפיילוט</strong> באזור גיאוגרפי מוגדר. נדרש: ✅ אישור הנהלה להמשך תכנון | ✅ תיאום עם משרד הרווחה על רפורמת ביזור | ✅ בחירת 3–5 ספקים לפיילוט | ✅ הגדרת מנגנון פיקוח.
+      </p>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div>
+      <a href="index.html" class="back-link">← כל הפרויקטים</a>
+    </div>
+    <div class="footer-contact">
+      <strong>אביעד יצחקי</strong> | מינהל גמלאות, ביטוח לאומי | מרץ 2026
+    </div>
+    <div></div>
+  </footer>
+
+</div>
+
+<!-- FEEDBACK -->
+<button class="fb-btn" onclick="fbOpen()">
+  💬 השאירו משוב
+  <span class="fb-badge" id="fb-badge"></span>
+</button>
+
+<div class="fb-overlay" id="fb-overlay" onclick="fbClose()"></div>
+
+<div class="fb-panel" id="fb-panel">
+  <div class="fb-head">
+    <div class="fb-title">💬 משוב לשיפור — סל אישי בסיעוד</div>
+    <button class="fb-close" onclick="fbClose()">✕</button>
+  </div>
+
+  <div class="fb-tabs">
+    <button class="fb-tab active" onclick="fbTab('pro',this)">🏛 מקצועי</button>
+    <button class="fb-tab" onclick="fbTab('proc',this)">⚙ תהליכי</button>
+    <button class="fb-tab" onclick="fbTab('des',this)">🎨 עיצובי</button>
+    <button class="fb-tab" onclick="fbTab('hist',this)">📋 היסטוריה</button>
+  </div>
+
+  <!-- Professional -->
+  <div class="fb-section active" id="fb-pro">
+    <div class="fb-label">תוכן, דיוק מקצועי, רלוונטיות — מה עובד? מה חסר?</div>
+    <div class="stars" id="stars-pro">
+      <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span>
+      <span class="star" data-v="3">★</span><span class="star" data-v="4">★</span>
+      <span class="star" data-v="5">★</span>
+    </div>
+    <textarea class="fb-txt" id="txt-pro" placeholder="האם הנתונים מדויקים? האם הכלי מכסה את מה שצריך? מה חסר?"></textarea>
+  </div>
+
+  <!-- Process -->
+  <div class="fb-section" id="fb-proc">
+    <div class="fb-label">שילוב בעבודה השוטפת — האם התהליך ברור ונוח?</div>
+    <div class="stars" id="stars-proc">
+      <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span>
+      <span class="star" data-v="3">★</span><span class="star" data-v="4">★</span>
+      <span class="star" data-v="5">★</span>
+    </div>
+    <textarea class="fb-txt" id="txt-proc" placeholder="איך זה משתלב בתהליך ניהול הסל? מה צריך לשנות?"></textarea>
+  </div>
+
+  <!-- Design -->
+  <div class="fb-section" id="fb-des">
+    <div class="fb-label">חוויית משתמש, בהירות, נגישות — מה ברור ומה מבלבל?</div>
+    <div class="stars" id="stars-des">
+      <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span>
+      <span class="star" data-v="3">★</span><span class="star" data-v="4">★</span>
+      <span class="star" data-v="5">★</span>
+    </div>
+    <textarea class="fb-txt" id="txt-des" placeholder="האם הממשק ברור? מה קשה להבנה? מה אפשר לשפר?"></textarea>
+  </div>
+
+  <!-- History -->
+  <div class="fb-section" id="fb-hist">
+    <div id="fb-hist-list"><p style="color:#6B7A8D;font-size:13px">אין פידבקים שמורים עדיין</p></div>
+    <button class="fb-export" onclick="fbExport()">📋 העתק את כל הפידבקים</button>
+    <a class="fb-email" id="fb-email-link" href="#">📧 שלח פידבקים במייל</a>
+  </div>
+
+  <div id="fb-submit-area">
+    <button class="fb-submit" onclick="fbSubmit()">✅ שמור משוב</button>
+    <div class="fb-hint">הפידבק נשמר בדפדפן זה ✓ לייצוא לחץ על "היסטוריה"</div>
+  </div>
+</div>
+
+<script>
+const FK = 'feedback_sal_ishi';
+const ratings = { pro: 0, proc: 0, des: 0 };
+let activeTab = 'pro';
+
+/* Stars */
+document.querySelectorAll('.stars').forEach(group => {
+  const cat = group.id.replace('stars-', '');
+  group.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', () => {
+      const v = +star.dataset.v;
+      ratings[cat] = v;
+      group.querySelectorAll('.star').forEach((s, i) => {
+        s.classList.toggle('on', i < v);
+      });
+    });
+  });
+});
+
+function fbOpen() {
+  document.getElementById('fb-panel').classList.add('open');
+  document.getElementById('fb-overlay').classList.add('open');
+  updateBadge();
+}
+function fbClose() {
+  document.getElementById('fb-panel').classList.remove('open');
+  document.getElementById('fb-overlay').classList.remove('open');
+}
+function fbTab(name, btn) {
+  activeTab = name;
+  document.querySelectorAll('.fb-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.fb-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('fb-' + name).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('fb-submit-area').style.display = name === 'hist' ? 'none' : 'block';
+  if (name === 'hist') renderHistory();
+}
+function fbSubmit() {
+  const pro = { r: ratings.pro, t: document.getElementById('txt-pro').value.trim() };
+  const proc = { r: ratings.proc, t: document.getElementById('txt-proc').value.trim() };
+  const des = { r: ratings.des, t: document.getElementById('txt-des').value.trim() };
+  if (!pro.r && !proc.r && !des.r && !pro.t && !proc.t && !des.t) {
+    alert('נא למלא לפחות שדה אחד לפני השמירה.');
+    return;
+  }
+  const entry = { id: Date.now(), date: new Date().toLocaleString('he-IL'), pro, proc, des };
+  const list = JSON.parse(localStorage.getItem(FK) || '[]');
+  list.push(entry);
+  localStorage.setItem(FK, JSON.stringify(list));
+  // reset
+  ['pro','proc','des'].forEach(c => {
+    ratings[c] = 0;
+    document.querySelectorAll('#stars-' + c + ' .star').forEach(s => s.classList.remove('on'));
+    document.getElementById('txt-' + c).value = '';
+  });
+  updateBadge();
+  alert('✅ תודה! הפידבק נשמר.');
+  fbTab('hist', document.querySelectorAll('.fb-tab')[3]);
+}
+function renderHistory() {
+  const list = JSON.parse(localStorage.getItem(FK) || '[]');
+  const el = document.getElementById('fb-hist-list');
+  if (!list.length) { el.innerHTML = '<p style="color:#6B7A8D;font-size:13px">אין פידבקים שמורים עדיין</p>'; return; }
+  el.innerHTML = [...list].reverse().map((e, i) => `
+    <div class="fb-history-item">
+      <div class="fb-history-date">${e.date}</div>
+      ${e.pro.r || e.pro.t ? `<div class="fb-history-row"><strong>🏛 מקצועי:</strong> ${'★'.repeat(e.pro.r)}${'☆'.repeat(5-e.pro.r)} ${e.pro.t || ''}</div>` : ''}
+      ${e.proc.r || e.proc.t ? `<div class="fb-history-row"><strong>⚙ תהליכי:</strong> ${'★'.repeat(e.proc.r)}${'☆'.repeat(5-e.proc.r)} ${e.proc.t || ''}</div>` : ''}
+      ${e.des.r || e.des.t ? `<div class="fb-history-row"><strong>🎨 עיצובי:</strong> ${'★'.repeat(e.des.r)}${'☆'.repeat(5-e.des.r)} ${e.des.t || ''}</div>` : ''}
+    </div>`).join('');
+  updateEmailLink(list);
+}
+function fbExport() {
+  const list = JSON.parse(localStorage.getItem(FK) || '[]');
+  if (!list.length) { alert('אין פידבקים לייצוא'); return; }
+  const text = list.map((e, i) => `=== פידבק ${i+1} (${e.date}) ===\nמקצועי: ${'★'.repeat(e.pro.r)||'ללא'} | ${e.pro.t||'ללא הערה'}\nתהליכי: ${'★'.repeat(e.proc.r)||'ללא'} | ${e.proc.t||'ללא הערה'}\nעיצובי: ${'★'.repeat(e.des.r)||'ללא'} | ${e.des.t||'ללא הערה'}`).join('\n\n');
+  navigator.clipboard.writeText(text).then(() => alert('✅ כל הפידבקים הועתקו ללוח'));
+}
+function updateEmailLink(list) {
+  const text = list.map((e, i) => `פידבק ${i+1} (${e.date}):\nמקצועי: ${e.pro.r}★ ${e.pro.t}\nתהליכי: ${e.proc.r}★ ${e.proc.t}\nעיצובי: ${e.des.r}★ ${e.des.t}`).join('\n\n');
+  const link = document.getElementById('fb-email-link');
+  link.href = `mailto:?subject=פידבק - סל אישי בסיעוד&body=${encodeURIComponent(text)}`;
+}
+function updateBadge() {
+  const list = JSON.parse(localStorage.getItem(FK) || '[]');
+  const badge = document.getElementById('fb-badge');
+  if (list.length) { badge.style.display = 'flex'; badge.textContent = list.length; }
+}
+updateBadge();
+</script>
+</body>
+</html>

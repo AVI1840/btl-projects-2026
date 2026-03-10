@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המקפצה — כיפת ברזל תעסוקתית | מינהל גמלאות | ביטוח לאומי</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#1B3A5C;--secondary:#2A5A8C;--accent:#E8A020;--light:#F0F4F8;--text:#1A2332;--muted:#6B7A8D;--success:#1A7A4E;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Heebo',Arial,sans-serif;background:var(--light);color:var(--text);direction:rtl;}
+.page{max-width:860px;margin:28px auto;background:white;border-radius:14px;overflow:hidden;box-shadow:0 6px 28px rgba(27,58,92,0.18);}
+.header{background:var(--primary);color:white;padding:26px 36px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;}
+.logo-block{display:flex;align-items:center;gap:12px;}
+.logo-circle{width:50px;height:50px;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;}
+.logo-label{font-size:12px;opacity:.8;line-height:1.5;}
+.logo-label strong{font-size:14px;display:block;}
+.title-block{text-align:center;}
+.project-title{font-size:25px;font-weight:900;letter-spacing:-.5px;}
+.project-sub{font-size:13px;opacity:.8;margin-top:4px;line-height:1.4;}
+.badge-block{padding:7px 16px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;text-align:center;line-height:1.5;background:rgba(26,122,78,.3);border:1.5px solid rgba(80,200,120,.6);color:#90FFBA;}
+.bar{height:5px;background:linear-gradient(90deg,#E8A020,#2A5A8C,#1B3A5C);}
+.content{padding:26px 36px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.card{padding:18px 20px;border-radius:10px;border:1.5px solid #E0EAF4;}
+.card-problem{background:#FFF8EE;border-color:#F5C870;}
+.card-solution{background:#EEF5FF;border-color:#90B8E8;}
+.card-next{grid-column:1/-1;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border:none;}
+.card-metrics{grid-column:1/-1;background:var(--light);border:none;padding:20px;}
+.card-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.card-icon{font-size:19px;}
+.card-title{font-size:15px;font-weight:700;color:var(--primary);}
+.card-next .card-title{color:white;}
+.card-text{font-size:13.5px;line-height:1.75;}
+.card-next .card-text{color:rgba(255,255,255,.92);}
+.tracks-in-next{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;}
+.track{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:12px;}
+.track-num{font-size:10px;font-weight:800;color:var(--accent);margin-bottom:3px;}
+.track-title{font-size:13px;font-weight:700;color:white;margin-bottom:3px;}
+.track-desc{font-size:11px;color:rgba(255,255,255,.78);}
+.metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;}
+.metric-box{background:white;border-radius:10px;padding:14px 10px;text-align:center;border:2px solid #B8D0E8;box-shadow:0 2px 8px rgba(27,58,92,.07);}
+.metric-val{font-size:26px;font-weight:900;color:var(--primary);line-height:1.1;}
+.metric-unit{font-size:14px;font-weight:700;color:var(--secondary);}
+.metric-desc{font-size:11.5px;color:var(--muted);margin-top:4px;font-weight:500;}
+.footer{background:var(--primary);color:white;padding:14px 36px;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;}
+.footer-contact{opacity:.85;line-height:1.5;}
+.back-link{font-size:12px;opacity:.7;color:white;text-decoration:none;}
+/* FEEDBACK */
+.fb-btn{position:fixed;bottom:24px;left:24px;background:var(--accent);color:var(--primary);border:none;padding:11px 20px;border-radius:50px;font-family:'Heebo',Arial,sans-serif;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.22);z-index:100;display:flex;align-items:center;gap:8px;transition:transform .2s;}
+.fb-btn:hover{transform:scale(1.06);}
+.fb-badge{background:var(--primary);color:white;border-radius:50%;width:20px;height:20px;font-size:11px;font-weight:700;display:none;align-items:center;justify-content:center;}
+.fb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:199;}
+.fb-overlay.open{display:block;}
+.fb-panel{position:fixed;bottom:0;left:0;right:0;background:white;border-radius:20px 20px 0 0;box-shadow:0 -6px 32px rgba(0,0,0,.22);z-index:200;padding:26px 32px 32px;max-height:82vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);direction:rtl;}
+.fb-panel.open{transform:translateY(0);}
+.fb-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.fb-title{font-size:18px;font-weight:700;color:var(--primary);}
+.fb-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);}
+.fb-tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;}
+.fb-tab{padding:7px 16px;border-radius:20px;border:2px solid #B8D0E8;background:none;font-family:'Heebo',Arial,sans-serif;font-size:13px;cursor:pointer;color:var(--secondary);font-weight:600;}
+.fb-tab.active{background:var(--secondary);color:white;border-color:var(--secondary);}
+.fb-section{display:none;}
+.fb-section.active{display:block;}
+.fb-label{font-size:13px;color:var(--muted);margin-bottom:10px;}
+.stars{display:flex;gap:6px;margin-bottom:12px;}
+.star{font-size:26px;cursor:pointer;color:#DDD;transition:color .1s;user-select:none;}
+.star.on{color:var(--accent);}
+textarea.fb-txt{width:100%;padding:11px 14px;border:1.5px solid #D8E4F0;border-radius:8px;font-family:'Heebo',Arial,sans-serif;font-size:13.5px;resize:vertical;min-height:80px;direction:rtl;color:var(--text);}
+textarea.fb-txt:focus{outline:none;border-color:var(--secondary);}
+.fb-submit{width:100%;margin-top:16px;background:var(--primary);color:white;border:none;padding:12px;border-radius:8px;font-family:'Heebo',Arial,sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
+.fb-hint{text-align:center;font-size:11px;color:var(--muted);margin-top:8px;}
+.fb-history-item{border:1.5px solid #E8EDF4;border-radius:8px;padding:14px;margin-bottom:12px;}
+.fb-history-date{font-size:11px;color:var(--muted);margin-bottom:8px;}
+.fb-history-row{font-size:13px;margin-bottom:5px;}
+.fb-export{width:100%;margin-top:14px;background:var(--secondary);color:white;border:none;padding:10px;border-radius:8px;font-family:'Heebo',Arial,sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
+.fb-email{width:100%;margin-top:8px;background:#EEF5FF;color:var(--secondary);border:1.5px solid #B8D0E8;padding:9px;border-radius:8px;font-family:'Heebo',Arial,sans-serif;font-size:13px;font-weight:600;text-decoration:none;display:block;text-align:center;}
+@media print{body{background:white;}.page{margin:0;box-shadow:none;border-radius:0;max-width:100%;}.fb-btn,.fb-panel,.fb-overlay{display:none!important;}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="logo-block">
+      <div class="logo-circle">ב"ל</div>
+      <div class="logo-label"><strong>ביטוח לאומי</strong>מינהל גמלאות</div>
+    </div>
+    <div class="title-block">
+      <div class="project-title">🚀 המקפצה — "כיפת ברזל תעסוקתית"</div>
+      <div class="project-sub">אסטרטגיה לאומית לתעסוקת אוכלוסיות בסיכון בעידן AI</div>
+    </div>
+    <div class="badge-block">לאישור<br>ועדת היגוי</div>
+  </header>
+  <div class="bar"></div>
+  <div class="content">
+    <div class="card card-problem">
+      <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">הבעיה</span></div>
+      <p class="card-text"><strong>400,000+ אזרחים בסיכון תעסוקתי</strong> בעידן AI — חרדים, ערבים, זקנים, אנשים עם מוגבלות. שוק העבודה משתנה מהר מהיכולת להתאים. אין מענה מערכתי. הפער גדל — ומי שנשאר מאחור, נשאר שם.</p>
+    </div>
+    <div class="card card-solution">
+      <div class="card-head"><span class="card-icon">💡</span><span class="card-title">הפתרון — 3 מסלולים משלימים</span></div>
+      <p class="card-text">תוכנית לאומית משולבת שפועלת על 3 ציריים במקביל:</p>
+      <div style="margin-top:10px;">
+        <div style="padding:7px 0;border-bottom:1px solid #D8E8F8;font-size:13px;"><strong>🎓 מסלול 1 — הכשרה:</strong> קורסי AI ומיומנויות דיגיטליות מותאמים לאוכלוסיות.</div>
+        <div style="padding:7px 0;border-bottom:1px solid #D8E8F8;font-size:13px;"><strong>🤝 מסלול 2 — ליווי:</strong> TailorPath (WhatsApp לזקנים במרכזי יום) + מרקטפלייס + מיצוי זכויות.</div>
+        <div style="padding:7px 0;font-size:13px;"><strong>💰 מסלול 3 — תמריצים:</strong> מנגנוני תמרוץ למעסיקים ולעובדים בתקופת מעבר.</div>
+      </div>
+      <div style="background:#F0FFF8;border:1px solid #90DDAA;border-radius:6px;padding:8px 12px;margin-top:10px;font-size:12px;color:var(--success);font-weight:600;">✅ TailorPath מאושר ומתוקצב — 999,578₪ | 80% מימון קרנות ביל"א</div>
+    </div>
+    <div class="card-metrics card">
+      <div class="card-head"><span class="card-icon">📊</span><span class="card-title">מדדים מרכזיים</span></div>
+      <div class="metrics-row">
+        <div class="metric-box">
+          <div class="metric-val">999<span class="metric-unit">K₪</span></div>
+          <div class="metric-desc">תקציב מאושר TailorPath</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">500</div>
+          <div class="metric-desc">אזרחים בפיילוט (6 חודשים)</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-val">3</div>
+          <div class="metric-desc">מסלולים אסטרטגיים</div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-next">
+      <div class="card-head"><span class="card-icon">🚀</span><span class="card-title">שלב הבא — נדרשת החלטת ועדת היגוי</span></div>
+      <p class="card-text">אישור 3 המסלולים + 5 התאמות ל-TailorPath (ללא תוספת תקציב). בחירת שותף ביצוע: משרד העבודה / מנהלת הצמיחה. קביעת לוח זמנים לפיילוט ראשון.</p>
+      <div class="tracks-in-next">
+        <div class="track"><div class="track-num">נדרש ✅</div><div class="track-title">אישור ועדת היגוי</div><div class="track-desc">3 מסלולים + 5 התאמות TailorPath</div></div>
+        <div class="track"><div class="track-num">נדרש ✅</div><div class="track-title">בחירת שותף ביצוע</div><div class="track-desc">משרד העבודה / מנהלת הצמיחה</div></div>
+        <div class="track"><div class="track-num">נדרש ✅</div><div class="track-title">לוח זמנים לפיילוט</div><div class="track-desc">500 אזרחים | 6 חודשים</div></div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div><a href="index.html" class="back-link">← כל הפרויקטים</a></div>
+    <div class="footer-contact"><strong>אביעד יצחקי</strong> | מינהל גמלאות, ביטוח לאומי | מרץ 2026</div>
+    <div></div>
+  </footer>
+</div>
+<button class="fb-btn" onclick="fbOpen()">💬 השאירו משוב<span class="fb-badge" id="fb-badge"></span></button>
+<div class="fb-overlay" id="fb-overlay" onclick="fbClose()"></div>
+<div class="fb-panel" id="fb-panel">
+  <div class="fb-head"><div class="fb-title">💬 משוב — המקפצה</div><button class="fb-close" onclick="fbClose()">✕</button></div>
+  <div class="fb-tabs">
+    <button class="fb-tab active" onclick="fbTab('pro',this)">🏛 מקצועי</button>
+    <button class="fb-tab" onclick="fbTab('proc',this)">⚙ תהליכי</button>
+    <button class="fb-tab" onclick="fbTab('des',this)">🎨 עיצובי</button>
+    <button class="fb-tab" onclick="fbTab('hist',this)">📋 היסטוריה</button>
+  </div>
+  <div class="fb-section active" id="fb-pro"><div class="fb-label">תוכן, דיוק, רלוונטיות האסטרטגיה</div><div class="stars" id="stars-pro"><span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span></div><textarea class="fb-txt" id="txt-pro" placeholder="האם האסטרטגיה נכונה? מה חסר? מה יש לשנות?"></textarea></div>
+  <div class="fb-section" id="fb-proc"><div class="fb-label">יישומיות, שותפויות, תהליך קבלת החלטות</div><div class="stars" id="stars-proc"><span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span></div><textarea class="fb-txt" id="txt-proc" placeholder="האם 3 המסלולים יישימים? מה חסמים?"></textarea></div>
+  <div class="fb-section" id="fb-des"><div class="fb-label">הצגה, בהירות, השפעה על קהל ההנהלה</div><div class="stars" id="stars-des"><span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span></div><textarea class="fb-txt" id="txt-des" placeholder="האם המסר ברור? מה אפשר לשפר בהצגה?"></textarea></div>
+  <div class="fb-section" id="fb-hist"><div id="fb-hist-list"><p style="color:#6B7A8D;font-size:13px">אין פידבקים שמורים עדיין</p></div><button class="fb-export" onclick="fbExport()">📋 העתק את כל הפידבקים</button><a class="fb-email" id="fb-email-link" href="#">📧 שלח פידבקים במייל</a></div>
+  <div id="fb-submit-area"><button class="fb-submit" onclick="fbSubmit()">✅ שמור משוב</button><div class="fb-hint">הפידבק נשמר בדפדפן זה ✓</div></div>
+</div>
+<script>
+const FK='feedback_hamakpetza';const R={pro:0,proc:0,des:0};
+document.querySelectorAll('.stars').forEach(g=>{const c=g.id.replace('stars-','');g.querySelectorAll('.star').forEach(s=>{s.addEventListener('click',()=>{const v=+s.dataset.v;R[c]=v;g.querySelectorAll('.star').forEach((x,i)=>x.classList.toggle('on',i<v));});});});
+function fbOpen(){document.getElementById('fb-panel').classList.add('open');document.getElementById('fb-overlay').classList.add('open');upBadge();}
+function fbClose(){document.getElementById('fb-panel').classList.remove('open');document.getElementById('fb-overlay').classList.remove('open');}
+function fbTab(n,b){document.querySelectorAll('.fb-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.fb-tab').forEach(x=>x.classList.remove('active'));document.getElementById('fb-'+n).classList.add('active');b.classList.add('active');document.getElementById('fb-submit-area').style.display=n==='hist'?'none':'block';if(n==='hist')render();}
+function fbSubmit(){const p={r:R.pro,t:document.getElementById('txt-pro').value.trim()};const q={r:R.proc,t:document.getElementById('txt-proc').value.trim()};const d={r:R.des,t:document.getElementById('txt-des').value.trim()};if(!p.r&&!q.r&&!d.r&&!p.t&&!q.t&&!d.t){alert('נא למלא לפחות שדה אחד.');return;}const e={id:Date.now(),date:new Date().toLocaleString('he-IL'),pro:p,proc:q,des:d};const l=JSON.parse(localStorage.getItem(FK)||'[]');l.push(e);localStorage.setItem(FK,JSON.stringify(l));['pro','proc','des'].forEach(c=>{R[c]=0;document.querySelectorAll('#stars-'+c+' .star').forEach(s=>s.classList.remove('on'));document.getElementById('txt-'+c).value='';});upBadge();alert('✅ תודה! הפידבק נשמר.');fbTab('hist',document.querySelectorAll('.fb-tab')[3]);}
+function render(){const l=JSON.parse(localStorage.getItem(FK)||'[]');const el=document.getElementById('fb-hist-list');if(!l.length){el.innerHTML='<p style="color:#6B7A8D;font-size:13px">אין פידבקים שמורים עדיין</p>';return;}el.innerHTML=[...l].reverse().map(e=>`<div class="fb-history-item"><div class="fb-history-date">${e.date}</div>${e.pro.r||e.pro.t?`<div class="fb-history-row"><strong>🏛 מקצועי:</strong> ${'★'.repeat(e.pro.r)}${'☆'.repeat(5-e.pro.r)} ${e.pro.t||''}</div>`:''} ${e.proc.r||e.proc.t?`<div class="fb-history-row"><strong>⚙ תהליכי:</strong> ${'★'.repeat(e.proc.r)}${'☆'.repeat(5-e.proc.r)} ${e.proc.t||''}</div>`:''} ${e.des.r||e.des.t?`<div class="fb-history-row"><strong>🎨 עיצובי:</strong> ${'★'.repeat(e.des.r)}${'☆'.repeat(5-e.des.r)} ${e.des.t||''}</div>`:''}</div>`).join('');const txt=l.map((e,i)=>`פידבק ${i+1} (${e.date}):\nמקצועי:${e.pro.r}★ ${e.pro.t}\nתהליכי:${e.proc.r}★ ${e.proc.t}\nעיצובי:${e.des.r}★ ${e.des.t}`).join('\n\n');document.getElementById('fb-email-link').href=`mailto:?subject=פידבק - המקפצה&body=${encodeURIComponent(txt)}`;}
+function fbExport(){const l=JSON.parse(localStorage.getItem(FK)||'[]');if(!l.length){alert('אין פידבקים לייצוא');return;}navigator.clipboard.writeText(l.map((e,i)=>`=== פידבק ${i+1} (${e.date}) ===\nמקצועי:${'★'.repeat(e.pro.r)||'ללא'} | ${e.pro.t||'ללא הערה'}\nתהליכי:${'★'.repeat(e.proc.r)||'ללא'} | ${e.proc.t||'ללא הערה'}\nעיצובי:${'★'.repeat(e.des.r)||'ללא'} | ${e.des.t||'ללא הערה'}`).join('\n\n')).then(()=>alert('✅ הועתק ללוח'));}
+function upBadge(){const l=JSON.parse(localStorage.getItem(FK)||'[]');const b=document.getElementById('fb-badge');if(l.length){b.style.display='flex';b.textContent=l.length;}}
+upBadge();
+</script>
+</body>
+</html>
