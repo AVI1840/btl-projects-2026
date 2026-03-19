@@ -100,6 +100,28 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 .btn-live{background:linear-gradient(135deg,#D8F5E8,#C0EDDA);color:var(--success);border:1.5px solid #A8E0C0;font-weight:700}
 .btn-live:hover{background:linear-gradient(135deg,#C0EDDA,#A8E0C0)}
 
+/* === Achievements === */
+.achievements-section{background:linear-gradient(135deg,#0F2640 0%,var(--primary) 50%,#244B6E 100%);border-radius:18px;padding:40px 36px;margin-bottom:48px;position:relative;overflow:hidden;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.achievements-section.visible{opacity:1;transform:translateY(0)}
+.achievements-section::before{content:'';position:absolute;top:-50%;left:-20%;width:80%;height:200%;background:radial-gradient(ellipse,rgba(232,160,32,.08),transparent 60%);pointer-events:none}
+.achievements-section h2{font-size:22px;font-weight:800;color:#fff;margin-bottom:28px;text-align:center;position:relative;z-index:1}
+.achievements-section h2 span{color:var(--accent)}
+.achievements-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;position:relative;z-index:1}
+.achievement-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:20px 22px;display:flex;align-items:flex-start;gap:14px;backdrop-filter:blur(4px);transition:transform .25s ease,background .25s ease}
+.achievement-item:hover{transform:translateY(-3px);background:rgba(255,255,255,.11)}
+.achievement-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.achievement-icon-green{background:rgba(125,255,181,.15);border:1px solid rgba(125,255,181,.25)}
+.achievement-icon-gold{background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.25)}
+.achievement-icon-blue{background:rgba(100,180,255,.15);border:1px solid rgba(100,180,255,.25)}
+.achievement-content h4{font-size:14.5px;font-weight:700;color:#fff;margin-bottom:4px}
+.achievement-content p{font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.5}
+.achievement-number{font-size:26px;font-weight:900;color:var(--accent);display:block;margin-bottom:2px}
+
+/* === Download Button === */
+.btn-download{background:linear-gradient(135deg,#2B579A,#1E3F70);color:#fff;border:1.5px solid #3B67AA;font-size:12px;padding:7px 12px;letter-spacing:-.2px}
+.btn-download:hover{background:linear-gradient(135deg,#3B67AA,#2B579A);opacity:1}
+.btn-download .dl-icon{font-weight:900;font-size:11px;background:rgba(255,255,255,.18);padding:2px 5px;border-radius:3px;margin-left:2px}
+
 /* === Needs Box === */
 .needs-box{background:#fff;border-radius:18px;padding:30px 32px;margin-bottom:36px;border:1.5px solid #E0E8F0;box-shadow:0 4px 20px rgba(27,58,92,.06);opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .needs-box.visible{opacity:1;transform:translateY(0)}
@@ -208,7 +230,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="why-line">לראשונה — תמונת מצב ארצית אחת של כל פערי הגמלאות</div>
         <div class="card-actions">
           <a href="https://avi1840.github.io/dashboard-gamlaut/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="dashboard-gamlaut.html" class="btn btn-primary">📄 One Pager</a>
+          <a href="word/03-dashboard-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
           <a href="https://github.com/AVI1840/dashboard-gamlaut" target="_blank" class="btn btn-secondary">💻 GitHub</a>
         </div>
       </div>
@@ -230,7 +252,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="why-line">כל אזרח מקבל תמונה שלמה של מה שמגיע לו — לפי הפרופיל שלו</div>
         <div class="card-actions">
           <a href="https://avi1840.github.io/arnak-zchuyot/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="arnak-zchuyot.html" class="btn btn-primary">📄 One Pager</a>
+          <a href="word/01-arnak-zchuyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
           <a href="https://github.com/AVI1840/arnak-zchuyot" target="_blank" class="btn btn-secondary">💻 GitHub</a>
         </div>
       </div>
@@ -251,7 +273,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="why-line">אזרח שמגיע מוכן = פחות דחיות, פחות תסכול, פחות עלויות</div>
         <div class="card-actions">
           <a href="https://avi1840.github.io/vaadot-refuiyot/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="vaadot-refuiyot.html" class="btn btn-primary">📄 One Pager</a>
+          <a href="word/05-vaadot-refuiyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
           <a href="https://github.com/AVI1840/vaadot-refuiyot" target="_blank" class="btn btn-secondary">💻 GitHub</a>
         </div>
       </div>
@@ -273,7 +295,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="why-line">כלי לסיוע לאזרח במצבי משבר — מזהה כל זכות רלוונטית</div>
         <div class="card-actions">
           <a href="https://avi1840.github.io/mitzui-360/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="mitzui-360.html" class="btn btn-primary">📄 One Pager</a>
+          <a href="word/04-mitzui-360.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
           <a href="https://github.com/AVI1840/mitzui-360" target="_blank" class="btn btn-secondary">💻 GitHub</a>
         </div>
       </div>
@@ -295,7 +317,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="why-line">מתן כלי לסיוע לאזרח בבחירה מורכבת — חישוב מיידי עם נימוק</div>
         <div class="card-actions">
           <a href="https://avi1840.github.io/machshevon-kefel--ZOSH/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="machshevon-kefel.html" class="btn btn-primary">📄 One Pager</a>
+          <a href="word/02-machshevon-kefel.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
           <a href="https://github.com/AVI1840/machshevon-kefel--ZOSH" target="_blank" class="btn btn-secondary">💻 GitHub</a>
         </div>
       </div>
@@ -317,7 +339,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="why-line">390K זכאים — כלי לבחירת שירותים ומיצוי מלא של זכויות</div>
         <div class="card-actions">
           <a href="https://avi1840.github.io/nursing-helper/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="nursing-helper.html" class="btn btn-primary">📄 One Pager</a>
+          <a href="word/08-nursing-helper.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
           <a href="https://github.com/AVI1840/nursing-helper" target="_blank" class="btn btn-secondary">💻 GitHub</a>
         </div>
       </div>
@@ -347,7 +369,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         </div>
         <div class="why-line">450K תביעות, 1.7M מסמכים — עשרות אלפי שעות חיסכון פוטנציאלי</div>
         <div class="card-actions">
-          <a href="bot-siud.html" class="btn btn-primary">📄 One Pager</a>
+          <a href="word/06-bot-siud.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
         </div>
       </div>
     </div>
@@ -369,7 +391,6 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="why-line">מהלך בין-משרדי — כיפת ברזל תעסוקתית בעידן AI</div>
         <div class="card-actions">
           <a href="https://avi1840.github.io/hamakfetza1/" target="_blank" class="btn btn-live">🟢 אתר חי</a>
-          <a href="hamakpetza.html" class="btn btn-primary">📄 One Pager</a>
           <a href="https://github.com/AVI1840/hamakfetza1" target="_blank" class="btn btn-secondary">💻 GitHub</a>
         </div>
       </div>
@@ -390,7 +411,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         </div>
         <div class="why-line">שדרוג מערכת ההפעלה בשירות הממשלתי — שירות מותאם אישית לאזרח</div>
         <div class="card-actions">
-          <a href="sal-ishi.html" class="btn btn-primary">📄 One Pager</a>
+          <a href="word/11-sal-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
         </div>
       </div>
     </div>
@@ -410,7 +431,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         </div>
         <div class="why-line">אייג'נט AI לליווי אזרחים באתגרי החיים — MVP ראשון באלמנות בזקנה</div>
         <div class="card-actions">
-          <a href="ozer-ishi.html" class="btn btn-primary">📄 One Pager</a>
+          <a href="word/10-ozer-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
         </div>
       </div>
     </div>
@@ -430,7 +451,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         </div>
         <div class="why-line">4,500 עובדים מחפשים מידע מקצועי — ברגע, לא בדקות</div>
         <div class="card-actions">
-          <a href="portal-gamlaut.html" class="btn btn-primary">📄 One Pager</a>
+          <a href="word/07-portal-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
         </div>
       </div>
     </div>
@@ -485,6 +506,68 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
       </div>
     </div>
 
+  </div>
+
+  <!-- ═══ הישגים מרכזיים ═══ -->
+  <div class="achievements-section">
+    <h2>🏆 הישגים מרכזיים — <span>מה כבר קרה</span></h2>
+    <div class="achievements-grid">
+
+      <div class="achievement-item">
+        <div class="achievement-icon achievement-icon-green">🟢</div>
+        <div class="achievement-content">
+          <span class="achievement-number">8</span>
+          <h4>כלים חיים באוויר</h4>
+          <p>8 כלי AI פעילים ונגישים — דשבורד, ארנק, ועדות, מיצוי, מחשבון, סיעוד, המקפצה, אקדמייה</p>
+        </div>
+      </div>
+
+      <div class="achievement-item">
+        <div class="achievement-icon achievement-icon-gold">📊</div>
+        <div class="achievement-content">
+          <span class="achievement-number">98/98</span>
+          <h4>הטבות מונגשות במאגר</h4>
+          <p>כיסוי מלא של כל הטבות ביטוח לאומי — מידע, קריטריונים ותרחישים</p>
+        </div>
+      </div>
+
+      <div class="achievement-item">
+        <div class="achievement-icon achievement-icon-blue">🗺</div>
+        <div class="achievement-content">
+          <span class="achievement-number">257</span>
+          <h4>רשויות מקומיות ממופות</h4>
+          <p>דשבורד ארצי ראשון מסוגו — פערי מיצוי ב-9 גמלאות לכל רשות</p>
+        </div>
+      </div>
+
+      <div class="achievement-item">
+        <div class="achievement-icon achievement-icon-green">♿</div>
+        <div class="achievement-content">
+          <span class="achievement-number">390K</span>
+          <h4>זכאי סיעוד מונגשים</h4>
+          <p>כלי בחירת שירותים ומיצוי זכויות — נגיש לכל מקבלי גמלת סיעוד</p>
+        </div>
+      </div>
+
+      <div class="achievement-item">
+        <div class="achievement-icon achievement-icon-gold">⚡</div>
+        <div class="achievement-content">
+          <span class="achievement-number">40</span>
+          <h4>בוטים נבנו בהכשרה</h4>
+          <p>30 מנהלים באגפי המינהל בנו 40 בוטים עובדים — 4 מיומנויות, 4 שעות</p>
+        </div>
+      </div>
+
+      <div class="achievement-item">
+        <div class="achievement-icon achievement-icon-blue">✅</div>
+        <div class="achievement-content">
+          <span class="achievement-number">POC</span>
+          <h4>בוט סיכום תביעה — אושר</h4>
+          <p>תשתית ארגונית אושרה — MVP מוכן לעיבוד 450K תביעות ו-1.7M מסמכים</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- ═══ מה נדרש לשלב הבא ═══ -->
@@ -566,7 +649,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   counters.forEach(function(c) { counterObserver.observe(c); });
 
   // === Scroll Reveal Animation ===
-  var revealEls = document.querySelectorAll('.project-card, .section-header, .needs-box');
+  var revealEls = document.querySelectorAll('.project-card, .section-header, .needs-box, .achievements-section');
   var revealObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
