@@ -171,7 +171,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 <header class="site-header" role="banner">
   <div class="header-top">
     <div class="logo-area">
-      <div class="logo-emblem"><img src="html/btl-logo.png" alt="לוגו המוסד לביטוח לאומי"></div>
+      <div class="logo-emblem"><img src="html/btl-logo.png" alt="לוגו המוסד לביטוח לאומי" onerror="this.src='btl-logo.png'"></div>
     </div>
     <div class="header-center">
       <h1>פרויקטי AI — מינהל גמלאות</h1>
@@ -674,9 +674,8 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 
 <script>
 (function(){
-  // === Intranet Detection & Link Substitution ===
-  // When accessed from internal network (snifim.blroot), live-tool buttons
-  // are automatically swapped to intranet URLs. External users see GitHub links.
+  // === Domain Toggle (External ↔ Intranet) ===
+  // Semi-hidden toggle in footer area. No autodetection — user switches manually.
   var INTRANET_MAP = {
     'https://avi1840.github.io/dashboard-gamlaut/':      'https://gimlaot-dashboard.cd.snifim.blroot',
     'https://avi1840.github.io/arnak-zchuyot/':          'https://gimlaot-arnak-zchuyot.cd.snifim.blroot',
@@ -686,37 +685,64 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     'https://avi1840.github.io/machshevon-kefel--ZOSH/': 'https://gimlaot-machshevon-kefel.cd.snifim.blroot',
     'https://avi1840.github.io/vaadot-refuiyot/':        'https://gimlaot-vaadot-refuiyot.cd.snifim.blroot'
   };
+  // Reverse map for toggling back
+  var EXTERNAL_MAP = {};
+  Object.keys(INTRANET_MAP).forEach(function(k){ EXTERNAL_MAP[INTRANET_MAP[k]] = k; });
 
-  function applyIntranetLinks() {
+  var isInternal = false;
+
+  function setMode(internal) {
+    isInternal = internal;
     document.querySelectorAll('a.btn-live').forEach(function(btn) {
-      var ext = btn.getAttribute('href');
-      if (INTRANET_MAP[ext]) {
-        btn.setAttribute('href', INTRANET_MAP[ext]);
+      var href = btn.getAttribute('href');
+      if (internal && INTRANET_MAP[href]) {
+        btn.setAttribute('data-ext', href);
+        btn.setAttribute('href', INTRANET_MAP[href]);
         btn.innerHTML = '🏢 כלי פנימי';
+      } else if (!internal && btn.getAttribute('data-ext')) {
+        btn.setAttribute('href', btn.getAttribute('data-ext'));
+        btn.innerHTML = '🟢 כלי חי';
       }
     });
     // Badge in header
     var meta = document.querySelector('.header-meta');
-    if (meta && !meta.querySelector('.intranet-badge')) {
-      var badge = document.createElement('div');
-      badge.className = 'intranet-badge';
-      badge.style.cssText = 'margin-top:5px;display:inline-block;background:rgba(125,255,181,.18);border:1px solid rgba(125,255,181,.35);color:#7DFFB5;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px';
-      badge.textContent = '🏢 רשת פנימית';
-      meta.appendChild(badge);
+    var badge = document.getElementById('intranet-badge');
+    if (internal) {
+      if (!badge && meta) {
+        badge = document.createElement('div');
+        badge.id = 'intranet-badge';
+        badge.style.cssText = 'margin-top:5px;display:inline-block;background:rgba(125,255,181,.18);border:1px solid rgba(125,255,181,.35);color:#7DFFB5;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px';
+        badge.textContent = '🏢 רשת פנימית';
+        meta.appendChild(badge);
+      }
+    } else {
+      if (badge) badge.remove();
     }
+    // Update toggle button label
+    var toggleBtn = document.getElementById('domain-toggle');
+    if (toggleBtn) toggleBtn.textContent = internal ? '🌐 עבור לקישורים חיצוניים' : '🏢 עבור לקישורים פנימיים';
+    // Persist preference
+    try { localStorage.setItem('btl-domain-mode', internal ? 'internal' : 'external'); } catch(e){}
   }
 
-  // Probe intranet with 2.5s timeout — mode:no-cors so CORS never blocks us;
-  // any response (opaque included) means we're inside the network.
-  var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-  var t = setTimeout(function() { if (ctrl) ctrl.abort(); }, 2500);
-  fetch('https://gimlaot-dashboard.cd.snifim.blroot/favicon.ico', {
-    method: 'HEAD', mode: 'no-cors', cache: 'no-store',
-    signal: ctrl ? ctrl.signal : undefined
-  }).then(function() {
-    clearTimeout(t);
-    applyIntranetLinks();
-  }).catch(function() { clearTimeout(t); });
+  // Inject toggle button into footer
+  window.addEventListener('DOMContentLoaded', function() {
+    var footer = document.querySelector('.footer-info');
+    if (footer) {
+      var btn = document.createElement('button');
+      btn.id = 'domain-toggle';
+      btn.style.cssText = 'margin-top:10px;display:block;margin-right:auto;margin-left:auto;background:none;border:1px solid #C8D8E8;color:var(--muted);font-family:inherit;font-size:12px;padding:5px 14px;border-radius:8px;cursor:pointer;opacity:.55;transition:opacity .2s';
+      btn.textContent = '🏢 עבור לקישורים פנימיים';
+      btn.onmouseenter = function(){ btn.style.opacity = '1'; };
+      btn.onmouseleave = function(){ btn.style.opacity = '.55'; };
+      btn.onclick = function(){ setMode(!isInternal); };
+      footer.appendChild(btn);
+    }
+    // Restore saved preference
+    try {
+      if (localStorage.getItem('btl-domain-mode') === 'internal') setMode(true);
+    } catch(e){}
+  });
 
   // === Count-up Animation ===
   var counters = document.querySelectorAll('[data-count]');
