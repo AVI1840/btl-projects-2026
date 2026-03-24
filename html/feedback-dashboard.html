@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דשבורד משובים — מינהל גמלאות</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#f0f2f5;color:#1a1a2e;direction:rtl}
+.hdr{background:linear-gradient(135deg,#1B3A5C,#2A5A8C);color:#fff;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.hdr h1{font-size:1.4rem;font-weight:700}
+.hdr .sub{font-size:.82rem;opacity:.8}
+.rbtn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.82rem}
+.rbtn:hover{background:rgba(255,255,255,.25)}
+.wrap{max-width:1200px;margin:0 auto;padding:24px 16px}
+.sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:22px}
+.sc{background:#fff;border-radius:12px;padding:18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.sc .n{font-size:1.8rem;font-weight:800;color:#1B3A5C}
+.sc .l{font-size:.78rem;color:#666;margin-top:4px}
+.fb{background:#fff;border-radius:12px;padding:14px 18px;margin-bottom:22px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.fb select{padding:7px 10px;border:1px solid #ddd;border-radius:8px;font-size:.82rem;background:#fff;min-width:130px}
+.fb label{font-size:.82rem;color:#555;font-weight:600}
+.cr{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
+@media(max-width:768px){.cr{grid-template-columns:1fr}}
+.cc{background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.cc h3{font-size:.9rem;color:#1B3A5C;margin-bottom:14px;font-weight:700}
+.br{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.bl{min-width:100px;font-size:.75rem;text-align:left;color:#444;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bt{flex:1;height:22px;background:#eee;border-radius:5px;overflow:hidden}
+.bf{height:100%;border-radius:5px;display:flex;align-items:center;justify-content:flex-end;padding:0 6px;font-size:.7rem;color:#fff;font-weight:700;min-width:24px;transition:width .4s}
+.bc{font-size:.75rem;color:#666;min-width:26px;text-align:center}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div><h1>📊 דשבורד משובים — כלי מינהל גמלאות</h1><p class="sub">נתונים בזמן אמת מגוגל שיטס</p></div>
+  <button class="rbtn" onclick="loadData()">🔄 רענן</button>
+</div>
+<div class="wrap">
+  <div id="ld" style="text-align:center;padding:60px;color:#888">⏳ טוען נתונים...</div>
+  <div id="ct" style="display:none">
+    <div class="sr" id="stats"></div>
+    <div class="fb" id="filters"></div>
+    <div class="cr" id="charts"></div>
+    <div id="tbl" style="background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto"></div>
+  </div>
+  <div id="err" style="display:none;text-align:center;padding:40px;color:#c00"></div>
+</div>
+</body>
+</html>
