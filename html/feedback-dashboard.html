@@ -9,16 +9,16 @@
 body{font-family:'Segoe UI',Tahoma,sans-serif;background:#f0f2f5;color:#1a1a2e;direction:rtl}
 .hdr{background:linear-gradient(135deg,#1B3A5C,#2A5A8C);color:#fff;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .hdr h1{font-size:1.4rem;font-weight:700}
-.hdr .sub{font-size:.82rem;opacity:.8}
-.rbtn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.82rem}
-.rbtn:hover{background:rgba(255,255,255,.25)}
+.hdr .sub{font-size:.82rem;opacity:.75;margin-top:3px}
+.rbtn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:.85rem;font-family:inherit;transition:background .2s}
+.rbtn:hover{background:rgba(255,255,255,.28)}
 .wrap{max-width:1200px;margin:0 auto;padding:24px 16px}
 .sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:22px}
 .sc{background:#fff;border-radius:12px;padding:18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.sc .n{font-size:1.8rem;font-weight:800;color:#1B3A5C}
+.sc .n{font-size:1.9rem;font-weight:800;color:#1B3A5C}
 .sc .l{font-size:.78rem;color:#666;margin-top:4px}
 .fb{background:#fff;border-radius:12px;padding:14px 18px;margin-bottom:22px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.fb select{padding:7px 10px;border:1px solid #ddd;border-radius:8px;font-size:.82rem;background:#fff;min-width:130px}
+.fb select,.fb button{padding:7px 12px;border:1px solid #ddd;bor8px;font-size:.82rem;background:#fff;min-width:130px}
 .fb label{font-size:.82rem;color:#555;font-weight:600}
 .cr{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
 @media(max-width:768px){.cr{grid-template-columns:1fr}}
@@ -48,62 +48,56 @@ body{font-family:'Segoe UI',Tahoma,sans-serif;background:#f0f2f5;color:#1a1a2e;d
   <div style="text-align:center;padding:20px 0 10px;font-size:.75rem;color:#999">אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | עדכון אחרון: 24.03.2026</div>
 </div>
 <script>
-const CSV_URL='https://docs.google.com/spreadsheets/d/1mArKa0KtZZvR9o3_sEj5bDhaz942w1eQzdF6xNU8RrA/gviz/tq?tqx=out:csv';
+const SHEET_ID='1mArKa0KtZZvR9o3_sEj5bDhaz942w1eQzdF6xNU8RrA';
 const COLORS=['#1B3A5C','#2A5A8C','#3B7DD8','#5B9BD5','#7FB3E0','#A5CBE8','#E8A838','#D4534B','#6BAF6E','#9B59B6'];
 let allRows=[], filtered=[];
 
-async function loadData(){
+function loadData(){
   document.getElementById('ld').style.display='block';
   document.getElementById('ct').style.display='none';
   document.getElementById('err').style.display='none';
-  try{
-    const r=await fetch(CSV_URL);
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    const txt=await r.text();
-    allRows=parseCSV(txt);
-    filtered=[...allRows];
-    buildFilters();
-    render();
-    document.getElementById('ld').style.display='none';
-    document.getElementById('ct').style.display='block';
-  }catch(e){
-    document.getElementById('ld').style.display='none';
-    const el=document.getElementById('err');
-    el.style.display='block';
-    el.innerHTML='❌ שגיאה בטעינת נתונים: '+e.message+'<br><button class="rbtn" style="margin-top:12px;color:#1B3A5C;border-color:#1B3A5C" onclick="loadData()">נסה שוב</button>';
-  }
+  // Remove previous JSONP script if exists
+  const old=document.getElementById('gviz-script');
+  if(old) old.remove();
+  window._gvizCB=function(resp){
+    try{
+      // resp is a JS object from gviz
+      const tbl=resp.table;
+      if(!tbl||!tbl.rows){throw new Error('אין נתונים בגיליון');}
+      const cols=tbl.cols.map(c=>(c.label||c.id).toLowerCase());
+      const ai=idxCol(cols,'timestamp');
+      const bi=idxCol(cols,'app');
+      const ni=idxCol(cols,'name');
+      const ci=idxCol(cols,'category');
+      const si=idxCol(cols,'severity');
+      const ti=idxCol(cols,'text');
+      const pi=idxCol(cols,'page');
+      allRows=tbl.rows.map(r=>{
+        const v=r.c.map(cell=>cell&&cell.v!=null?String(cell.v):'');
+        return{timestamp:v[ai]||'',app:v[bi]||'לא ידוע',name:v[ni]||'אנונימי',
+               category:v[ci]||'כללי',severity:v[si]||'—',text:v[ti]||'',page:v[pi]||''};
+      }).filter(r=>r.text||r.app!=='לא ידוע');
+      filtered=[...allRows];
+      buildFilters();render();
+      document.getElementById('ld').style.display='none';
+      document.getElementById('ct').style.display='block';
+    }catch(e){showErr(e.message);}
+  };
+  const s=document.createElement('script');
+  s.id='gviz-script';
+  s.onerror=()=>showErr('לא ניתן לטעון את הגיליון — ודא שהוא פומבי');
+  s.src='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json;handler:_gvizCB&tq=select+*';
+  document.head.appendChild(s);
 }
 
-function parseCSV(txt){
-  const lines=txt.split('\n').filter(l=>l.trim());
-  if(lines.length<2) return [];
-  const hdr=splitLine(lines[0]).map(h=>h.replace(/^"|"$/g,'').trim().toLowerCase());
-  const ai=idx(hdr,'timestamp');
-  const bi=idx(hdr,'app');
-  const ni=idx(hdr,'name');
-  const ci=idx(hdr,'category');
-  const si=idx(hdr,'severity');
-  const ti=idx(hdr,'text');
-  const pi=idx(hdr,'page');
-  const rows=[];
-  for(let i=1;i<lines.length;i++){
-    const v=splitLine(lines[i]).map(x=>x.replace(/^"|"$/g,'').trim());
-    if(!v[ti]&&!v[bi]) continue;
-    rows.push({timestamp:v[ai]||'',app:v[bi]||'לא ידוע',name:v[ni]||'אנונימי',category:v[ci]||'כללי',severity:v[si]||'—',text:v[ti]||'',page:v[pi]||''});
-  }
-  return rows;
+function showErr(msg){
+  document.getElementById('ld').style.display='none';
+  const el=document.getElementById('err');
+  el.style.display='block';
+  el.innerHTML='❌ שגיאה בטעינת נתונים: '+msg+'<br><small style="color:#888">ודא שהגיליון שיתוף: "כל מי שיש לו קישור"</small><br><button class="rbtn" style="margin-top:12px;color:#1B3A5C;border-color:#1B3A5C" onclick="loadData()">נסה שוב</button>';
 }
-function idx(h,n){const i=h.indexOf(n);return i>-1?i:h.findIndex(x=>x.includes(n));}
-function splitLine(line){
-  const r=[];let c='',q=false;
-  for(let i=0;i<line.length;i++){
-    const ch=line[i];
-    if(ch==='"'){if(q&&line[i+1]==='"'){c+='"';i++;}else q=!q;}
-    else if(ch===','&&!q){r.push(c);c='';}
-    else c+=ch;
-  }
-  r.push(c);return r;
-}
+
+function idxCol(cols,n){const i=cols.indexOf(n);return i>-1?i:cols.findIndex(x=>x.includes(n));}
 
 function buildFilters(){
   const apps=[...new Set(allRows.map(r=>r.app))].sort();
