@@ -329,7 +329,7 @@ textarea.fb-txt:focus { outline: none; border-color: var(--secondary); }
 
 <!-- FEEDBACK -->
 <button class="fb-btn" onclick="fbOpen()">
-  💬 השאירו משוב
+  💬 משוב לשיפור
   <span class="fb-badge" id="fb-badge"></span>
 </button>
 
@@ -389,13 +389,15 @@ textarea.fb-txt:focus { outline: none; border-color: var(--secondary); }
   </div>
 
   <div id="fb-submit-area">
-    <button class="fb-submit" onclick="fbSubmit()">✅ שמור משוב</button>
-    <div class="fb-hint">הפידבק נשמר בדפדפן זה ✓ לייצוא לחץ על "היסטוריה"</div>
+    <button class="fb-submit" onclick="fbSubmit()">✅ שלח משוב</button>
+    <div class="fb-hint" id="fb-status">הפידבק נשמר מקומית ונשלח לגוגל שיטס ✓</div>
   </div>
 </div>
 
 <script>
 const FK = 'feedback_mitzui_360';
+const APP_NAME = 'מיצוי זכויות 360';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwD8CMFoP5XoOwRLwK_OxMMOFKF8fS2CRpbJkNdOHjbnJIepkOLzlGrg3GQNGRqbwB6bA/exec';
 const ratings = { pro: 0, proc: 0, des: 0 };
 let activeTab = 'pro';
 
@@ -431,7 +433,17 @@ function fbTab(name, btn) {
   document.getElementById('fb-submit-area').style.display = name === 'hist' ? 'none' : 'block';
   if (name === 'hist') renderHistory();
 }
-function fbSubmit() {
+async function sendToSheet(text, category, severity) {
+  try {
+    await fetch(SHEET_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ app: APP_NAME, name: 'one-pager', category, severity, text, page: window.location.pathname })
+    });
+    return true;
+  } catch { return false; }
+}
+async function fbSubmit() {
   const pro = { r: ratings.pro, t: document.getElementById('txt-pro').value.trim() };
   const proc = { r: ratings.proc, t: document.getElementById('txt-proc').value.trim() };
   const des = { r: ratings.des, t: document.getElementById('txt-des').value.trim() };
@@ -439,18 +451,28 @@ function fbSubmit() {
     alert('נא למלא לפחות שדה אחד לפני השמירה.');
     return;
   }
+  const btn = document.querySelector('.fb-submit');
+  btn.disabled = true; btn.textContent = 'שולח...';
+  const parts = [];
+  if (pro.t || pro.r)  parts.push(`מקצועי (${pro.r}★): ${pro.t}`);
+  if (proc.t || proc.r) parts.push(`תהליכי (${proc.r}★): ${proc.t}`);
+  if (des.t || des.r)  parts.push(`עיצובי (${des.r}★): ${des.t}`);
+  const fullText = parts.join(' | ');
+  const topCat = pro.t ? '🏛 מקצועי' : proc.t ? '⚙ תהליכי' : '🎨 עיצובי';
+  await sendToSheet(fullText, topCat, '—');
   const entry = { id: Date.now(), date: new Date().toLocaleString('he-IL'), pro, proc, des };
   const list = JSON.parse(localStorage.getItem(FK) || '[]');
   list.push(entry);
   localStorage.setItem(FK, JSON.stringify(list));
-  // reset
   ['pro','proc','des'].forEach(c => {
     ratings[c] = 0;
     document.querySelectorAll('#stars-' + c + ' .star').forEach(s => s.classList.remove('on'));
     document.getElementById('txt-' + c).value = '';
   });
+  btn.disabled = false; btn.textContent = '✅ שלח משוב';
+  document.getElementById('fb-status').textContent = '✅ נשלח בהצלחה!';
+  setTimeout(() => { document.getElementById('fb-status').textContent = 'הפידבק נשמר מקומית ונשלח לגוגל שיטס ✓'; }, 3000);
   updateBadge();
-  alert('✅ תודה! הפידבק נשמר.');
   fbTab('hist', document.querySelectorAll('.fb-tab')[3]);
 }
 function renderHistory() {

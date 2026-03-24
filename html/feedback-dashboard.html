@@ -18,162 +18,316 @@ body{font-family:'Segoe UI',Tahoma,sans-serif;background:#f0f2f5;color:#1a1a2e;d
 .sc .n{font-size:1.9rem;font-weight:800;color:#1B3A5C}
 .sc .l{font-size:.78rem;color:#666;margin-top:4px}
 .fb{background:#fff;border-radius:12px;padding:14px 18px;margin-bottom:22px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.fb select,.fb button{padding:7px 12px;border:1px solid #ddd;bor8px;font-size:.82rem;background:#fff;min-width:130px}
+.fb select,.fb button{padding:7px 12px;border:1px solid #ddd;border-radius:8px;font-size:.82rem;background:#fff;font-family:inherit;cursor:pointer}
 .fb label{font-size:.82rem;color:#555;font-weight:600}
 .cr{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
-@media(max-width:768px){.cr{grid-template-columns:1fr}}
+@media(max-width:768px){.cr{grid-template-columns:1fr}.hdr{flex-direction:column}}
 .cc{background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .cc h3{font-size:.9rem;color:#1B3A5C;margin-bottom:14px;font-weight:700}
-.br{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.bl{min-width:100px;font-size:.75rem;text-align:left;color:#444;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bt{flex:1;height:22px;background:#eee;border-radius:5px;overflow:hidden}
-.bf{height:100%;border-radius:5px;display:flex;align-items:center;justify-content:flex-end;padding:0 6px;font-size:.7rem;color:#fff;font-weight:700;min-width:24px;transition:width .4s}
-.bc{font-size:.75rem;color:#666;min-width:26px;text-align:center}
+.br{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.bl{min-width:120px;font-size:.78rem;text-align:right;color:#333;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0}
+.bt{flex:1;height:24px;background:#eee;border-radius:6px;overflow:hidden}
+.bf{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;font-size:.72rem;color:#fff;font-weight:700;min-width:28px;transition:width .5s ease}
+.empty-state{text-align:center;padding:60px 20px;color:#888}
+.empty-state .icon{font-size:3rem;margin-bottom:12px}
+.ts-badge{font-size:.72rem;color:rgba(255,255,255,.6);margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead tr{background:#f8f9fa;border-bottom:2px solid #e0e0e0}
+th{padding:10px 8px;text-align:right;white-space:nowrap;font-weight:600;color:#444}
+tbody tr:nth-child(even){background:#fafbfc}
+tbody tr:hover{background:#f0f4f8}
+td{padding:9px 8px;border-bottom:1px solid #eee;vertical-align:middle}
+.badge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:.74rem;font-weight:600}
+.sev-crit{background:#fee2e2;color:#991b1b}
+.sev-imp{background:#fef3c7;color:#92400e}
+.sev-small{background:#ecfdf5;color:#065f46}
+.sev-none{background:#f3f4f6;color:#6b7280}
+.cat-badge{background:#1B3A5C18;color:#1B3A5C}
+.text-cell{max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:help}
 </style>
 </head>
 <body>
 <div class="hdr">
-  <div><h1>📊 דשבורד משובים — כלי מינהל גמלאות</h1><p class="sub">נתונים בזמן אמת מגוגל שיטס</p></div>
-  <button class="rbtn" onclick="loadData()">🔄 רענן</button>
+  <div>
+    <h1>📊 דשבורד משובים — כלי מינהל גמלאות</h1>
+    <p class="sub">נתונים בזמן אמת מגוגל שיטס</p>
+    <p class="ts-badge" id="tsLabel"></p>
+  </div>
+  <button class="rbtn" onclick="loadData()">🔄 רענן נתונים</button>
 </div>
+
 <div class="wrap">
-  <div id="ld" style="text-align:center;padding:60px;color:#888">⏳ טוען נתונים...</div>
+  <div id="ld" style="text-align:center;padding:70px;color:#888;font-size:1rem">⏳ טוען נתונים מגוגל שיטס...</div>
   <div id="ct" style="display:none">
     <div class="sr" id="stats"></div>
     <div class="fb" id="filters"></div>
     <div class="cr" id="charts"></div>
-    <div id="tbl" style="background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto"></div>
+    <div style="background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto" id="tbl"></div>
   </div>
-  <div id="err" style="display:none;text-align:center;padding:40px;color:#c00"></div>
-  <div style="text-align:center;padding:20px 0 10px;font-size:.75rem;color:#999">אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | עדכון אחרון: 24.03.2026</div>
+  <div id="err" style="display:none;text-align:center;padding:50px"></div>
+  <div style="text-align:center;padding:20px 0 8px;font-size:.75rem;color:#aaa">
+    אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | עדכון אחרון: 24.03.2026
+  </div>
 </div>
-<script>
-const SHEET_ID='1mArKa0KtZZvR9o3_sEj5bDhaz942w1eQzdF6xNU8RrA';
-const COLORS=['#1B3A5C','#2A5A8C','#3B7DD8','#5B9BD5','#7FB3E0','#A5CBE8','#E8A838','#D4534B','#6BAF6E','#9B59B6'];
-let allRows=[], filtered=[];
 
-function loadData(){
-  document.getElementById('ld').style.display='block';
-  document.getElementById('ct').style.display='none';
-  document.getElementById('err').style.display='none';
-  // Remove previous JSONP script if exists
-  const old=document.getElementById('gviz-script');
-  if(old) old.remove();
-  window._gvizCB=function(resp){
-    try{
-      // resp is a JS object from gviz
-      const tbl=resp.table;
-      if(!tbl||!tbl.rows){throw new Error('אין נתונים בגיליון');}
-      const cols=tbl.cols.map(c=>(c.label||c.id).toLowerCase());
-      const ai=idxCol(cols,'timestamp');
-      const bi=idxCol(cols,'app');
-      const ni=idxCol(cols,'name');
-      const ci=idxCol(cols,'category');
-      const si=idxCol(cols,'severity');
-      const ti=idxCol(cols,'text');
-      const pi=idxCol(cols,'page');
-      allRows=tbl.rows.map(r=>{
-        const v=r.c.map(cell=>cell&&cell.v!=null?String(cell.v):'');
-        return{timestamp:v[ai]||'',app:v[bi]||'לא ידוע',name:v[ni]||'אנונימי',
-               category:v[ci]||'כללי',severity:v[si]||'—',text:v[ti]||'',page:v[pi]||''};
-      }).filter(r=>r.text||r.app!=='לא ידוע');
-      filtered=[...allRows];
-      buildFilters();render();
-      document.getElementById('ld').style.display='none';
-      document.getElementById('ct').style.display='block';
-    }catch(e){showErr(e.message);}
+<script>
+// ─── Config ───────────────────────────────────────────────────────────────────
+const SHEET_ID = '1mArKa0KtZZvR9o3_sEj5bDhaz942w1eQzdF6xNU8RrA';
+const COLORS   = ['#1B3A5C','#2A5A8C','#3B7DD8','#5B9BD5','#E8A838','#D4534B','#6BAF6E','#9B59B6','#7FB3E0','#F39C12'];
+
+let allRows = [], filtered = [];
+
+// ─── Load via gviz JSONP ───────────────────────────────────────────────────────
+// Google Visualization returns: google.visualization.Query.setResponse({...})
+// We override that method to capture the response.
+function loadData() {
+  document.getElementById('ld').style.display = 'block';
+  document.getElementById('ct').style.display = 'none';
+  document.getElementById('err').style.display = 'none';
+
+  // Remove old script tag
+  const old = document.getElementById('_gviz_script');
+  if (old) old.remove();
+
+  // Override the gviz callback — Google always calls this exact method
+  window.google = window.google || {};
+  window.google.visualization = window.google.visualization || {};
+  window.google.visualization.Query = window.google.visualization.Query || {};
+  window.google.visualization.Query.setResponse = function(resp) {
+    try {
+      processResponse(resp);
+    } catch(e) {
+      showErr('שגיאה בעיבוד הנתונים: ' + e.message);
+    }
   };
-  const s=document.createElement('script');
-  s.id='gviz-script';
-  s.onerror=()=>showErr('לא ניתן לטעון את הגיליון — ודא שהוא פומבי');
-  s.src='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json;handler:_gvizCB&tq=select+*';
+
+  // Timeout fallback
+  const timer = setTimeout(() => {
+    if (document.getElementById('ld').style.display !== 'none') {
+      showErr('הגיליון לא הגיב תוך 10 שניות.<br>ודא שהגיליון מוגדר לשיתוף <strong>"כל מי שיש לו קישור"</strong> ונסה שוב.');
+    }
+  }, 10000);
+
+  window._gvizTimer = timer;
+
+  const s = document.createElement('script');
+  s.id = '_gviz_script';
+  s.onerror = () => {
+    clearTimeout(window._gvizTimer);
+    showErr('לא ניתן לטעון את הגיליון.<br>ודא שהגיליון מוגדר לשיתוף <strong>"כל מי שיש לו קישור"</strong>.');
+  };
+  // tqx=out:json without handler — Google uses setResponse by default
+  s.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&tq=${encodeURIComponent('select *')}`;
   document.head.appendChild(s);
 }
 
-function showErr(msg){
-  document.getElementById('ld').style.display='none';
-  const el=document.getElementById('err');
-  el.style.display='block';
-  el.innerHTML='❌ שגיאה בטעינת נתונים: '+msg+'<br><small style="color:#888">ודא שהגיליון שיתוף: "כל מי שיש לו קישור"</small><br><button class="rbtn" style="margin-top:12px;color:#1B3A5C;border-color:#1B3A5C" onclick="loadData()">נסה שוב</button>';
+function processResponse(resp) {
+  clearTimeout(window._gvizTimer);
+
+  const tbl = resp.table;
+  if (!tbl || !tbl.rows || tbl.rows.length === 0) {
+    showEmpty();
+    return;
+  }
+
+  // Build column index map
+  const cols = tbl.cols.map(c => (c.label || c.id || '').toLowerCase().trim());
+  const col = (...names) => {
+    for (const name of names) {
+      const i = cols.findIndex(c => c === name || c.includes(name));
+      if (i > -1) return i;
+    }
+    return -1;
+  };
+
+  const iTs   = col('timestamp', 'time', 'date');
+  const iApp  = col('app', 'project', 'כלי');
+  const iName = col('name', 'שם');
+  const iCat  = col('category', 'קטגוריה');
+  const iSev  = col('severity', 'חומרה');
+  const iTxt  = col('text', 'תיאור', 'feedback');
+  const iPage = col('page', 'עמוד');
+
+  const val = (row, idx) => {
+    if (idx < 0 || !row.c || !row.c[idx]) return '';
+    const cell = row.c[idx];
+    if (cell == null) return '';
+    return cell.f != null ? cell.f : (cell.v != null ? String(cell.v) : '');
+  };
+
+  allRows = tbl.rows
+    .map(r => ({
+      timestamp : val(r, iTs),
+      app       : val(r, iApp)  || 'לא ידוע',
+      name      : val(r, iName) || 'אנונימי',
+      category  : val(r, iCat)  || 'כללי',
+      severity  : val(r, iSev)  || '—',
+      text      : val(r, iTxt),
+      page      : val(r, iPage),
+    }))
+    .filter(r => r.text && r.text.trim() !== '');
+
+  filtered = [...allRows];
+
+  document.getElementById('tsLabel').textContent =
+    'עודכן: ' + new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+
+  buildFilters();
+  render();
+  document.getElementById('ld').style.display = 'none';
+  document.getElementById('ct').style.display = 'block';
 }
 
-function idxCol(cols,n){const i=cols.indexOf(n);return i>-1?i:cols.findIndex(x=>x.includes(n));}
-
-function buildFilters(){
-  const apps=[...new Set(allRows.map(r=>r.app))].sort();
-  const cats=[...new Set(allRows.map(r=>r.category))].sort();
-  const sevs=[...new Set(allRows.map(r=>r.severity))].sort();
-  document.getElementById('filters').innerHTML=
-    '<label>🔍 סינון:</label>'+
-    '<select id="fA"><option value="">כל הכלים</option>'+apps.map(a=>'<option>'+a+'</option>').join('')+'</select>'+
-    '<select id="fC"><option value="">כל הקטגוריות</option>'+cats.map(c=>'<option>'+c+'</option>').join('')+'</select>'+
-    '<select id="fS"><option value="">כל החומרות</option>'+sevs.map(s=>'<option>'+s+'</option>').join('')+'</select>'+
-    '<button onclick="resetF()" style="padding:7px 14px;border:1px solid #ddd;border-radius:8px;font-size:.82rem;background:#fff;cursor:pointer">↩ אפס</button>';
-  ['fA','fC','fS'].forEach(id=>document.getElementById(id).onchange=applyF);
+function showEmpty() {
+  document.getElementById('ld').style.display = 'none';
+  document.getElementById('ct').style.display = 'block';
+  document.getElementById('stats').innerHTML =
+    '<div class="sc"><div class="n">0</div><div class="l">משובים</div></div>';
+  document.getElementById('filters').innerHTML = '';
+  document.getElementById('charts').innerHTML = '';
+  document.getElementById('tbl').innerHTML =
+    '<div class="empty-state"><div class="icon">📭</div><p>הגיליון ריק — עדיין לא התקבלו משובים</p></div>';
 }
-function applyF(){
-  const a=document.getElementById('fA').value,c=document.getElementById('fC').value,s=document.getElementById('fS').value;
-  filtered=allRows.filter(r=>(!a||r.app===a)&&(!c||r.category===c)&&(!s||r.severity===s));
+
+function showErr(msg) {
+  clearTimeout(window._gvizTimer);
+  document.getElementById('ld').style.display = 'none';
+  const el = document.getElementById('err');
+  el.style.display = 'block';
+  el.innerHTML = `
+    <div style="font-size:2.5rem;margin-bottom:12px">❌</div>
+    <p style="color:#c00;font-size:1rem;margin-bottom:8px">שגיאה בטעינת נתונים</p>
+    <p style="color:#666;font-size:.88rem;margin-bottom:20px">${msg}</p>
+    <button class="rbtn" style="color:#1B3A5C;border-color:#1B3A5C;background:#fff" onclick="loadData()">🔄 נסה שוב</button>`;
+}
+
+// ─── Filters ──────────────────────────────────────────────────────────────────
+function buildFilters() {
+  const uniq = key => [...new Set(allRows.map(r => r[key]))].filter(Boolean).sort();
+  const sel = (id, opts, label) =>
+    `<label>${label}</label><select id="${id}"><option value="">הכל</option>` +
+    opts.map(o => `<option>${o}</option>`).join('') + '</select>';
+
+  document.getElementById('filters').innerHTML =
+    '<label style="font-weight:700">🔍 סינון:</label>' +
+    sel('fA', uniq('app'),      'כלי:') +
+    sel('fC', uniq('category'), 'קטגוריה:') +
+    sel('fS', uniq('severity'), 'חומרה:') +
+    '<button onclick="resetF()">↩ אפס</button>';
+
+  ['fA','fC','fS'].forEach(id => document.getElementById(id).onchange = applyF);
+}
+
+function applyF() {
+  const a = document.getElementById('fA').value;
+  const c = document.getElementById('fC').value;
+  const s = document.getElementById('fS').value;
+  filtered = allRows.filter(r =>
+    (!a || r.app === a) && (!c || r.category === c) && (!s || r.severity === s)
+  );
   render();
 }
-function resetF(){['fA','fC','fS'].forEach(id=>document.getElementById(id).value='');filtered=[...allRows];render();}
 
-function render(){renderStats();renderCharts();renderTable();}
-
-function renderStats(){
-  const apps=new Set(filtered.map(r=>r.app));
-  const crit=filtered.filter(r=>r.severity==='קריטי').length;
-  document.getElementById('stats').innerHTML=
-    '<div class="sc"><div class="n">'+filtered.length+'</div><div class="l">סה"כ משובים</div></div>'+
-    '<div class="sc"><div class="n">'+apps.size+'</div><div class="l">כלים פעילים</div></div>'+
-    '<div class="sc"><div class="n" style="color:#c00">'+crit+'</div><div class="l">קריטיים</div></div>'+
-    '<div class="sc"><div class="n">'+filtered.filter(r=>r.severity==='שיפור').length+'</div><div class="l">שיפורים</div></div>';
+function resetF() {
+  ['fA','fC','fS'].forEach(id => document.getElementById(id).value = '');
+  filtered = [...allRows];
+  render();
 }
 
-function renderCharts(){
-  const byApp={},byCat={};
-  filtered.forEach(r=>{byApp[r.app]=(byApp[r.app]||0)+1;byCat[r.category]=(byCat[r.category]||0)+1;});
-  document.getElementById('charts').innerHTML=
-    '<div class="cc"><h3>📱 משובים לפי כלי</h3><div id="chA"></div></div>'+
+// ─── Render ───────────────────────────────────────────────────────────────────
+function render() { renderStats(); renderCharts(); renderTable(); }
+
+function renderStats() {
+  const apps = new Set(filtered.map(r => r.app));
+  const crit = filtered.filter(r => r.severity === 'קריטי').length;
+  const imp  = filtered.filter(r => r.severity === 'שיפור').length;
+  document.getElementById('stats').innerHTML =
+    stat(filtered.length, 'סה"כ משובים') +
+    stat(apps.size, 'כלים פעילים') +
+    stat(crit, 'קריטיים', '#c00') +
+    stat(imp, 'שיפורים', '#92400e');
+}
+const stat = (n, l, c) =>
+  `<div class="sc"><div class="n"${c ? ` style="color:${c}"` : ''}>${n}</div><div class="l">${l}</div></div>`;
+
+function renderCharts() {
+  const byApp = {}, byCat = {};
+  filtered.forEach(r => {
+    byApp[r.app] = (byApp[r.app] || 0) + 1;
+    byCat[r.category] = (byCat[r.category] || 0) + 1;
+  });
+  document.getElementById('charts').innerHTML =
+    '<div class="cc"><h3>📱 משובים לפי כלי</h3><div id="chA"></div></div>' +
     '<div class="cc"><h3>📂 משובים לפי קטגוריה</h3><div id="chC"></div></div>';
-  drawBars('chA',byApp);drawBars('chC',byCat);
+  drawBars('chA', byApp);
+  drawBars('chC', byCat);
 }
-function drawBars(id,data){
-  const el=document.getElementById(id);
-  const sorted=Object.entries(data).sort((a,b)=>b[1]-a[1]);
-  const mx=Math.max(...sorted.map(s=>s[1]),1);
-  el.innerHTML=sorted.map(([l,c],i)=>{
-    const p=Math.round(c/mx*100);
-    return '<div class="br"><span class="bl">'+l+'</span><div class="bt"><div class="bf" style="width:'+p+'%;background:'+COLORS[i%COLORS.length]+'">'+c+'</div></div></div>';
+
+function drawBars(id, data) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const sorted = Object.entries(data).sort((a, b) => b[1] - a[1]);
+  if (!sorted.length) { el.innerHTML = '<p style="color:#aaa;font-size:.8rem">אין נתונים</p>'; return; }
+  const mx = Math.max(...sorted.map(s => s[1]), 1);
+  el.innerHTML = sorted.map(([l, c], i) => {
+    const p = Math.round(c / mx * 100);
+    return `<div class="br">
+      <span class="bl" title="${l}">${l}</span>
+      <div class="bt"><div class="bf" style="width:${p}%;background:${COLORS[i % COLORS.length]}">${c}</div></div>
+    </div>`;
   }).join('');
 }
 
-function renderTable(){
-  if(!filtered.length){document.getElementById('tbl').innerHTML='<p style="text-align:center;color:#999;padding:20px">אין נתונים להצגה</p>';return;}
-  const rows=filtered.slice().reverse();
-  let h='<table style="width:100%;border-collapse:collapse;font-size:.82rem"><thead><tr style="background:#f8f9fa;border-bottom:2px solid #e0e0e0">';
-  ['#','תאריך','כלי','שם','קטגוריה','חומרה','תיאור'].forEach(c=>h+='<th style="padding:10px 8px;text-align:right;white-space:nowrap">'+c+'</th>');
-  h+='</tr></thead><tbody>';
-  rows.forEach((r,i)=>{
-    const bg=i%2?'#fff':'#fafbfc';
-    const sb=r.severity==='קריטי'?'#fee2e2':r.severity==='שיפור'?'#fef3c7':'#ecfdf5';
-    const sc=r.severity==='קריטי'?'#991b1b':r.severity==='שיפור'?'#92400e':'#065f46';
-    const ts=r.timestamp?fmtTS(r.timestamp):'—';
-    h+='<tr style="background:'+bg+';border-bottom:1px solid #eee">'+
-      '<td style="padding:8px;color:#999">'+(i+1)+'</td>'+
-      '<td style="padding:8px;white-space:nowrap;font-size:.78rem">'+ts+'</td>'+
-      '<td style="padding:8px;font-weight:600;color:#1B3A5C">'+r.app+'</td>'+
-      '<td style="padding:8px">'+r.name+'</td>'+
-      '<td style="padding:8px"><span style="background:#1B3A5C15;color:#1B3A5C;padding:2px 8px;border-radius:10px;font-size:.75rem">'+r.category+'</span></td>'+
-      '<td style="padding:8px"><span style="background:'+sb+';color:'+sc+';padding:2px 8px;border-radius:10px;font-size:.75rem;font-weight:600">'+r.severity+'</span></td>'+
-      '<td style="padding:8px;max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+esc(r.text)+'">'+r.text+'</td></tr>';
-  });
-  h+='</tbody></table>';
-  document.getElementById('tbl').innerHTML=h;
-}
-function fmtTS(ts){try{const d=new Date(ts);if(isNaN(d))return ts;return d.toLocaleDateString('he-IL')+' '+d.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});}catch(e){return ts;}}
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+function renderTable() {
+  const el = document.getElementById('tbl');
+  if (!filtered.length) {
+    el.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>אין תוצאות לפי הסינון הנוכחי</p></div>';
+    return;
+  }
+  const rows = [...filtered].reverse();
+  const sevClass = s =>
+    s === 'קריטי' ? 'sev-crit' : s === 'שיפור' ? 'sev-imp' : s === 'קטן' ? 'sev-small' : 'sev-none';
 
+  let h = `<table><thead><tr>
+    <th>#</th><th>תאריך</th><th>כלי</th><th>שם</th><th>קטגוריה</th><th>חומרה</th><th>תיאור</th>
+  </tr></thead><tbody>`;
+
+  rows.forEach((r, i) => {
+    const ts = fmtTS(r.timestamp);
+    h += `<tr>
+      <td style="color:#aaa;font-size:.75rem">${i + 1}</td>
+      <td style="white-space:nowrap;font-size:.78rem;color:#666">${ts}</td>
+      <td style="font-weight:600;color:#1B3A5C">${esc(r.app)}</td>
+      <td>${esc(r.name)}</td>
+      <td><span class="badge cat-badge">${esc(r.category)}</span></td>
+      <td><span class="badge ${sevClass(r.severity)}">${esc(r.severity)}</span></td>
+      <td class="text-cell" title="${esc(r.text)}">${esc(r.text)}</td>
+    </tr>`;
+  });
+
+  h += '</tbody></table>';
+  el.innerHTML = h;
+}
+
+function fmtTS(ts) {
+  if (!ts) return '—';
+  try {
+    const d = new Date(ts);
+    if (isNaN(d)) return ts;
+    return d.toLocaleDateString('he-IL') + ' ' +
+           d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+  } catch { return ts; }
+}
+
+function esc(s) {
+  return String(s || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
 loadData();
 </script>
 </body>
