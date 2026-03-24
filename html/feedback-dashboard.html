@@ -45,6 +45,142 @@ body{font-family:'Segoe UI',Tahoma,sans-serif;background:#f0f2f5;color:#1a1a2e;d
     <div id="tbl" style="background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto"></div>
   </div>
   <div id="err" style="display:none;text-align:center;padding:40px;color:#c00"></div>
+  <div style="text-align:center;padding:20px 0 10px;font-size:.75rem;color:#999">אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | עדכון אחרון: 24.03.2026</div>
 </div>
+<script>
+const CSV_URL='https://docs.google.com/spreadsheets/d/1mArKa0KtZZvR9o3_sEj5bDhaz942w1eQzdF6xNU8RrA/gviz/tq?tqx=out:csv';
+const COLORS=['#1B3A5C','#2A5A8C','#3B7DD8','#5B9BD5','#7FB3E0','#A5CBE8','#E8A838','#D4534B','#6BAF6E','#9B59B6'];
+let allRows=[], filtered=[];
+
+async function loadData(){
+  document.getElementById('ld').style.display='block';
+  document.getElementById('ct').style.display='none';
+  document.getElementById('err').style.display='none';
+  try{
+    const r=await fetch(CSV_URL);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const txt=await r.text();
+    allRows=parseCSV(txt);
+    filtered=[...allRows];
+    buildFilters();
+    render();
+    document.getElementById('ld').style.display='none';
+    document.getElementById('ct').style.display='block';
+  }catch(e){
+    document.getElementById('ld').style.display='none';
+    const el=document.getElementById('err');
+    el.style.display='block';
+    el.innerHTML='❌ שגיאה בטעינת נתונים: '+e.message+'<br><button class="rbtn" style="margin-top:12px;color:#1B3A5C;border-color:#1B3A5C" onclick="loadData()">נסה שוב</button>';
+  }
+}
+
+function parseCSV(txt){
+  const lines=txt.split('\n').filter(l=>l.trim());
+  if(lines.length<2) return [];
+  const hdr=splitLine(lines[0]).map(h=>h.replace(/^"|"$/g,'').trim().toLowerCase());
+  const ai=idx(hdr,'timestamp');
+  const bi=idx(hdr,'app');
+  const ni=idx(hdr,'name');
+  const ci=idx(hdr,'category');
+  const si=idx(hdr,'severity');
+  const ti=idx(hdr,'text');
+  const pi=idx(hdr,'page');
+  const rows=[];
+  for(let i=1;i<lines.length;i++){
+    const v=splitLine(lines[i]).map(x=>x.replace(/^"|"$/g,'').trim());
+    if(!v[ti]&&!v[bi]) continue;
+    rows.push({timestamp:v[ai]||'',app:v[bi]||'לא ידוע',name:v[ni]||'אנונימי',category:v[ci]||'כללי',severity:v[si]||'—',text:v[ti]||'',page:v[pi]||''});
+  }
+  return rows;
+}
+function idx(h,n){const i=h.indexOf(n);return i>-1?i:h.findIndex(x=>x.includes(n));}
+function splitLine(line){
+  const r=[];let c='',q=false;
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
+    if(ch==='"'){if(q&&line[i+1]==='"'){c+='"';i++;}else q=!q;}
+    else if(ch===','&&!q){r.push(c);c='';}
+    else c+=ch;
+  }
+  r.push(c);return r;
+}
+
+function buildFilters(){
+  const apps=[...new Set(allRows.map(r=>r.app))].sort();
+  const cats=[...new Set(allRows.map(r=>r.category))].sort();
+  const sevs=[...new Set(allRows.map(r=>r.severity))].sort();
+  document.getElementById('filters').innerHTML=
+    '<label>🔍 סינון:</label>'+
+    '<select id="fA"><option value="">כל הכלים</option>'+apps.map(a=>'<option>'+a+'</option>').join('')+'</select>'+
+    '<select id="fC"><option value="">כל הקטגוריות</option>'+cats.map(c=>'<option>'+c+'</option>').join('')+'</select>'+
+    '<select id="fS"><option value="">כל החומרות</option>'+sevs.map(s=>'<option>'+s+'</option>').join('')+'</select>'+
+    '<button onclick="resetF()" style="padding:7px 14px;border:1px solid #ddd;border-radius:8px;font-size:.82rem;background:#fff;cursor:pointer">↩ אפס</button>';
+  ['fA','fC','fS'].forEach(id=>document.getElementById(id).onchange=applyF);
+}
+function applyF(){
+  const a=document.getElementById('fA').value,c=document.getElementById('fC').value,s=document.getElementById('fS').value;
+  filtered=allRows.filter(r=>(!a||r.app===a)&&(!c||r.category===c)&&(!s||r.severity===s));
+  render();
+}
+function resetF(){['fA','fC','fS'].forEach(id=>document.getElementById(id).value='');filtered=[...allRows];render();}
+
+function render(){renderStats();renderCharts();renderTable();}
+
+function renderStats(){
+  const apps=new Set(filtered.map(r=>r.app));
+  const crit=filtered.filter(r=>r.severity==='קריטי').length;
+  document.getElementById('stats').innerHTML=
+    '<div class="sc"><div class="n">'+filtered.length+'</div><div class="l">סה"כ משובים</div></div>'+
+    '<div class="sc"><div class="n">'+apps.size+'</div><div class="l">כלים פעילים</div></div>'+
+    '<div class="sc"><div class="n" style="color:#c00">'+crit+'</div><div class="l">קריטיים</div></div>'+
+    '<div class="sc"><div class="n">'+filtered.filter(r=>r.severity==='שיפור').length+'</div><div class="l">שיפורים</div></div>';
+}
+
+function renderCharts(){
+  const byApp={},byCat={};
+  filtered.forEach(r=>{byApp[r.app]=(byApp[r.app]||0)+1;byCat[r.category]=(byCat[r.category]||0)+1;});
+  document.getElementById('charts').innerHTML=
+    '<div class="cc"><h3>📱 משובים לפי כלי</h3><div id="chA"></div></div>'+
+    '<div class="cc"><h3>📂 משובים לפי קטגוריה</h3><div id="chC"></div></div>';
+  drawBars('chA',byApp);drawBars('chC',byCat);
+}
+function drawBars(id,data){
+  const el=document.getElementById(id);
+  const sorted=Object.entries(data).sort((a,b)=>b[1]-a[1]);
+  const mx=Math.max(...sorted.map(s=>s[1]),1);
+  el.innerHTML=sorted.map(([l,c],i)=>{
+    const p=Math.round(c/mx*100);
+    return '<div class="br"><span class="bl">'+l+'</span><div class="bt"><div class="bf" style="width:'+p+'%;background:'+COLORS[i%COLORS.length]+'">'+c+'</div></div></div>';
+  }).join('');
+}
+
+function renderTable(){
+  if(!filtered.length){document.getElementById('tbl').innerHTML='<p style="text-align:center;color:#999;padding:20px">אין נתונים להצגה</p>';return;}
+  const rows=filtered.slice().reverse();
+  let h='<table style="width:100%;border-collapse:collapse;font-size:.82rem"><thead><tr style="background:#f8f9fa;border-bottom:2px solid #e0e0e0">';
+  ['#','תאריך','כלי','שם','קטגוריה','חומרה','תיאור'].forEach(c=>h+='<th style="padding:10px 8px;text-align:right;white-space:nowrap">'+c+'</th>');
+  h+='</tr></thead><tbody>';
+  rows.forEach((r,i)=>{
+    const bg=i%2?'#fff':'#fafbfc';
+    const sb=r.severity==='קריטי'?'#fee2e2':r.severity==='שיפור'?'#fef3c7':'#ecfdf5';
+    const sc=r.severity==='קריטי'?'#991b1b':r.severity==='שיפור'?'#92400e':'#065f46';
+    const ts=r.timestamp?fmtTS(r.timestamp):'—';
+    h+='<tr style="background:'+bg+';border-bottom:1px solid #eee">'+
+      '<td style="padding:8px;color:#999">'+(i+1)+'</td>'+
+      '<td style="padding:8px;white-space:nowrap;font-size:.78rem">'+ts+'</td>'+
+      '<td style="padding:8px;font-weight:600;color:#1B3A5C">'+r.app+'</td>'+
+      '<td style="padding:8px">'+r.name+'</td>'+
+      '<td style="padding:8px"><span style="background:#1B3A5C15;color:#1B3A5C;padding:2px 8px;border-radius:10px;font-size:.75rem">'+r.category+'</span></td>'+
+      '<td style="padding:8px"><span style="background:'+sb+';color:'+sc+';padding:2px 8px;border-radius:10px;font-size:.75rem;font-weight:600">'+r.severity+'</span></td>'+
+      '<td style="padding:8px;max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+esc(r.text)+'">'+r.text+'</td></tr>';
+  });
+  h+='</tbody></table>';
+  document.getElementById('tbl').innerHTML=h;
+}
+function fmtTS(ts){try{const d=new Date(ts);if(isNaN(d))return ts;return d.toLocaleDateString('he-IL')+' '+d.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});}catch(e){return ts;}}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+
+loadData();
+</script>
 </body>
 </html>
