@@ -125,13 +125,25 @@ function processResponse(resp) {
   clearTimeout(window._gvizTimer);
 
   const tbl = resp.table;
-  if (!tbl || !tbl.rows || tbl.rows.length === 0) {
+  if (!tbl || !tbl.rows || tbl.rows.length <= 1) {
     showEmpty();
     return;
   }
 
-  // Build column index map
-  const cols = tbl.cols.map(c => (c.label || c.id || '').toLowerCase().trim());
+  // Build column index map — try labels first, fall back to first data row as headers
+  let cols = tbl.cols.map(c => (c.label || c.id || '').toLowerCase().trim());
+  let dataRows = tbl.rows;
+
+  // If all labels are empty or single letters (A,B,C...), first row is the header
+  const labelsEmpty = cols.every(c => !c || /^[a-z]$/.test(c));
+  if (labelsEmpty && tbl.rows.length > 0) {
+    const hdrRow = tbl.rows[0];
+    cols = (hdrRow.c || []).map(cell => {
+      if (!cell || cell.v == null) return '';
+      return String(cell.v).toLowerCase().trim();
+    });
+    dataRows = tbl.rows.slice(1);
+  }
   const col = (...names) => {
     for (const name of names) {
       const i = cols.findIndex(c => c === name || c.includes(name));
@@ -140,13 +152,13 @@ function processResponse(resp) {
     return -1;
   };
 
-  const iTs   = col('timestamp', 'time', 'date');
-  const iApp  = col('app', 'project', 'כלי');
+  const iTs   = col('timestamp', 'time', 'date', 'תאריך');
+  const iApp  = col('app', 'project', 'כלי', 'אפליקציה');
   const iName = col('name', 'שם');
   const iCat  = col('category', 'קטגוריה');
   const iSev  = col('severity', 'חומרה');
   const iTxt  = col('text', 'תיאור', 'feedback');
-  const iPage = col('page', 'עמוד');
+  const iPage = col('page', 'עמוד', 'דף');
 
   const val = (row, idx) => {
     if (idx < 0 || !row.c || !row.c[idx]) return '';
@@ -155,7 +167,7 @@ function processResponse(resp) {
     return cell.f != null ? cell.f : (cell.v != null ? String(cell.v) : '');
   };
 
-  allRows = tbl.rows
+  allRows = dataRows
     .map(r => ({
       timestamp : val(r, iTs),
       app       : val(r, iApp)  || 'לא ידוע',
