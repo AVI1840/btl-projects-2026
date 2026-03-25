@@ -284,7 +284,7 @@ async function sendToSheet(text, category, severity) {
     return true;
   } catch { return false; }
 }
-async function fbSubmit(){
+async async function fbSubmit(){
   var pro={r:ratings.pro,t:document.getElementById('txt-pro').value.trim()};
   var proc={r:ratings.proc,t:document.getElementById('txt-proc').value.trim()};
   var des={r:ratings.des,t:document.getElementById('txt-des').value.trim()};
