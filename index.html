@@ -187,7 +187,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   <!-- ═══ Hero Stats ═══ -->
   <div class="hero-stats" role="region" aria-label="מספרים מרכזיים">
     <div class="stat stat-live">
-      <div class="stat-value" data-count="8">0</div>
+      <div class="stat-value" data-count="9">0</div>
       <div class="stat-label">כלים חיים באוויר <span class="pulse-dot" aria-hidden="true"></span></div>
     </div>
     <div class="stat">
@@ -211,7 +211,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   <!-- ═══ כלים טכנולוגיים ═══ -->
   <div class="section-header">
     <span class="section-title">🖥 כלים טכנולוגיים</span>
-    <span class="section-count">6 כלים — כולם חיים באוויר</span>
+    <span class="section-count">7 כלים — כולם חיים באוויר</span>
   </div>
   <div class="projects-grid">
 
@@ -570,9 +570,9 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
       <div class="achievement-item">
         <div class="achievement-icon achievement-icon-green">🟢</div>
         <div class="achievement-content">
-          <span class="achievement-number">8</span>
+          <span class="achievement-number">9</span>
           <h4>כלים חיים באוויר</h4>
-          <p>8 כלי AI פעילים ונגישים — דשבורד, ארנק, ועדות, מיצוי, מחשבון, סיעוד, המקפצה, אקדמייה</p>
+          <p>9 כלי AI פעילים ונגישים — דשבורד, ארנק, ועדות, מיצוי, מחשבון, סיעוד, סל אישי, המקפצה, אקדמייה</p>
         </div>
       </div>
 
@@ -645,7 +645,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
       </div>
       <div class="need-item need-item-done">
         <h4>👥 פיילוט עם משתמשים</h4>
-        <p>8 כלים חיים באוויר — פיילוטים פעילים עם פקידים ואזרחים. הניסיון מצטבר.</p>
+        <p>9 כלים חיים באוויר — פיילוטים פעילים עם פקידים ואזרחים. הניסיון מצטבר.</p>
         <span class="need-tag need-tag-ready">✅ מתקיים</span>
       </div>
       <div class="need-item">
@@ -663,8 +663,8 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 
   <!-- Footer -->
   <div class="footer-info" id="footer-trigger" style="cursor:default;user-select:none">
-    <strong>אביעד יצחקי</strong> | מוביל AI, מינהל גמלאות | ביטוח לאומי | מרץ 2026 | 8 כלים חיים באוויר | פותח לשיפור שירות האזרח
-    <div style="margin-top:6px;font-size:11px;opacity:.5">עדכון אחרון: 24.03.2026</div>
+    <strong>אביעד יצחקי</strong> | מוביל AI, מינהל גמלאות | ביטוח לאומי | מרץ 2026 | 9 כלים חיים באוויר | פותח לשיפור שירות האזרח
+    <div style="margin-top:6px;font-size:11px;opacity:.5">עדכון אחרון: 25.03.2026</div>
   </div>
 
   <!-- Hidden Dashboard Access -->
@@ -749,6 +749,20 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
       if (localStorage.getItem('btl-domain-mode') === 'internal') setMode(true);
     } catch(e){}
   });
+
+  // === Auto-count live tools ===
+  (function() {
+    var liveCount = document.querySelectorAll('.status-badge.status-live').length;
+    // Update hero stat
+    var heroStat = document.querySelector('.stat-live .stat-value[data-count]');
+    if (heroStat) heroStat.setAttribute('data-count', liveCount);
+    // Update section count text (כלים טכנולוגיים)
+    var secCount = document.querySelector('.section-count');
+    if (secCount && secCount.textContent.includes('כולם חיים באוויר')) {
+      var techLive = document.querySelectorAll('.projects-grid:first-of-type .status-badge.status-live').length;
+      secCount.textContent = techLive + ' כלים — כולם חיים באוויר';
+    }
+  })();
 
   // === Count-up Animation ===
   var counters = document.querySelectorAll('[data-count]');
