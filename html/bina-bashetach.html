@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💡 בינה בשטח — טיפים ויוזקייסים | מינהל גמלאות</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#1B3A5C;--secondary:#2A5A8C;--accent:#E8A020;--light:#F0F4F8;--text:#1A2332;--muted:#6B7A8D;--success:#1A7A4E;--card:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Heebo',Arial,sans-serif;background:var(--light);color:var(--text);direction:rtl;min-height:100vh}
+.hdr{background:linear-gradient(135deg,#0F2640,var(--primary),var(--secondary));color:#fff;padding:28px 32px;text-align:center;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-40%;left:-10%;width:60%;height:180%;background:radial-gradient(ellipse,rgba(232,160,32,.08),transparent 60%);pointer-events:none}
+.hdr h1{font-size:28px;font-weight:900;position:relative;z-index:1}
+.hdr p{font-size:14px;opacity:.8;margin-top:6px;position:relative;z-index:1}
+.hdr .sub{font-size:12px;opacity:.55;margin-top:4px;position:relative;z-index:1}
+.tabs{display:flex;justify-content:center;gap:8px;padding:16px 20px;background:#fff;border-bottom:1px solid #e0e8f0;position:sticky;top:0;z-index:10}
+.tab{padding:9px 22px;border-radius:24px;border:2px solid #d0dae8;background:none;font-family:'Heebo',sans-serif;font-size:14px;font-weight:600;cursor:pointer;color:var(--secondary);transition:all .2s}
+.tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.tab:hover:not(.active){background:#e8f0ff}
+.wrap{max-width:900px;margin:0 auto;padding:20px 16px}
+.panel{display:none}
+.panel.active{display:block}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <h1>💡 בינה בשטח</h1>
+  <p>טיפים, יוזקייסים ופרומפטים מנצחים — מעובדים לעובדים</p>
+  <div class="sub">צ'אט AI ארגוני — מינהל גמלאות, ביטוח לאומי</div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('share',this)">💡 שתף טיפ</button>
+  <button class="tab" onclick="showTab('gallery',this)">🏆 גלריית יוזקייסים</button>
+  <button class="tab" onclick="showTab('prompts',this)">🎯 פרומפטים מנצחים</button>
+  <button class="tab" onclick="showTab('stats',this)">📊 סטטיסטיקות</button>
+</div>
+
+<div class="wrap">
+<!-- ═══ TAB 1: שתף טיפ ═══ -->
+<div class="panel active" id="panel-share"></div>
+<!-- ═══ TAB 2: גלריה ═══ -->
+<div class="panel" id="panel-gallery"></div>
+<!-- ═══ TAB 3: פרומפטים ═══ -->
+<div class="panel" id="panel-prompts"></div>
+<!-- ═══ TAB 4: סטטיסטיקות ═══ -->
+<div class="panel" id="panel-stats"></div>
+</div>
+</body>
+</html>
+
+<style>
+/* ═══ Share Form ═══ */
+.form-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(27,58,92,.08);border:1.5px solid #e0e8f0}
+.form-title{font-size:20px;font-weight:800;color:var(--primary);margin-bottom:6px}
+.form-sub{font-size:13px;color:var(--muted);margin-bottom:22px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:8px}
+.field label .req{color:#c00;margin-right:2px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:8px 16px;border-radius:20px;border:2px solid #d0dae8;background:none;font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--secondary);transition:all .15s}
+.chip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.chip:hover:not(.on){background:#e8f0ff}
+.txt{width:100%;padding:12px 14px;border:1.5px solid #d0dae8;border-radius:10px;font-family:'Heebo',sans-serif;font-size:14px;resize:vertical;min-height:70px;direction:rtl;color:var(--text)}
+.txt:focus{outline:none;border-color:var(--secondary);box-shadow:0 0 0 3px rgba(42,90,140,.1)}
+.txt-sm{min-height:50px}
+.stars-row{display:flex;gap:6px}
+.star-btn{font-size:28px;cursor:pointer;color:#ddd;transition:color .1s;user-select:none;background:none;border:none;padding:0}
+.star-btn.on{color:var(--accent)}
+.time-chips{display:flex;gap:8px;flex-wrap:wrap}
+.time-chip{padding:8px 14px;border-radius:20px;border:2px solid #d0dae8;background:none;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s}
+.time-chip.on{background:var(--success);color:#fff;border-color:var(--success)}
+.submit-btn{width:100%;padding:14px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-family:'Heebo',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s;margin-top:8px}
+.submit-btn:hover{background:var(--secondary)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed}
+.status-msg{text-align:center;font-size:13px;margin-top:8px;min-height:20px}
+.optional-tag{font-size:11px;color:var(--muted);font-weight:400;margin-right:6px}
+
+/* ═══ Gallery ═══ */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.use-card{background:#fff;border-radius:14px;padding:20px;border:1.5px solid #e0e8f0;box-shadow:0 2px 10px rgba(27,58,92,.05);transition:transform .2s,box-shadow .2s}
+.use-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(27,58,92,.1)}
+.use-card .domain-tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;background:#e8f0ff;color:var(--secondary);margin-bottom:10px}
+.use-card .desc{font-size:14px;line-height:1.65;color:var(--text);margin-bottom:12px}
+.use-card .meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted)}
+.use-card .saved{color:var(--success);font-weight:700}
+.use-card .rating{color:var(--accent)}
+.use-card .prompt-box{background:var(--light);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:12px;color:#444;border-right:3px solid var(--accent);line-height:1.5;white-space:pre-wrap;max-height:80px;overflow:hidden;cursor:pointer;transition:max-height .3s}
+.use-card .prompt-box.expanded{max-height:500px}
+.use-card .prompt-label{font-size:11px;color:var(--accent);font-weight:700;margin-bottom:4px}
+.like-btn{background:none;border:1px solid #d0dae8;border-radius:16px;padding:4px 12px;font-size:12px;cursor:pointer;color:var(--muted);font-family:'Heebo',sans-serif;transition:all .15s}
+.like-btn:hover,.like-btn.liked{background:#e8f3ff;color:var(--primary);border-color:var(--primary)}
+
+/* ═══ Stats ═══ */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
+.stat-card{background:#fff;border-radius:14px;padding:20px;text-align:center;box-shadow:0 2px 10px rgba(27,58,92,.05);border:1.5px solid #e0e8f0}
+.stat-card .num{font-size:32px;font-weight:900;color:var(--primary);line-height:1.1}
+.stat-card .lbl{font-size:12px;color:var(--muted);margin-top:4px}
+.chart-card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(27,58,92,.05);border:1.5px solid #e0e8f0;margin-bottom:16px}
+.chart-card h3{font-size:15px;font-weight:700;color:var(--primary);margin-bottom:14px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.bar-label{min-width:100px;font-size:13px;text-align:right;color:#444;flex-shrink:0}
+.bar-track{flex:1;height:24px;background:#eee;border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;font-size:11px;color:#fff;font-weight:700;min-width:28px;transition:width .5s}
+
+/* ═══ Empty ═══ */
+.empty{text-align:center;padding:50px 20px;color:var(--muted)}
+.empty .icon{font-size:3rem;margin-bottom:10px}
+
+/* ═══ Loading ═══ */
+.loading{text-align:center;padding:50px;color:var(--muted);font-size:14px}
+
+/* ═══ Filter ═══ */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+.filter-bar label{font-size:13px;font-weight:700;color:var(--primary)}
+.filter-chip{padding:6px 14px;border-radius:16px;border:1.5px solid #d0dae8;background:none;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s}
+.filter-chip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* ═══ Footer ═══ */
+.footer{text-align:center;padding:20px;font-size:12px;color:#aaa;margin-top:20px}
+
+@media(max-width:600px){.gallery-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.tabs{gap:4px;padding:12px 8px}.tab{font-size:12px;padding:7px 12px}}
+</style>
+
+<script>
+// ═══ Config ═══
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwD8CMFoP5XoOwRLwK_OxMMOFKF8fS2CRpbJkNdOHjbnJIepkOLzlGrg3GQNGRqbwB6bA/exec';
+const SHEET_ID = '1mArKa0KtZZvR9o3_sEj5bDhaz942w1eQzdF6xNU8RrA';
+const LS_KEY = 'bina-bashetach-tips';
+const DOMAINS = ['סיעוד','נכות','גמלאות','אבטלה','מנהלה','שירות','אחר'];
+const TIME_OPTIONS = ['5 דקות','15 דקות','30 דקות','שעה','כמה שעות','יום+'];
+const COLORS = ['#1B3A5C','#2A5A8C','#3B7DD8','#5B9BD5','#E8A838','#D4534B','#6BAF6E'];
+
+let allTips = [];
+let filterDomain = '';
+
+// ═══ Tab switching ═══
+function showTab(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'gallery') renderGallery();
+  if (name === 'prompts') renderPrompts();
+  if (name === 'stats') renderStats();
+}
+
+// ═══ Share Form ═══
+(function initForm() {
+  const el = document.getElementById('panel-share');
+  el.innerHTML = `
+    <div class="form-card">
+      <div class="form-title">💡 שתף רגע בינה</div>
+      <div class="form-sub">ספר לעמיתים מה עשית עם הצ'אט ואיך זה עזר — הידע שלך שווה לכולם</div>
+      <div class="field">
+        <label><span class="req">*</span> תחום עבודה</label>
+        <div class="chips" id="domain-chips">
+          ${DOMAINS.map(d => `<button class="chip" onclick="pickChip(this,'domain')">${d}</button>`).join('')}
+        </div>
+      </div>
+      <div class="field">
+        <label><span class="req">*</span> מה עשית עם ה-AI?</label>
+        <textarea class="txt" id="tip-desc" placeholder="למשל: ביקשתי מהצ'אט לסכם תיק תביעה מורכב ב-3 נקודות עיקריות..."></textarea>
+      </div>
+      <div class="field">
+        <label><span class="req">*</span> כמה תועלת הייתה?</label>
+        <div class="stars-row" id="stars-row">
+          ${[1,2,3,4,5].map(v => `<button class="star-btn" data-v="${v}" onclick="pickStar(${v})">★</button>`).join('')}
+        </div>
+      </div>
+      <div class="field">
+        <label><span class="req">*</span> כמה זמן חסך לך?</label>
+        <div class="time-chips" id="time-chips">
+          ${TIME_OPTIONS.map(t => `<button class="time-chip" onclick="pickChip(this,'time')">${t}</button>`).join('')}
+        </div>
+      </div>
+      <div class="field">
+        <label>🎯 הפרומפט שעבד <span class="optional-tag">(אופציונלי — מומלץ מאוד)</span></label>
+        <textarea class="txt txt-sm" id="tip-prompt" placeholder="הדבק כאן את הפרומפט שנתת לצ'אט..."></textarea>
+      </div>
+      <div class="field">
+        <label>שם <span class="optional-tag">(אופציונלי — ברירת מחדל: אנונימי)</span></label>
+        <input type="text" class="txt" style="min-height:auto;padding:10px 14px" id="tip-name" placeholder="השם שלך">
+      </div>
+      <button class="submit-btn" id="submit-btn" onclick="submitTip()">✅ שתף את הטיפ</button>
+      <div class="status-msg" id="status-msg"></div>
+    </div>`;
+})();
+
+let formData = { domain: '', rating: 0, time: '' };
+
+function pickChip(btn, type) {
+  btn.parentElement.querySelectorAll('.chip,.time-chip').forEach(c => c.classList.remove('on'));
+  btn.classList.add('on');
+  formData[type] = btn.textContent;
+}
+function pickStar(v) {
+  formData.rating = v;
+  document.querySelectorAll('#stars-row .star-btn').forEach((s, i) => s.classList.toggle('on', i < v));
+}
+
+async function submitTip() {
+  const desc = document.getElementById('tip-desc').value.trim();
+  const prompt = document.getElementById('tip-prompt').value.trim();
+  const name = document.getElementById('tip-name').value.trim() || 'אנונימי';
+  if (!formData.domain || !desc || !formData.rating || !formData.time) {
+    document.getElementById('status-msg').innerHTML = '<span style="color:#c00">נא למלא את כל השדות המסומנים *</span>';
+    return;
+  }
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true; btn.textContent = 'שולח...';
+  const tip = {
+    id: Date.now(), name, domain: formData.domain, desc, rating: formData.rating,
+    time: formData.time, prompt, timestamp: new Date().toISOString(), likes: 0
+  };
+  // Save locally
+  const tips = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+  tips.unshift(tip); localStorage.setItem(LS_KEY, JSON.stringify(tips));
+  // Send to Sheet
+  try {
+    await fetch(SHEET_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        app: 'בינה בשטח', name, category: formData.domain,
+        severity: formData.rating + '★ | ' + formData.time,
+        text: desc + (prompt ? '\n\n🎯 פרומפט: ' + prompt : ''),
+        page: 'bina-bashetach'
+      })
+    });
+  } catch {}
+  // Reset
+  btn.disabled = false; btn.textContent = '✅ שתף את הטיפ';
+  document.getElementById('status-msg').innerHTML = '<span style="color:var(--success)">✅ תודה! הטיפ שלך נשמר ושותף עם הצוות</span>';
+  document.getElementById('tip-desc').value = '';
+  document.getElementById('tip-prompt').value = '';
+  formData = { domain: '', rating: 0, time: '' };
+  document.querySelectorAll('.chip,.time-chip,.star-btn').forEach(c => c.classList.remove('on'));
+  setTimeout(() => { document.getElementById('status-msg').textContent = ''; }, 4000);
+}
+
+// ═══ Gallery ═══
+function renderGallery() {
+  const tips = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+  const el = document.getElementById('panel-gallery');
+  if (!tips.length) {
+    el.innerHTML = '<div class="empty"><div class="icon">📭</div><p>עדיין אין טיפים — היה הראשון לשתף!</p></div>';
+    return;
+  }
+  const filtered = filterDomain ? tips.filter(t => t.domain === filterDomain) : tips;
+  el.innerHTML = `
+    <div class="filter-bar">
+      <label>🔍 סנן:</label>
+      <button class="filter-chip ${!filterDomain?'on':''}" onclick="setFilter('')">הכל</button>
+      ${DOMAINS.map(d => {
+        const count = tips.filter(t => t.domain === d).length;
+        return count ? `<button class="filter-chip ${filterDomain===d?'on':''}" onclick="setFilter('${d}')">${d} (${count})</button>` : '';
+      }).join('')}
+    </div>
+    <div class="gallery-grid">
+      ${filtered.map(t => `
+        <div class="use-card">
+          <span class="domain-tag">${t.domain}</span>
+          <div class="desc">${esc(t.desc)}</div>
+          ${t.prompt ? `<div class="prompt-label">🎯 פרומפט:</div><div class="prompt-box" onclick="this.classList.toggle('expanded')">${esc(t.prompt)}</div>` : ''}
+          <div class="meta">
+            <span>${t.name} · ${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</span>
+            <span class="saved">⏱ ${t.time}</span>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+function setFilter(d) { filterDomain = d; renderGallery(); }
+
+// ═══ Prompts ═══
+function renderPrompts() {
+  const tips = JSON.parse(localStorage.getItem(LS_KEY) || '[]').filter(t => t.prompt);
+  const el = document.getElementById('panel-prompts');
+  if (!tips.length) {
+    el.innerHTML = '<div class="empty"><div class="icon">🎯</div><p>עדיין אין פרומפטים — שתף טיפ עם פרומפט כדי שיופיע כאן</p></div>';
+    return;
+  }
+  el.innerHTML = `
+    <div style="margin-bottom:16px;font-size:14px;color:var(--muted)">פרומפטים שעובדים — מדורגים לפי תועלת</div>
+    <div class="gallery-grid">
+      ${tips.sort((a,b) => b.rating - a.rating).map(t => `
+        <div class="use-card">
+          <span class="domain-tag">${t.domain}</span>
+          <div class="prompt-box expanded" style="max-height:none;cursor:text">${esc(t.prompt)}</div>
+          <div class="desc" style="margin-top:10px;font-size:13px;color:var(--muted)">${esc(t.desc)}</div>
+          <div class="meta">
+            <span class="rating">${'★'.repeat(t.rating)} תועלת</span>
+            <span class="saved">⏱ ${t.time}</span>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ═══ Stats ═══
+function renderStats() {
+  const tips = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+  const el = document.getElementById('panel-stats');
+  if (!tips.length) {
+    el.innerHTML = '<div class="empty"><div class="icon">📊</div><p>עדיין אין נתונים — שתף טיפ ראשון</p></div>';
+    return;
+  }
+  const byDomain = {};
+  tips.forEach(t => { byDomain[t.domain] = (byDomain[t.domain] || 0) + 1; });
+  const avgRating = (tips.reduce((s,t) => s + t.rating, 0) / tips.length).toFixed(1);
+  const promptCount = tips.filter(t => t.prompt).length;
+  const uniqueNames = new Set(tips.map(t => t.name)).size;
+  const sorted = Object.entries(byDomain).sort((a,b) => b[1] - a[1]);
+  const mx = Math.max(...sorted.map(s => s[1]), 1);
+
+  el.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card"><div class="num">${tips.length}</div><div class="lbl">טיפים שותפו</div></div>
+      <div class="stat-card"><div class="num">${uniqueNames}</div><div class="lbl">עובדים משתפים</div></div>
+      <div class="stat-card"><div class="num">${avgRating}★</div><div class="lbl">דירוג ממוצע</div></div>
+      <div class="stat-card"><div class="num">${promptCount}</div><div class="lbl">פרומפטים מנצחים</div></div>
+    </div>
+    <div class="chart-card">
+      <h3>📱 טיפים לפי תחום</h3>
+      ${sorted.map(([d,c], i) => {
+        const p = Math.round(c / mx * 100);
+        return `<div class="bar-row"><span class="bar-label">${d}</span><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${COLORS[i%COLORS.length]}">${c}</div></div></div>`;
+      }).join('')}
+    </div>`;
+}
+
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>'); }
+</script>
+<div class="footer">אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | בינה בשטח v1.0</div>
