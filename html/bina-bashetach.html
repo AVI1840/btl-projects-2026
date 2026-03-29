@@ -135,6 +135,20 @@ const COLORS = ['#1B3A5C','#2A5A8C','#3B7DD8','#5B9BD5','#E8A838','#D4534B','#6B
 let allTips = [];
 let filterDomain = '';
 
+// ═══ Demo data — preload examples so dashboard isn't empty ═══
+(function seedDemo() {
+  if (localStorage.getItem(LS_KEY)) return; // don't overwrite real data
+  const demo = [
+    { id:1, name:'מלי ע.', domain:'סיעוד', desc:'ביקשתי מהצ\'אט לסכם תיק תביעת סיעוד מורכב — 12 מסמכים ל-3 נקודות עיקריות. קיבלתי סיכום מובנה תוך 30 שניות במקום 40 דקות ידנית.', rating:5, time:'30 דקות', prompt:'סכם את תיק התביעה הבא ב-3 נקודות: מצב רפואי, רמת תפקוד, המלצה. התמקד בעובדות בלבד.', timestamp:'2026-03-28T09:15:00', likes:3 },
+    { id:2, name:'אורי כ.', domain:'נכות', desc:'השתמשתי בצ\'אט כדי לנסח מכתב תשובה למבוטח שערער על החלטה. הצ\'אט כתב טיוטה מקצועית ומנומקת שחסכה לי שעה של ניסוח.', rating:4, time:'שעה', prompt:'כתוב טיוטת מכתב תשובה לערעור על החלטת נכות. הטון: מקצועי ואמפתי. כלול: נימוק, הפניה לסעיף בחוק, הנחיה לצעד הבא.', timestamp:'2026-03-28T10:30:00', likes:5 },
+    { id:3, name:'דנה ר.', domain:'גמלאות', desc:'ביקשתי מהצ\'אט להסביר לי את ההבדל בין 3 מסלולי כפל גמלאות לפי סעיף 320. קיבלתי טבלת השוואה ברורה שעזרה לי להסביר לאזרח בשיחה.', rating:5, time:'15 דקות', prompt:'הסבר את ההבדלים בין מסלולי כפל גמלאות לפי סעיף 320 בטבלת השוואה. עמודות: מסלול, תנאים, יתרונות, חסרונות.', timestamp:'2026-03-27T14:00:00', likes:7 },
+    { id:4, name:'אנונימי', domain:'מנהלה', desc:'השתמשתי בצ\'אט כדי לכתוב סיכום ישיבה מתוך רשימת נקודות שרשמתי. קיבלתי מסמך מסודר עם החלטות, אחראים ולוחות זמנים.', rating:4, time:'15 דקות', prompt:'', timestamp:'2026-03-27T11:00:00', likes:2 },
+    { id:5, name:'יעל מ.', domain:'שירות', desc:'ביקשתי מהצ\'אט לעזור לי להכין תסריט שיחה למוקד — איך להסביר לאזרח ותיק את כל הזכויות שמגיעות לו. קיבלתי תסריט מובנה עם שאלות מנחות.', rating:5, time:'30 דקות', prompt:'צור תסריט שיחה לפקיד מוקד עם אזרח ותיק (67+). כלול: פתיחה, שאלות סינון, הצגת זכויות, סיכום וצעדים הבאים. שפה פשוטה ואמפתית.', timestamp:'2026-03-26T16:00:00', likes:4 },
+    { id:6, name:'רון ש.', domain:'אבטלה', desc:'הצ\'אט עזר לי להבין מקרה מורכב של עובד שהוא גם שכיר וגם עצמאי שיצא לחל"ת. קיבלתי הסבר מפורט על הזכאות הכפולה.', rating:4, time:'15 דקות', prompt:'', timestamp:'2026-03-26T09:30:00', likes:1 },
+  ];
+  localStorage.setItem(LS_KEY, JSON.stringify(demo));
+})();
+
 // ═══ Tab switching ═══
 function showTab(name, btn) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -331,4 +345,7 @@ function renderStats() {
 
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>'); }
 </script>
-<div class="footer">אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | בינה בשטח v1.0</div>
+<div class="footer">
+  <a href="index.html" style="color:var(--primary);text-decoration:none;font-weight:600;font-size:13px">← חזרה לפורטל הפרויקטים</a>
+  <br>אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | בינה בשטח v1.0
+</div>
