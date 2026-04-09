@@ -3,349 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💡 בינה בשטח — טיפים ויוזקייסים | מינהל גמלאות</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{--primary:#1B3A5C;--secondary:#2A5A8C;--accent:#E8A020;--light:#F0F4F8;--text:#1A2332;--muted:#6B7A8D;--success:#1A7A4E;--card:#fff}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Heebo',Arial,sans-serif;background:var(--light);color:var(--text);direction:rtl;min-height:100vh}
-.hdr{background:linear-gradient(135deg,#0F2640,var(--primary),var(--secondary));color:#fff;padding:28px 32px;text-align:center;position:relative;overflow:hidden}
-.hdr::before{content:'';position:absolute;top:-40%;left:-10%;width:60%;height:180%;background:radial-gradient(ellipse,rgba(232,160,32,.08),transparent 60%);pointer-events:none}
-.hdr h1{font-size:28px;font-weight:900;position:relative;z-index:1}
-.hdr p{font-size:14px;opacity:.8;margin-top:6px;position:relative;z-index:1}
-.hdr .sub{font-size:12px;opacity:.55;margin-top:4px;position:relative;z-index:1}
-.tabs{display:flex;justify-content:center;gap:8px;padding:16px 20px;background:#fff;border-bottom:1px solid #e0e8f0;position:sticky;top:0;z-index:10}
-.tab{padding:9px 22px;border-radius:24px;border:2px solid #d0dae8;background:none;font-family:'Heebo',sans-serif;font-size:14px;font-weight:600;cursor:pointer;color:var(--secondary);transition:all .2s}
-.tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-.tab:hover:not(.active){background:#e8f0ff}
-.wrap{max-width:900px;margin:0 auto;padding:20px 16px}
-.panel{display:none}
-.panel.active{display:block}
-</style>
+<title>בינה בשטח — שיתוף ידע AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="hdr">
-  <h1>💡 בינה בשטח</h1>
-  <p>טיפים, יוזקייסים ופרומפטים מנצחים — מעובדים לעובדים</p>
-  <div class="sub">צ'אט AI ארגוני — מינהל גמלאות, ביטוח לאומי</div>
-</div>
-
-<div class="tabs">
-  <button class="tab active" onclick="showTab('share',this)">💡 שתף טיפ</button>
-  <button class="tab" onclick="showTab('gallery',this)">🏆 גלריית יוזקייסים</button>
-  <button class="tab" onclick="showTab('prompts',this)">🎯 פרומפטים מנצחים</button>
-  <button class="tab" onclick="showTab('stats',this)">📊 סטטיסטיקות</button>
-</div>
-
-<div class="wrap">
-<!-- ═══ TAB 1: שתף טיפ ═══ -->
-<div class="panel active" id="panel-share"></div>
-<!-- ═══ TAB 2: גלריה ═══ -->
-<div class="panel" id="panel-gallery"></div>
-<!-- ═══ TAB 3: פרומפטים ═══ -->
-<div class="panel" id="panel-prompts"></div>
-<!-- ═══ TAB 4: סטטיסטיקות ═══ -->
-<div class="panel" id="panel-stats"></div>
-</div>
+<div id="app"></div>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Heebo',sans-serif;background:#F0F4F8;color:#1A2332;direction:rtl;min-height:100vh}
+.hero{background:linear-gradient(135deg,#0F2640,#1B3A5C,#2A5A8C);color:#fff;padding:32px 24px;text-align:center}
+.hero h1{font-size:28px;font-weight:900}
+.hero p{font-size:14px;opacity:.85;margin-top:6px;max-width:520px;margin-inline:auto;line-height:1.5}
+.hero .note{font-size:11px;opacity:.5;margin-top:8px}
+.tabs{display:flex;justify-content:center;gap:6px;padding:14px;background:#fff;border-bottom:1px solid #e0e8f0;position:sticky;top:0;z-index:10}
+.tab{padding:8px 18px;border-radius:20px;border:2px solid #d0dae8;background:none;font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:#2A5A8C;transition:all .2s}
+.tab.on{background:#1B3A5C;color:#fff;border-color:#1B3A5C}
+.wrap{max-width:900px;margin:0 auto;padding:20px 16px}
+.pnl{display:none}.pnl.on{display:block}
+.card{background:#fff;border-radius:14px;padding:20px;border:1.5px solid #e0e8f0;box-shadow:0 2px 12px rgba(27,58,92,.06);margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.tag{display:inline-block;padding:2px 9px;border-radius:10px;font-size:10px;font-weight:700}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:700;color:#1B3A5C;margin-bottom:8px}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:7px 15px;border-radius:18px;border:2px solid #d0dae8;background:none;font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:#2A5A8C;transition:all .15s}
+.chip.on{background:#1B3A5C;color:#fff;border-color:#1B3A5C}
+.txt{width:100%;padding:11px 14px;border:1.5px solid #d0dae8;border-radius:10px;font-family:'Heebo',sans-serif;font-size:14px;resize:vertical;min-height:70px;direction:rtl}
+.txt:focus{outline:none;border-color:#2A5A8C}
+.star{font-size:28px;cursor:pointer;color:#ddd;background:none;border:none;padding:0;user-select:none}
+.star.on{color:#E8A020}
+.btn{width:100%;padding:14px;border:none;border-radius:10px;background:#1B3A5C;color:#fff;font-family:'Heebo',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:6px}
+.btn:disabled{opacity:.4}
+.empty{text-align:center;padding:50px;color:#6B7A8D;font-size:14px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
+.sc{background:#fff;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e0e8f0}
+.sc .n{font-size:30px;font-weight:900;color:#1B3A5C}.sc .l{font-size:11px;color:#6B7A8D;margin-top:4px}
+.br{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.bl{min-width:80px;font-size:12px;text-align:right;color:#444}
+.bt{flex:1;height:22px;background:#eee;border-radius:6px;overflow:hidden}
+.bf{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;font-size:11px;color:#fff;font-weight:700;min-width:24px}
+.prompt-box{background:#F0F4F8;border-radius:8px;padding:10px 12px;margin-top:8px;border-right:3px solid #E8A020;font-size:12px;color:#444;line-height:1.5;white-space:pre-wrap}
+.ftr{text-align:center;padding:20px;font-size:12px;color:#aaa}
+.ftr a{color:#1B3A5C;text-decoration:none;font-weight:600}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.sg{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script>
+const SU='https://script.google.com/macros/s/AKfycbwD8CMFoP5XoOwRLwK_OxMMOFKF8fS2CRpbJkNdOHjbnJIepkOLzlGrg3GQNGRqbwB6bA/exec';
+const LS='bina-bashetach-tips';
+const DS=['סיעוד','נכות','גמלאות','אבטלה','מנהלה','שירות','אחר'];
+const TS=['5 דק\'','15 דק\'','30 דק\'','שעה','כמה שעות'];
+const CS=['#1B3A5C','#2A5A8C','#3B7DD8','#5B9BD5','#E8A020','#D4534B','#1A7A4E'];
+let fd={d:'',r:0,t:''},filt='';
+if(!localStorage.getItem(LS)){localStorage.setItem(LS,JSON.stringify([
+{id:1,name:'מלי ע.',domain:'סיעוד',desc:'ביקשתי מהצ\'אט לסכם תיק תביעה מורכב ב-3 נקודות. חסך לי כ-40 דקות.',rating:5,time:'30 דק\'',prompt:'סכם את תיק התביעה ב-3 נקודות: מצב רפואי, רמת תפקוד, המלצה.',ts:'2026-03-28'},
+{id:2,name:'דנה ר.',domain:'גמלאות',desc:'ביקשתי טבלת השוואה בין מסלולי כפל גמלאות. עזר לי להסביר לאזרח בשיחה.',rating:5,time:'15 דק\'',prompt:'הסבר הבדלים בין מסלולי כפל גמלאות סעיף 320 בטבלה.',ts:'2026-03-27'},
+{id:3,name:'אנונימי',domain:'מנהלה',desc:'כתבתי סיכום ישיבה מרשימת נקודות. קיבלתי מסמך עם החלטות ואחראים.',rating:4,time:'15 דק\'',prompt:'',ts:'2026-03-27'}
+]));}
+function gt(){return JSON.parse(localStorage.getItem(LS)||'[]');}
+function e(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,'<br>');}
+function showTab(n,b){document.querySelectorAll('.pnl').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById('p-'+n).classList.add('on');b.classList.add('on');if(n==='g')rGal();if(n==='pr')rPr();if(n==='st')rSt();}
+document.getElementById('app').innerHTML=`<div class="hero"><h1>💡 בינה בשטח</h1><p>עובדים משתפים שימושים אמיתיים בצ'אט AI — טיפים, פרומפטים וחיסכון בזמן</p><div class="note" style="font-size:11px;opacity:.5;margin-top:8px">כלי פנימי — מינהל גמלאות, ביטוח לאומי</div></div><div class="tabs"><button class="tab on" onclick="showTab('g',this)">🏆 גלריה</button><button class="tab" onclick="showTab('sh',this)">💡 שתף טיפ</button><button class="tab" onclick="showTab('pr',this)">🎯 פרומפטים</button><button class="tab" onclick="showTab('st',this)">📊 נתונים</button></div><div class="wrap"><div class="pnl on" id="p-g"></div><div class="pnl" id="p-sh"></div><div class="pnl" id="p-pr"></div><div class="pnl" id="p-st"></div></div><div class="ftr"><a href="index.html">← פורטל הפרויקטים</a><br>אביעד יצחקי, מינהל גמלאות | ביטוח לאומי</div>`;
+initForm();rGal();
+function rGal(){var t=gt(),el=document.getElementById('p-g');if(!t.length){el.innerHTML='<div class="empty">📭 עדיין אין טיפים</div>';return;}var f=filt?t.filter(x=>x.domain===filt):t;el.innerHTML='<div class="chips" style="margin-bottom:16px"><button class="chip '+(filt?'':'on')+'" onclick="filt=\'\';rGal()">הכל</button>'+DS.map(d=>{var c=t.filter(x=>x.domain===d).length;return c?'<button class="chip '+(filt===d?'on':'')+'" onclick="filt=\''+d+'\';rGal()">'+d+' ('+c+')</button>':'';}).join('')+'</div><div class="grid">'+f.map(x=>'<div class="card"><div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap"><span class="tag" style="background:#e8f0ff;color:#2A5A8C">'+x.domain+'</span><span class="tag" style="background:#d8f5e8;color:#1A7A4E">⏱ '+x.time+'</span><span style="font-size:13px;color:#E8A020;margin-right:auto">'+'★'.repeat(x.rating)+'☆'.repeat(5-x.rating)+'</span></div><p style="font-size:14px;line-height:1.7;margin-bottom:8px">'+e(x.desc)+'</p>'+(x.prompt?'<div class="prompt-box"><div style="font-size:11px;font-weight:700;color:#E8A020;margin-bottom:4px">🎯 פרומפט:</div>'+e(x.prompt)+'</div>':'')+'<div style="font-size:11px;color:#6B7A8D;margin-top:10px">'+x.name+' · '+x.ts+'</div></div>').join('')+'</div>';}
+function rPr(){var t=gt().filter(x=>x.prompt),el=document.getElementById('p-pr');if(!t.length){el.innerHTML='<div class="empty">🎯 עדיין אין פרומפטים — שתף טיפ עם פרומפט</div>';return;}el.innerHTML='<p style="font-size:13px;color:#6B7A8D;margin-bottom:14px">פרומפטים שעובדים — ממוינים לפי דירוג תועלת</p><div class="grid">'+t.sort((a,b)=>b.rating-a.rating).map(x=>'<div class="card"><span class="tag" style="background:#e8f0ff;color:#2A5A8C">'+x.domain+'</span><div class="prompt-box" style="margin-top:10px">'+e(x.prompt)+'</div><p style="font-size:12px;color:#6B7A8D;margin-top:8px">'+e(x.desc)+'</p><div style="font-size:12px;margin-top:8px;display:flex;justify-content:space-between"><span style="color:#E8A020">'+'★'.repeat(x.rating)+' תועלת</span><span style="color:#1A7A4E">⏱ '+x.time+'</span></div></div>').join('')+'</div>';}
+function rSt(){var t=gt(),el=document.getElementById('p-st');if(!t.length){el.innerHTML='<div class="empty">📊 עדיין אין נתונים</div>';return;}var bd={};t.forEach(x=>{bd[x.domain]=(bd[x.domain]||0)+1;});var avg=(t.reduce((s,x)=>s+x.rating,0)/t.length).toFixed(1);var pc=t.filter(x=>x.prompt).length;var un=new Set(t.map(x=>x.name)).size;var so=Object.entries(bd).sort((a,b)=>b[1]-a[1]);var mx=Math.max(...so.map(s=>s[1]),1);el.innerHTML='<div class="sg"><div class="sc"><div class="n">'+t.length+'</div><div class="l">טיפים</div></div><div class="sc"><div class="n">'+un+'</div><div class="l">משתפים</div></div><div class="sc"><div class="n">'+avg+'★</div><div class="l">דירוג ממוצע</div></div><div class="sc"><div class="n">'+pc+'</div><div class="l">פרומפטים</div></div></div><div class="card"><h3 style="font-size:15px;font-weight:700;color:#1B3A5C;margin-bottom:14px">📱 לפי תחום</h3>'+so.map(([d,c],i)=>'<div class="br"><span class="bl">'+d+'</span><div class="bt"><div class="bf" style="width:'+Math.round(c/mx*100)+'%;background:'+CS[i%CS.length]+'">'+c+'</div></div></div>').join('')+'</div>';}
+function initForm(){document.getElementById('p-sh').innerHTML='<div class="card"><div style="font-size:20px;font-weight:800;color:#1B3A5C;margin-bottom:4px">💡 שתף רגע בינה</div><div style="font-size:13px;color:#6B7A8D;margin-bottom:22px;line-height:1.5">ספר מה עשית עם הצ\'אט ואיך זה עזר — הידע שלך שווה לכולם</div><div class="field"><label><span style="color:#c00">*</span> תחום</label><div class="chips" id="dc">'+DS.map(d=>'<button class="chip" onclick="pk(this,\'d\')">'+d+'</button>').join('')+'</div></div><div class="field"><label><span style="color:#c00">*</span> מה עשית עם ה-AI?</label><textarea class="txt" id="f-desc" placeholder="למשל: ביקשתי מהצ\'אט לסכם תיק תביעה..."></textarea></div><div class="field"><label><span style="color:#c00">*</span> כמה תועלת?</label><div id="sr">'+[1,2,3,4,5].map(v=>'<button class="star" data-v="'+v+'" onclick="ps('+v+')">★</button>').join('')+'</div></div><div class="field"><label><span style="color:#c00">*</span> חיסכון זמן</label><div class="chips" id="tc">'+TS.map(t=>'<button class="chip" onclick="pk(this,\'t\')">'+t+'</button>').join('')+'</div></div><div class="field"><label>🎯 הפרומפט <span style="font-size:11px;color:#6B7A8D;font-weight:400">(אופציונלי — מומלץ)</span></label><textarea class="txt" id="f-pr" style="min-height:55px" placeholder="הדבק את הפרומפט שנתת..."></textarea></div><div class="field"><label>שם <span style="font-size:11px;color:#6B7A8D;font-weight:400">(אופציונלי)</span></label><input type="text" class="txt" style="min-height:auto;padding:10px 14px" id="f-nm" placeholder="ברירת מחדל: אנונימי"></div><button class="btn" id="sbtn" onclick="sub()">✅ שתף את הטיפ</button><div id="smsg" style="text-align:center;font-size:13px;margin-top:8px"></div></div>';}
+function pk(b,k){b.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));b.classList.add('on');fd[k]=b.textContent;}
+function ps(v){fd.r=v;document.querySelectorAll('#sr .star').forEach((s,i)=>s.classList.toggle('on',i<v));}
+async function sub(){var desc=document.getElementById('f-desc').value.trim(),pr=document.getElementById('f-pr').value.trim(),nm=document.getElementById('f-nm').value.trim()||'אנונימי';if(!fd.d||!desc||!fd.r||!fd.t){document.getElementById('smsg').innerHTML='<span style="color:#c00">נא למלא את כל השדות *</span>';return;}var b=document.getElementById('sbtn');b.disabled=true;b.textContent='שולח...';var tip={id:Date.now(),name:nm,domain:fd.d,desc:desc,rating:fd.r,time:fd.t,prompt:pr,ts:new Date().toISOString().slice(0,10)};var t=gt();t.unshift(tip);localStorage.setItem(LS,JSON.stringify(t));try{await fetch(SU,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({app:'בינה בשטח',name:nm,category:fd.d,severity:fd.r+'★ | '+fd.t,text:desc+(pr?'\n🎯 '+pr:''),page:'bina-bashetach'})});}catch{}b.disabled=false;b.textContent='✅ שתף את הטיפ';document.getElementById('smsg').innerHTML='<span style="color:#1A7A4E">✅ תודה! הטיפ שותף</span>';document.getElementById('f-desc').value='';document.getElementById('f-pr').value='';fd={d:'',r:0,t:''};document.querySelectorAll('.chip,.star').forEach(c=>c.classList.remove('on'));setTimeout(()=>{document.getElementById('smsg').textContent='';},3000);}
+</script>
 </body>
 </html>
 
-<style>
-/* ═══ Share Form ═══ */
-.form-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(27,58,92,.08);border:1.5px solid #e0e8f0}
-.form-title{font-size:20px;font-weight:800;color:var(--primary);margin-bottom:6px}
-.form-sub{font-size:13px;color:var(--muted);margin-bottom:22px}
-.field{margin-bottom:18px}
-.field label{display:block;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:8px}
-.field label .req{color:#c00;margin-right:2px}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{padding:8px 16px;border-radius:20px;border:2px solid #d0dae8;background:none;font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--secondary);transition:all .15s}
-.chip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
-.chip:hover:not(.on){background:#e8f0ff}
-.txt{width:100%;padding:12px 14px;border:1.5px solid #d0dae8;border-radius:10px;font-family:'Heebo',sans-serif;font-size:14px;resize:vertical;min-height:70px;direction:rtl;color:var(--text)}
-.txt:focus{outline:none;border-color:var(--secondary);box-shadow:0 0 0 3px rgba(42,90,140,.1)}
-.txt-sm{min-height:50px}
-.stars-row{display:flex;gap:6px}
-.star-btn{font-size:28px;cursor:pointer;color:#ddd;transition:color .1s;user-select:none;background:none;border:none;padding:0}
-.star-btn.on{color:var(--accent)}
-.time-chips{display:flex;gap:8px;flex-wrap:wrap}
-.time-chip{padding:8px 14px;border-radius:20px;border:2px solid #d0dae8;background:none;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s}
-.time-chip.on{background:var(--success);color:#fff;border-color:var(--success)}
-.submit-btn{width:100%;padding:14px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-family:'Heebo',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s;margin-top:8px}
-.submit-btn:hover{background:var(--secondary)}
-.submit-btn:disabled{opacity:.5;cursor:not-allowed}
-.status-msg{text-align:center;font-size:13px;margin-top:8px;min-height:20px}
-.optional-tag{font-size:11px;color:var(--muted);font-weight:400;margin-right:6px}
-
-/* ═══ Gallery ═══ */
-.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.use-card{background:#fff;border-radius:14px;padding:20px;border:1.5px solid #e0e8f0;box-shadow:0 2px 10px rgba(27,58,92,.05);transition:transform .2s,box-shadow .2s}
-.use-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(27,58,92,.1)}
-.use-card .domain-tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;background:#e8f0ff;color:var(--secondary);margin-bottom:10px}
-.use-card .desc{font-size:14px;line-height:1.65;color:var(--text);margin-bottom:12px}
-.use-card .meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted)}
-.use-card .saved{color:var(--success);font-weight:700}
-.use-card .rating{color:var(--accent)}
-.use-card .prompt-box{background:var(--light);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:12px;color:#444;border-right:3px solid var(--accent);line-height:1.5;white-space:pre-wrap;max-height:80px;overflow:hidden;cursor:pointer;transition:max-height .3s}
-.use-card .prompt-box.expanded{max-height:500px}
-.use-card .prompt-label{font-size:11px;color:var(--accent);font-weight:700;margin-bottom:4px}
-.like-btn{background:none;border:1px solid #d0dae8;border-radius:16px;padding:4px 12px;font-size:12px;cursor:pointer;color:var(--muted);font-family:'Heebo',sans-serif;transition:all .15s}
-.like-btn:hover,.like-btn.liked{background:#e8f3ff;color:var(--primary);border-color:var(--primary)}
-
-/* ═══ Stats ═══ */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
-.stat-card{background:#fff;border-radius:14px;padding:20px;text-align:center;box-shadow:0 2px 10px rgba(27,58,92,.05);border:1.5px solid #e0e8f0}
-.stat-card .num{font-size:32px;font-weight:900;color:var(--primary);line-height:1.1}
-.stat-card .lbl{font-size:12px;color:var(--muted);margin-top:4px}
-.chart-card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(27,58,92,.05);border:1.5px solid #e0e8f0;margin-bottom:16px}
-.chart-card h3{font-size:15px;font-weight:700;color:var(--primary);margin-bottom:14px}
-.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
-.bar-label{min-width:100px;font-size:13px;text-align:right;color:#444;flex-shrink:0}
-.bar-track{flex:1;height:24px;background:#eee;border-radius:6px;overflow:hidden}
-.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;font-size:11px;color:#fff;font-weight:700;min-width:28px;transition:width .5s}
-
-/* ═══ Empty ═══ */
-.empty{text-align:center;padding:50px 20px;color:var(--muted)}
-.empty .icon{font-size:3rem;margin-bottom:10px}
-
-/* ═══ Loading ═══ */
-.loading{text-align:center;padding:50px;color:var(--muted);font-size:14px}
-
-/* ═══ Filter ═══ */
-.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
-.filter-bar label{font-size:13px;font-weight:700;color:var(--primary)}
-.filter-chip{padding:6px 14px;border-radius:16px;border:1.5px solid #d0dae8;background:none;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s}
-.filter-chip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
-
-/* ═══ Footer ═══ */
-.footer{text-align:center;padding:20px;font-size:12px;color:#aaa;margin-top:20px}
-
-@media(max-width:600px){.gallery-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.tabs{gap:4px;padding:12px 8px}.tab{font-size:12px;padding:7px 12px}}
-</style>
-
 <script>
-// ═══ Config ═══
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwD8CMFoP5XoOwRLwK_OxMMOFKF8fS2CRpbJkNdOHjbnJIepkOLzlGrg3GQNGRqbwB6bA/exec';
-const SHEET_ID = '1mArKa0KtZZvR9o3_sEj5bDhaz942w1eQzdF6xNU8RrA';
-const LS_KEY = 'bina-bashetach-tips';
-const DOMAINS = ['סיעוד','נכות','גמלאות','אבטלה','מנהלה','שירות','אחר'];
-const TIME_OPTIONS = ['5 דקות','15 דקות','30 דקות','שעה','כמה שעות','יום+'];
-const COLORS = ['#1B3A5C','#2A5A8C','#3B7DD8','#5B9BD5','#E8A838','#D4534B','#6BAF6E'];
+const SHEET_URL='https://script.google.com/macros/s/AKfycbwD8CMFoP5XoOwRLwK_OxMMOFKF8fS2CRpbJkNdOHjbnJIepkOLzlGrg3GQNGRqbwB6bA/exec';
+const LS='bina-bashetach-v2';
+const DOMAINS=['סיעוד','נכות כללית','גמלאות','אבטלה','שירות ומוקד','מנהלה','אחר'];
+const UNITS=['אגף סיעוד','אגף נכות','אגף גמלאות','מוקד שירות','סניף ת"א','סניף ירושלים','סניף חיפה','סניף ב"ש','הנהלה','אחר'];
+const TIMES=["5 דק'","15 דק'","30 דק'","שעה","כמה שעות","יום שלם"];
+const COLORS=['#1B3A5C','#2A5A8C','#3B7DD8','#5B9BD5','#E8A838','#D4534B','#6BAF6E','#9B59B6'];
+const AC=['#1B3A5C','#2A5A8C','#E8A020','#1A7A4E','#D4534B','#6B2DA8','#3B7DD8'];
+let fDomain='',fUnit='';
+function getTips(){return JSON.parse(localStorage.getItem(LS)||'[]');}
+function saveTips(t){localStorage.setItem(LS,JSON.stringify(t));}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+function initials(n){return n==='אנונימי'?'?':n.charAt(0);}
+function avatarColor(n){let h=0;for(let i=0;i<n.length;i++)h=n.charCodeAt(i)+((h<<5)-h);return AC[Math.abs(h)%AC.length];}
 
-let allTips = [];
-let filterDomain = '';
+// Seed demo
+(function(){if(localStorage.getItem(LS))return;localStorage.setItem(LS,JSON.stringify([
+{id:1,name:'מלי ע.',unit:'אגף סיעוד',domain:'סיעוד',desc:'סיכום תיק תביעת סיעוד מורכב — 12 מסמכים ל-3 נקודות תוך 30 שניות במקום 40 דקות.',rating:5,time:"30 דק'",prompt:'סכם תיק תביעה ב-3 נקודות: מצב רפואי, רמת תפקוד, המלצה. עובדות בלבד.',ts:'2026-03-29T09:15:00',likes:8},
+{id:2,name:'אורי כ.',unit:'אגף נכות',domain:'נכות כללית',desc:'ניסוח מכתב תשובה לערעור נכות — טיוטה מקצועית ומנומקת תוך דקה במקום שעה.',rating:5,time:'שעה',prompt:'כתוב מכתב תשובה לערעור נכות. טון מקצועי ואמפתי. כלול נימוק, סעיף בחוק, צעד הבא.',ts:'2026-03-29T10:30:00',likes:12},
+{id:3,name:'דנה ר.',unit:'מוקד שירות',domain:'גמלאות',desc:'טבלת השוואה בין מסלולי כפל גמלאות סעיף 320 — הדפסתי ושמתי ליד המחשב.',rating:5,time:"15 דק'",prompt:'הסבר הבדלים בין מסלולי כפל גמלאות סעיף 320 בטבלה: מסלול, תנאים, יתרון, חיסרון.',ts:'2026-03-28T14:00:00',likes:15},
+{id:4,name:'יעל מ.',unit:"סניף ת\"א",domain:'שירות ומוקד',desc:'תסריט שיחה למוקד — הסבר זכויות לאזרח ותיק. כל הצוות משתמש בו.',rating:5,time:"30 דק'",prompt:'תסריט שיחה לפקיד מוקד עם אזרח ותיק 67+. פתיחה, שאלות סינון, זכויות, סיכום.',ts:'2026-03-28T16:00:00',likes:10},
+{id:5,name:'רון ש.',unit:'אגף גמלאות',domain:'אבטלה',desc:'פירוק מקרה מורכב של שכיר+עצמאי בחל"ת — הסבר זכאות כפולה בשלבים.',rating:4,time:"15 דק'",prompt:'',ts:'2026-03-27T09:30:00',likes:4},
+{id:6,name:'שירה ל.',unit:'סניף ירושלים',domain:'סיעוד',desc:'רשימת שאלות תפקוד מותאמת למצב רפואי ספציפי — חסכה זמן הכנה לביקור בית.',rating:4,time:"15 דק'",prompt:'צור 10 שאלות תפקוד למבוטח סיעודי עם דמנציה. שאלות שבן משפחה יכול לענות.',ts:'2026-03-27T11:00:00',likes:6},
+{id:7,name:'אנונימי',unit:'הנהלה',domain:'מנהלה',desc:'סיכום ישיבה מרשימת נקודות — מסמך מסודר עם החלטות, אחראים ולוחות זמנים.',rating:4,time:"5 דק'",prompt:'',ts:'2026-03-26T15:00:00',likes:3},
+{id:8,name:'נועה ג.',unit:'אגף סיעוד',domain:'סיעוד',desc:'תרגום מכתב רפואי מערבית לעברית עם שמירה על מונחים מקצועיים.',rating:5,time:'שעה',prompt:'תרגם מכתב רפואי מערבית לעברית. שמור על מונחים רפואיים מדויקים.',ts:'2026-03-26T10:00:00',likes:9}
+]));})();
 
-// ═══ Demo data — preload examples so dashboard isn't empty ═══
-(function seedDemo() {
-  if (localStorage.getItem(LS_KEY)) return; // don't overwrite real data
-  const demo = [
-    { id:1, name:'מלי ע.', domain:'סיעוד', desc:'ביקשתי מהצ\'אט לסכם תיק תביעת סיעוד מורכב — 12 מסמכים ל-3 נקודות עיקריות. קיבלתי סיכום מובנה תוך 30 שניות במקום 40 דקות ידנית.', rating:5, time:'30 דקות', prompt:'סכם את תיק התביעה הבא ב-3 נקודות: מצב רפואי, רמת תפקוד, המלצה. התמקד בעובדות בלבד.', timestamp:'2026-03-28T09:15:00', likes:3 },
-    { id:2, name:'אורי כ.', domain:'נכות', desc:'השתמשתי בצ\'אט כדי לנסח מכתב תשובה למבוטח שערער על החלטה. הצ\'אט כתב טיוטה מקצועית ומנומקת שחסכה לי שעה של ניסוח.', rating:4, time:'שעה', prompt:'כתוב טיוטת מכתב תשובה לערעור על החלטת נכות. הטון: מקצועי ואמפתי. כלול: נימוק, הפניה לסעיף בחוק, הנחיה לצעד הבא.', timestamp:'2026-03-28T10:30:00', likes:5 },
-    { id:3, name:'דנה ר.', domain:'גמלאות', desc:'ביקשתי מהצ\'אט להסביר לי את ההבדל בין 3 מסלולי כפל גמלאות לפי סעיף 320. קיבלתי טבלת השוואה ברורה שעזרה לי להסביר לאזרח בשיחה.', rating:5, time:'15 דקות', prompt:'הסבר את ההבדלים בין מסלולי כפל גמלאות לפי סעיף 320 בטבלת השוואה. עמודות: מסלול, תנאים, יתרונות, חסרונות.', timestamp:'2026-03-27T14:00:00', likes:7 },
-    { id:4, name:'אנונימי', domain:'מנהלה', desc:'השתמשתי בצ\'אט כדי לכתוב סיכום ישיבה מתוך רשימת נקודות שרשמתי. קיבלתי מסמך מסודר עם החלטות, אחראים ולוחות זמנים.', rating:4, time:'15 דקות', prompt:'', timestamp:'2026-03-27T11:00:00', likes:2 },
-    { id:5, name:'יעל מ.', domain:'שירות', desc:'ביקשתי מהצ\'אט לעזור לי להכין תסריט שיחה למוקד — איך להסביר לאזרח ותיק את כל הזכויות שמגיעות לו. קיבלתי תסריט מובנה עם שאלות מנחות.', rating:5, time:'30 דקות', prompt:'צור תסריט שיחה לפקיד מוקד עם אזרח ותיק (67+). כלול: פתיחה, שאלות סינון, הצגת זכויות, סיכום וצעדים הבאים. שפה פשוטה ואמפתית.', timestamp:'2026-03-26T16:00:00', likes:4 },
-    { id:6, name:'רון ש.', domain:'אבטלה', desc:'הצ\'אט עזר לי להבין מקרה מורכב של עובד שהוא גם שכיר וגם עצמאי שיצא לחל"ת. קיבלתי הסבר מפורט על הזכאות הכפולה.', rating:4, time:'15 דקות', prompt:'', timestamp:'2026-03-26T09:30:00', likes:1 },
-  ];
-  localStorage.setItem(LS_KEY, JSON.stringify(demo));
-})();
+// Hero stats
+function updateHero(){var t=getTips(),hrs=t.reduce(function(s,x){var m={"5 דק'":5,"15 דק'":15,"30 דק'":30,"שעה":60,"כמה שעות":180,"יום שלם":480};return s+(m[x.time]||15);},0);
+document.getElementById('hero-stats').innerHTML='<div class="hero-stat"><div class="num">'+t.length+'</div><div class="lbl">טיפים שותפו</div></div><div class="hero-stat"><div class="num">'+Math.round(hrs/60)+'</div><div class="lbl">שעות נחסכו</div></div><div class="hero-stat"><div class="num">'+new Set(t.map(function(x){return x.name})).size+'</div><div class="lbl">עובדים משתפים</div></div><div class="hero-stat"><div class="num">'+t.filter(function(x){return x.prompt}).length+'</div><div class="lbl">פרומפטים</div></div>';}
+updateHero();
 
-// ═══ Tab switching ═══
-function showTab(name, btn) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('panel-' + name).classList.add('active');
-  btn.classList.add('active');
-  if (name === 'gallery') renderGallery();
-  if (name === 'prompts') renderPrompts();
-  if (name === 'stats') renderStats();
-}
+function showTab(n,btn){document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});document.getElementById('panel-'+n).classList.add('active');btn.classList.add('active');if(n==='gallery')renderGallery();if(n==='prompts')renderPrompts();if(n==='stats')renderStats();}
 
-// ═══ Share Form ═══
-(function initForm() {
-  const el = document.getElementById('panel-share');
-  el.innerHTML = `
-    <div class="form-card">
-      <div class="form-title">💡 שתף רגע בינה</div>
-      <div class="form-sub">ספר לעמיתים מה עשית עם הצ'אט ואיך זה עזר — הידע שלך שווה לכולם</div>
-      <div class="field">
-        <label><span class="req">*</span> תחום עבודה</label>
-        <div class="chips" id="domain-chips">
-          ${DOMAINS.map(d => `<button class="chip" onclick="pickChip(this,'domain')">${d}</button>`).join('')}
-        </div>
-      </div>
-      <div class="field">
-        <label><span class="req">*</span> מה עשית עם ה-AI?</label>
-        <textarea class="txt" id="tip-desc" placeholder="למשל: ביקשתי מהצ'אט לסכם תיק תביעה מורכב ב-3 נקודות עיקריות..."></textarea>
-      </div>
-      <div class="field">
-        <label><span class="req">*</span> כמה תועלת הייתה?</label>
-        <div class="stars-row" id="stars-row">
-          ${[1,2,3,4,5].map(v => `<button class="star-btn" data-v="${v}" onclick="pickStar(${v})">★</button>`).join('')}
-        </div>
-      </div>
-      <div class="field">
-        <label><span class="req">*</span> כמה זמן חסך לך?</label>
-        <div class="time-chips" id="time-chips">
-          ${TIME_OPTIONS.map(t => `<button class="time-chip" onclick="pickChip(this,'time')">${t}</button>`).join('')}
-        </div>
-      </div>
-      <div class="field">
-        <label>🎯 הפרומפט שעבד <span class="optional-tag">(אופציונלי — מומלץ מאוד)</span></label>
-        <textarea class="txt txt-sm" id="tip-prompt" placeholder="הדבק כאן את הפרומפט שנתת לצ'אט..."></textarea>
-      </div>
-      <div class="field">
-        <label>שם <span class="optional-tag">(אופציונלי — ברירת מחדל: אנונימי)</span></label>
-        <input type="text" class="txt" style="min-height:auto;padding:10px 14px" id="tip-name" placeholder="השם שלך">
-      </div>
-      <button class="submit-btn" id="submit-btn" onclick="submitTip()">✅ שתף את הטיפ</button>
-      <div class="status-msg" id="status-msg"></div>
-    </div>`;
-})();
+function likeTip(id,btn){var tips=getTips(),t=tips.find(function(x){return x.id===id});if(t){t.likes++;saveTips(tips);btn.classList.add('on');btn.querySelector('span').textContent='('+t.likes+')';updateHero();}}
 
-let formData = { domain: '', rating: 0, time: '' };
+// Gallery
+function renderGallery(){var tips=getTips(),el=document.getElementById('panel-gallery');
+if(!tips.length){el.innerHTML='<div class="empty"><div class="icon">📭</div><p>עדיין אין טיפים</p></div>';return;}
+var domains=[],units=[];tips.forEach(function(t){if(domains.indexOf(t.domain)<0)domains.push(t.domain);if(units.indexOf(t.unit)<0)units.push(t.unit);});
+var filtered=tips.filter(function(t){return(!fDomain||t.domain===fDomain)&&(!fUnit||t.unit===fUnit)}).sort(function(a,b){return b.likes-a.likes});
+var h='<div class="filter-section"><div class="filter-row"><span class="filter-label">תחום:</span>';
+h+='<button class="f-chip '+(fDomain?'':'on')+'" onclick="fDomain=\'\';renderGallery()">הכל</button>';
+domains.forEach(function(d){var c=tips.filter(function(t){return t.domain===d}).length;h+='<button class="f-chip '+(fDomain===d?'on':'')+'" onclick="fDomain=\''+d+'\';renderGallery()">'+d+' ('+c+')</button>';});
+h+='</div><div class="filter-row"><span class="filter-label">יחידה:</span>';
+h+='<button class="f-chip '+(fUnit?'':'on')+'" onclick="fUnit=\'\';renderGallery()">הכל</button>';
+units.forEach(function(u){h+='<button class="f-chip '+(fUnit===u?'on':'')+'" onclick="fUnit=\''+u+'\';renderGallery()">'+u+'</button>';});
+h+='</div></div><div class="gallery-grid">';
+filtered.forEach(function(t){
+h+='<div class="tip-card"><div class="tip-top"><div class="tip-avatar" style="background:'+avatarColor(t.name)+'">'+initials(t.name)+'</div><div class="tip-header"><div class="tip-name">'+esc(t.name)+'</div><div class="tip-meta"><span class="tag tag-domain">'+t.domain+'</span><span class="tag tag-unit">'+t.unit+'</span><span class="tag tag-time">⏱ '+t.time+'</span></div></div></div>';
+h+='<div class="tip-desc">'+esc(t.desc)+'</div>';
+if(t.prompt)h+='<div class="tip-prompt-box"><div class="tip-prompt-label">🎯 הפרומפט שעבד:</div><div class="tip-prompt-text">'+esc(t.prompt)+'</div></div>';
+h+='<div class="tip-footer"><span class="tip-rating">'+'★'.repeat(t.rating)+'☆'.repeat(5-t.rating)+'</span><div class="tip-helpful"><button class="helpful-btn" onclick="likeTip('+t.id+',this)">👍 עזר לי <span>('+t.likes+')</span></button></div></div></div>';
+});
+h+='</div>';el.innerHTML=h;}
+renderGallery();
 
-function pickChip(btn, type) {
-  btn.parentElement.querySelectorAll('.chip,.time-chip').forEach(c => c.classList.remove('on'));
-  btn.classList.add('on');
-  formData[type] = btn.textContent;
-}
-function pickStar(v) {
-  formData.rating = v;
-  document.querySelectorAll('#stars-row .star-btn').forEach((s, i) => s.classList.toggle('on', i < v));
-}
+// Share form
+var formData={domain:'',unit:'',rating:0,time:''};
+(function(){document.getElementById('panel-share').innerHTML='<div class="form-card"><div class="form-title">💡 שתף רגע בינה</div><div class="form-sub">ספר מה עשית עם הצ\'אט ואיך זה עזר — הידע שלך שווה לכולם</div><div class="field"><label><span class="req">*</span> תחום</label><div class="chips" id="dc">'+DOMAINS.map(function(d){return '<button class="chip" onclick="pickC(this,\'domain\')">'+d+'</button>'}).join('')+'</div></div><div class="field"><label><span class="req">*</span> יחידה / סניף</label><div class="chips" id="uc">'+UNITS.map(function(u){return '<button class="chip" onclick="pickC(this,\'unit\')">'+u+'</button>'}).join('')+'</div></div><div class="field"><label><span class="req">*</span> מה עשית עם ה-AI?</label><textarea class="txt" id="f-desc" placeholder="למשל: ביקשתי מהצ\'אט לסכם תיק תביעה מורכב ב-3 נקודות..."></textarea></div><div class="field"><label><span class="req">*</span> כמה תועלת?</label><div class="stars-row" id="f-stars">'+[1,2,3,4,5].map(function(v){return '<button class="star-btn" onclick="pickStar('+v+')">★</button>'}).join('')+'</div></div><div class="field"><label><span class="req">*</span> כמה זמן חסך?</label><div class="chips" id="tc">'+TIMES.map(function(t){return '<button class="chip" onclick="pickC(this,\'time\')">'+t+'</button>'}).join('')+'</div></div><div class="field"><label>🎯 הפרומפט שעבד <span class="opt">(מומלץ מאוד)</span></label><textarea class="txt txt-sm" id="f-prompt" placeholder="הדבק כאן את הפרומפט שנתת לצ\'אט..."></textarea></div><div class="field"><label>שם <span class="opt">(ברירת מחדל: אנונימי)</span></label><input type="text" class="txt" style="min-height:auto;padding:10px 14px" id="f-name" placeholder="השם שלך"></div><button class="submit-btn" id="sbtn" onclick="submitTip()">✅ שתף את הטיפ</button><div class="status-msg" id="smsg"></div></div>';})();
+function pickC(btn,k){btn.parentElement.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on')});btn.classList.add('on');formData[k]=btn.textContent;}
+function pickStar(v){formData.rating=v;document.querySelectorAll('#f-stars .star-btn').forEach(function(s,i){s.classList.toggle('on',i<v)});}
 
-async function submitTip() {
-  const desc = document.getElementById('tip-desc').value.trim();
-  const prompt = document.getElementById('tip-prompt').value.trim();
-  const name = document.getElementById('tip-name').value.trim() || 'אנונימי';
-  if (!formData.domain || !desc || !formData.rating || !formData.time) {
-    document.getElementById('status-msg').innerHTML = '<span style="color:#c00">נא למלא את כל השדות המסומנים *</span>';
-    return;
-  }
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true; btn.textContent = 'שולח...';
-  const tip = {
-    id: Date.now(), name, domain: formData.domain, desc, rating: formData.rating,
-    time: formData.time, prompt, timestamp: new Date().toISOString(), likes: 0
-  };
-  // Save locally
-  const tips = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
-  tips.unshift(tip); localStorage.setItem(LS_KEY, JSON.stringify(tips));
-  // Send to Sheet
-  try {
-    await fetch(SHEET_URL, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        app: 'בינה בשטח', name, category: formData.domain,
-        severity: formData.rating + '★ | ' + formData.time,
-        text: desc + (prompt ? '\n\n🎯 פרומפט: ' + prompt : ''),
-        page: 'bina-bashetach'
-      })
-    });
-  } catch {}
-  // Reset
-  btn.disabled = false; btn.textContent = '✅ שתף את הטיפ';
-  document.getElementById('status-msg').innerHTML = '<span style="color:var(--success)">✅ תודה! הטיפ שלך נשמר ושותף עם הצוות</span>';
-  document.getElementById('tip-desc').value = '';
-  document.getElementById('tip-prompt').value = '';
-  formData = { domain: '', rating: 0, time: '' };
-  document.querySelectorAll('.chip,.time-chip,.star-btn').forEach(c => c.classList.remove('on'));
-  setTimeout(() => { document.getElementById('status-msg').textContent = ''; }, 4000);
-}
+async function submitTip(){var desc=document.getElementById('f-desc').value.trim(),prompt=document.getElementById('f-prompt').value.trim(),name=document.getElementById('f-name').value.trim()||'אנונימי';
+if(!formData.domain||!formData.unit||!desc||!formData.rating||!formData.time){document.getElementById('smsg').innerHTML='<span style="color:#c00">נא למלא את כל השדות המסומנים *</span>';return;}
+var btn=document.getElementById('sbtn');btn.disabled=true;btn.textContent='שולח...';
+var tip={id:Date.now(),name:name,unit:formData.unit,domain:formData.domain,desc:desc,rating:formData.rating,time:formData.time,prompt:prompt,ts:new Date().toISOString(),likes:0};
+var tips=getTips();tips.unshift(tip);saveTips(tips);
+try{await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({app:'בינה בשטח',name:name+' | '+formData.unit,category:formData.domain,severity:formData.rating+'★ | '+formData.time,text:desc+(prompt?'\n🎯 '+prompt:''),page:'bina-bashetach'})});}catch(e){}
+btn.disabled=false;btn.textContent='✅ שתף את הטיפ';
+document.getElementById('smsg').innerHTML='<span style="color:var(--ok)">✅ תודה! הטיפ שלך נשמר ושותף עם הצוות</span>';
+document.getElementById('f-desc').value='';document.getElementById('f-prompt').value='';
+formData={domain:'',unit:'',rating:0,time:''};document.querySelectorAll('.chip,.star-btn').forEach(function(c){c.classList.remove('on')});
+updateHero();setTimeout(function(){document.getElementById('smsg').textContent='';},4000);}
 
-// ═══ Gallery ═══
-function renderGallery() {
-  const tips = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
-  const el = document.getElementById('panel-gallery');
-  if (!tips.length) {
-    el.innerHTML = '<div class="empty"><div class="icon">📭</div><p>עדיין אין טיפים — היה הראשון לשתף!</p></div>';
-    return;
-  }
-  const filtered = filterDomain ? tips.filter(t => t.domain === filterDomain) : tips;
-  el.innerHTML = `
-    <div class="filter-bar">
-      <label>🔍 סנן:</label>
-      <button class="filter-chip ${!filterDomain?'on':''}" onclick="setFilter('')">הכל</button>
-      ${DOMAINS.map(d => {
-        const count = tips.filter(t => t.domain === d).length;
-        return count ? `<button class="filter-chip ${filterDomain===d?'on':''}" onclick="setFilter('${d}')">${d} (${count})</button>` : '';
-      }).join('')}
-    </div>
-    <div class="gallery-grid">
-      ${filtered.map(t => `
-        <div class="use-card">
-          <span class="domain-tag">${t.domain}</span>
-          <div class="desc">${esc(t.desc)}</div>
-          ${t.prompt ? `<div class="prompt-label">🎯 פרומפט:</div><div class="prompt-box" onclick="this.classList.toggle('expanded')">${esc(t.prompt)}</div>` : ''}
-          <div class="meta">
-            <span>${t.name} · ${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</span>
-            <span class="saved">⏱ ${t.time}</span>
-          </div>
-        </div>`).join('')}
-    </div>`;
-}
-function setFilter(d) { filterDomain = d; renderGallery(); }
+// Prompts tab
+function renderPrompts(){var tips=getTips().filter(function(t){return t.prompt}),el=document.getElementById('panel-prompts');
+if(!tips.length){el.innerHTML='<div class="empty"><div class="icon">🎯</div><p>עדיין אין פרומפטים — שתף טיפ עם פרומפט</p></div>';return;}
+tips.sort(function(a,b){return b.likes-a.likes});
+var h='<p style="margin-bottom:16px;font-size:14px;color:var(--muted)">🎯 פרומפטים שעובדים — ממוינים לפי תועלת</p><div class="gallery-grid">';
+tips.forEach(function(t){h+='<div class="tip-card"><div class="tip-top"><div class="tip-avatar" style="background:'+avatarColor(t.name)+'">'+initials(t.name)+'</div><div class="tip-header"><div class="tip-name">'+esc(t.name)+'</div><div class="tip-meta"><span class="tag tag-domain">'+t.domain+'</span><span class="tag tag-unit">'+t.unit+'</span></div></div></div><div class="tip-prompt-box" style="margin-top:0"><div class="tip-prompt-label">🎯 הפרומפט:</div><div class="tip-prompt-text">'+esc(t.prompt)+'</div></div><div class="tip-desc" style="font-size:13px;color:var(--muted)">'+esc(t.desc)+'</div><div class="tip-footer"><span class="tip-rating">'+'★'.repeat(t.rating)+'☆'.repeat(5-t.rating)+'</span><span class="tag tag-time">⏱ '+t.time+'</span></div></div>';});
+h+='</div>';el.innerHTML=h;}
 
-// ═══ Prompts ═══
-function renderPrompts() {
-  const tips = JSON.parse(localStorage.getItem(LS_KEY) || '[]').filter(t => t.prompt);
-  const el = document.getElementById('panel-prompts');
-  if (!tips.length) {
-    el.innerHTML = '<div class="empty"><div class="icon">🎯</div><p>עדיין אין פרומפטים — שתף טיפ עם פרומפט כדי שיופיע כאן</p></div>';
-    return;
-  }
-  el.innerHTML = `
-    <div style="margin-bottom:16px;font-size:14px;color:var(--muted)">פרומפטים שעובדים — מדורגים לפי תועלת</div>
-    <div class="gallery-grid">
-      ${tips.sort((a,b) => b.rating - a.rating).map(t => `
-        <div class="use-card">
-          <span class="domain-tag">${t.domain}</span>
-          <div class="prompt-box expanded" style="max-height:none;cursor:text">${esc(t.prompt)}</div>
-          <div class="desc" style="margin-top:10px;font-size:13px;color:var(--muted)">${esc(t.desc)}</div>
-          <div class="meta">
-            <span class="rating">${'★'.repeat(t.rating)} תועלת</span>
-            <span class="saved">⏱ ${t.time}</span>
-          </div>
-        </div>`).join('')}
-    </div>`;
-}
-
-// ═══ Stats ═══
-function renderStats() {
-  const tips = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
-  const el = document.getElementById('panel-stats');
-  if (!tips.length) {
-    el.innerHTML = '<div class="empty"><div class="icon">📊</div><p>עדיין אין נתונים — שתף טיפ ראשון</p></div>';
-    return;
-  }
-  const byDomain = {};
-  tips.forEach(t => { byDomain[t.domain] = (byDomain[t.domain] || 0) + 1; });
-  const avgRating = (tips.reduce((s,t) => s + t.rating, 0) / tips.length).toFixed(1);
-  const promptCount = tips.filter(t => t.prompt).length;
-  const uniqueNames = new Set(tips.map(t => t.name)).size;
-  const sorted = Object.entries(byDomain).sort((a,b) => b[1] - a[1]);
-  const mx = Math.max(...sorted.map(s => s[1]), 1);
-
-  el.innerHTML = `
-    <div class="stats-grid">
-      <div class="stat-card"><div class="num">${tips.length}</div><div class="lbl">טיפים שותפו</div></div>
-      <div class="stat-card"><div class="num">${uniqueNames}</div><div class="lbl">עובדים משתפים</div></div>
-      <div class="stat-card"><div class="num">${avgRating}★</div><div class="lbl">דירוג ממוצע</div></div>
-      <div class="stat-card"><div class="num">${promptCount}</div><div class="lbl">פרומפטים מנצחים</div></div>
-    </div>
-    <div class="chart-card">
-      <h3>📱 טיפים לפי תחום</h3>
-      ${sorted.map(([d,c], i) => {
-        const p = Math.round(c / mx * 100);
-        return `<div class="bar-row"><span class="bar-label">${d}</span><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${COLORS[i%COLORS.length]}">${c}</div></div></div>`;
-      }).join('')}
-    </div>`;
-}
-
-function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>'); }
+// Stats tab
+function renderStats(){var tips=getTips(),el=document.getElementById('panel-stats');
+if(!tips.length){el.innerHTML='<div class="empty"><div class="icon">📊</div><p>עדיין אין נתונים</p></div>';return;}
+var byDomain={},byUnit={};tips.forEach(function(t){byDomain[t.domain]=(byDomain[t.domain]||0)+1;byUnit[t.unit]=(byUnit[t.unit]||0)+1;});
+var avg=(tips.reduce(function(s,t){return s+t.rating},0)/tips.length).toFixed(1);
+var hrs=tips.reduce(function(s,x){var m={"5 דק'":5,"15 דק'":15,"30 דק'":30,"שעה":60,"כמה שעות":180,"יום שלם":480};return s+(m[x.time]||15);},0);
+var h='<div class="stats-grid"><div class="stat-card"><div class="num">'+tips.length+'</div><div class="lbl">טיפים</div></div><div class="stat-card"><div class="num">'+Math.round(hrs/60)+'</div><div class="lbl">שעות נחסכו</div></div><div class="stat-card"><div class="num">'+avg+'★</div><div class="lbl">דירוג ממוצע</div></div><div class="stat-card"><div class="num">'+tips.filter(function(t){return t.prompt}).length+'</div><div class="lbl">פרומפטים</div></div></div>';
+h+=buildChart('📂 לפי תחום',byDomain);h+=buildChart('🏢 לפי יחידה',byUnit);el.innerHTML=h;}
+function buildChart(title,data){var sorted=Object.entries(data).sort(function(a,b){return b[1]-a[1]});var mx=Math.max.apply(null,sorted.map(function(s){return s[1]}));
+var h='<div class="chart-card"><h3>'+title+'</h3>';sorted.forEach(function(e,i){var p=Math.round(e[1]/mx*100);h+='<div class="bar-row"><span class="bar-label">'+e[0]+'</span><div class="bar-track"><div class="bar-fill" style="width:'+p+'%;background:'+COLORS[i%COLORS.length]+'">'+e[1]+'</div></div></div>';});
+return h+'</div>';}
 </script>
-<div class="footer">
-  <a href="index.html" style="color:var(--primary);text-decoration:none;font-weight:600;font-size:13px">← חזרה לפורטל הפרויקטים</a>
-  <br>אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | בינה בשטח v1.0
-</div>
