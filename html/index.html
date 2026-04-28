@@ -4,9 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <title>פרויקטי AI — מינהל גמלאות | ביטוח לאומי</title>
 <meta name="description" content="כלים דיגיטליים מבוססי AI לשיפור מיצוי זכויות ושירות אזרח — מינהל גמלאות, ביטוח לאומי">
 <meta name="author" content="אביעד יצחקי, מוביל AI מינהל גמלאות">
@@ -98,6 +95,8 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 
 /* === Card Actions === */
 .card-actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.card-updated{font-size:10px;color:var(--muted);opacity:.6;margin-top:8px;text-align:left}
+.card-updated{font-size:10px;color:var(--muted);opacity:.6;margin-top:8px;text-align:left}
 .btn{padding:9px 16px;border-radius:8px;border:none;font-family:'Heebo',Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:all .2s ease}
 .btn:hover{opacity:.88;transform:translateY(-1px)}
 .btn-primary{background:var(--primary);color:#fff}
@@ -216,12 +215,12 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   <!-- ═══ כלים טכנולוגיים ═══ -->
   <div class="section-header">
     <span class="section-title">🖥 כלים טכנולוגיים</span>
-    <span class="section-count">6 כלים — כולם חיים באוויר</span>
+    <span class="section-count">7 כלים — כולם חיים באוויר</span>
   </div>
   <div class="projects-grid">
 
     <!-- 1. דשבורד -->
-    <div class="project-card">
+    <div class="project-card" data-repo="dashboard-gamlaut">
       <div class="card-header">
         <h3>📊 דשבורד פערי גמלאות ברשויות</h3>
         <p>תמונת מצב ארצית של פערי מיצוי גמלאות — 257 רשויות, 9 גמלאות, 339 ישובים</p>
@@ -244,7 +243,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     </div>
 
     <!-- 2. ארנק -->
-    <div class="project-card">
+    <div class="project-card" data-repo="arnak-zchuyot">
       <div class="card-header">
         <h3>👛 ארנק זכויות — מצפן ההטבות</h3>
         <p>מיצוי זכויות 360 בכל הממשלה — ONE GOV — רשימת זכויות אישית לכל אזרח</p>
@@ -267,7 +266,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     </div>
 
     <!-- 3. ועדות -->
-    <div class="project-card">
+    <div class="project-card" data-repo="vaadot-refuiyot">
       <div class="card-header">
         <h3>🏥 ועדות רפואיות — צ'קליסט מסמכים חכם</h3>
         <p>הכנה מושלמת לוועדה רפואית — מותאם אישית לסוג הוועדה</p>
@@ -289,7 +288,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     </div>
 
     <!-- 4. מיצוי 360 -->
-    <div class="project-card">
+    <div class="project-card" data-repo="mitzui-360">
       <div class="card-header">
         <h3>🎯 מיצוי זכויות 360</h3>
         <p>כלי AI לסיוע לאזרח במצבי משבר — זיהוי כל הזכויות הרלוונטיות תוך 30 שניות</p>
@@ -312,7 +311,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     </div>
 
     <!-- 5. מחשבון -->
-    <div class="project-card">
+    <div class="project-card" data-repo="machshevon-kefel--ZOSH">
       <div class="card-header">
         <h3>🧮 מחשבון גמלאות — כפל וסעיף 320</h3>
         <p>כלי לסיוע לאזרח בבחירה מורכבת — חישוב אוטומטי של זכאות לכפל גמלאות</p>
@@ -335,7 +334,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     </div>
 
     <!-- 6. הנגשת סיעוד -->
-    <div class="project-card">
+    <div class="project-card" data-repo="nursing-helper">
       <div class="card-header">
         <h3>♿ הנגשת בחירה ומיצוי זכויות בסיעוד</h3>
         <p>כלי לבחירת שירותים ומיצוי זכויות ל-390 אלף זכאי סיעוד</p>
@@ -362,7 +361,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   <!-- ═══ מהלכים אסטרטגיים ═══ -->
   <div class="section-header">
     <span class="section-title">🧭 מהלכים אסטרטגיים</span>
-    <span class="section-count">7 מהלכים אסטרטגיים</span>
+    <span class="section-count">7 מהלכים</span>
   </div>
   <div class="projects-grid">
 
@@ -388,7 +387,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     </div>
 
     <!-- 9. המקפצה -->
-    <div class="project-card">
+    <div class="project-card" data-repo="hamakfetza1">
       <div class="card-header">
         <h3>🚀 המקפצה — כיפת ברזל תעסוקתית</h3>
         <p>אסטרטגיה לאומית בין-משרדית — תעסוקת אוכלוסיות בסיכון בעידן AI</p>
@@ -411,24 +410,25 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     </div>
 
     <!-- 10. סל אישי -->
-    <div class="project-card">
+    <div class="project-card" data-repo="SAL-ISHI-SIUD">
       <div class="card-header">
-        <h3>🧺 סל אישי בסיעוד — רפורמת שירות</h3>
-        <p>שדרוג מערכת ההפעלה — שירות מותאם אישית לאזרח</p>
+        <h3>🧺 סל אישי בסיעוד — רפורמת מערכת הפעלה</h3>
+        <p>ממודל שעות טיפול למודל שימור תפקוד — ארנק דיגיטלי, סבסוד מותאם, CRM פרואקטיבי</p>
       </div>
       <div class="card-body">
-        <div class="status-badge status-live"><span class="pulse-dot"></span> חי באוויר</div>
+        <div class="status-badge status-live"><span class="pulse-dot"></span> פיילוט פעיל — פסגת זאב</div>
         <div class="card-metrics">
-          <div class="metric-chip" data-tip="זכאי סיעוד רמות 1-3"><span>220K</span> זכאים</div>
+          <div class="metric-chip" data-tip="משתתפים בפיילוט פסגת זאב — ~12 חודשים"><span>286</span> משתתפים</div>
+          <div class="metric-chip" data-tip="זכאי סיעוד רמות 1-3 — יעד הרחבה"><span>220K</span> זכאים</div>
+          <div class="metric-chip" data-tip="שירותי מניעה, תפקוד, חוסן, טכנולוגיה ובית"><span>18</span> שירותים</div>
           <div class="metric-chip" data-tip="ספקי שירות בפריסה ארצית"><span>21</span> ספקים</div>
-          <div class="metric-chip" data-tip="מעבר ממודל אחיד לסל מותאם">רפורמת ביזור</div>
         </div>
-        <div class="why-line">שדרוג מערכת ההפעלה בשירות הממשלתי — שירות מותאם אישית לאזרח</div>
+        <div class="why-line">מלווה חברתית מנהלת 65+ לקוחות עם פעולות ממוינות לפי דחיפות — לא רשימת לקוחות. אזרח בוחר שירותים מארנק דיגיטלי אישי</div>
         <div class="card-actions">
-          <a href="https://avi1840.github.io/SAL-ISHI-SIUD/" target="_blank" class="btn btn-live">🟢 כלי מתאמת</a>
-          <a href="https://libi-landing.vercel.app" target="_blank" class="btn btn-live">🟢 LIBI — מערכת מלאה</a>
+          <a href="https://avi1840.github.io/SAL-ISHI-SIUD/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
           <a href="sal-ishi.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
           <a href="../word/11-sal-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+          <a href="https://github.com/AVI1840/SAL-ISHI-SIUD" target="_blank" class="btn btn-secondary">💻 GitHub</a>
         </div>
       </div>
     </div>
@@ -469,8 +469,8 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         </div>
         <div class="why-line">4,500 עובדים מחפשים מידע מקצועי — ברגע, לא בדקות</div>
         <div class="card-actions">
-          <a href="portal-gamlaut.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-          <a href="../word/07-portal-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+          <a href="portal-v2.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
+          <a href="../word/07-portal-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager Word</a>
         </div>
       </div>
     </div>
@@ -517,6 +517,29 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
       </div>
     </div>
 
+    <!-- 15. ניידות -->
+    <div class="project-card" data-repo="mobility-rules-engine">
+      <div class="card-header">
+        <h3>⚖️ מנוע זכויות ניידות — מחוזרים למערכת</h3>
+        <p>כלי תומך החלטה מבוסס כללים לאגף הניידות — Rules-as-Code | Explainable AI | Policy Engine</p>
+      </div>
+      <div class="card-body">
+        <div class="status-badge status-pilot">◉ POC/MVP — ממתין לולידציה מקצועית</div>
+        <div class="card-metrics">
+          <div class="metric-chip" data-tip="הסכם ניידות, תיקון 24, חוזרים, פסקי דין, חוות דעת — הכל מקודד"><span>14</span> מקורות מקצועיים</div>
+          <div class="metric-chip" data-tip="המלצה + הנמקה בעברית + ציטוט משפטי מדויק + רמת ודאות">החלטה מנומקת</div>
+          <div class="metric-chip" data-tip="דטרמיניסטי, מוסבר, ניתן לביקורת — ללא קופסה שחורה">Explainable AI</div>
+          <div class="metric-chip" data-tip="אותה שיטה ניתנת להרחבה לנכות, סיעוד, הבטחת הכנסה וכל תחום נוסף">סקלביליות רוחבית</div>
+        </div>
+        <div class="why-line">פקיד לא צריך לזכור אלפי חוזרים — הוא מזין נתונים ומקבל המלצה עם ציטוט מדויק, שביל ביקורת מלא ורמת ודאות</div>
+        <div class="card-actions">
+          <a href="https://avi1840.github.io/mobility-rules-engine/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
+          <a href="bchirat-gmala.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
+          <a href="https://github.com/AVI1840/mobility-rules-engine" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- ═══ הכשרות AI ═══ -->
@@ -527,7 +550,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   <div class="projects-grid">
 
     <!-- 13. אקדמיית AI -->
-    <div class="project-card">
+    <div class="project-card" data-repo="ai-academy">
       <div class="card-header">
         <h3>🌐 אקדמיית AI למגזר הציבורי</h3>
         <p>אתר ידע ולמידה בינה מלאכותית לכל עובד ציבורי בישראל</p>
@@ -576,7 +599,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   <div class="projects-grid">
 
     <!-- מחשבון חלת לחירום -->
-    <div class="project-card">
+    <div class="project-card" data-repo="shaagat-haari-app">
       <div class="card-header">
         <h3>🚨 מחשבון חל"ת חירום — מבצע שאגת הארי</h3>
         <p>שאלון דינמי לבדיקת זכאות לדמי אבטלה בחל"ת חירום — כל 7 ההקלות מהחוזר, תשובה ברורה ומסמכים נדרשים</p>
@@ -660,11 +683,6 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     </div>
   </div>
 
-  <!-- ═══ אינפוגרפיקה ═══ -->
-  <div style="text-align:center;margin-bottom:36px">
-    <a href="infographic-rapid-dev.html" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#E8A020,#CC7A00);color:#fff;padding:14px 32px;border-radius:12px;text-decoration:none;font-family:'Heebo',sans-serif;font-size:15px;font-weight:700;box-shadow:0 6px 20px rgba(232,160,32,.3);transition:transform .2s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">⚡ שיטת פיתוח מהיר — אינפוגרפיקה להנהלה</a>
-  </div>
-
   <!-- ═══ מה נדרש לשלב הבא ═══ -->
   <div class="needs-box">
     <h2>🔑 מה נדרש לשלב הבא</h2>
@@ -705,7 +723,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   <!-- Footer -->
   <div class="footer-info" id="footer-trigger" style="cursor:default;user-select:none">
     <strong>אביעד יצחקי</strong> | מוביל AI, מינהל גמלאות | ביטוח לאומי | מרץ 2026 | 9 כלים חיים באוויר | פותח לשיפור שירות האזרח
-    <div style="margin-top:6px;font-size:11px;opacity:.5">עדכון אחרון: 25.03.2026</div>
+    <div style="margin-top:6px;font-size:11px;opacity:.5">עדכון אחרון: 09.04.2026</div>
   </div>
 
   <!-- Hidden Dashboard Access -->
@@ -794,13 +812,37 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   // === Auto-count live tools ===
   (function() {
     var liveCount = document.querySelectorAll('.status-badge.status-live').length;
+    // Update hero stat
     var heroStat = document.querySelector('.stat-live .stat-value[data-count]');
     if (heroStat) heroStat.setAttribute('data-count', liveCount);
+    // Update section count text
     var secCount = document.querySelector('.section-count');
     if (secCount && secCount.textContent.includes('כולם חיים באוויר')) {
       var techLive = document.querySelectorAll('.projects-grid:first-of-type .status-badge.status-live').length;
       secCount.textContent = techLive + ' כלים — כולם חיים באוויר';
     }
+  })();
+
+  // === Auto-update dates from GitHub ===
+  (function() {
+    var cards = document.querySelectorAll('.project-card[data-repo]');
+    var owner = 'AVI1840';
+    var cutoff = new Date();
+    cutoff.setMonth(cutoff.getMonth() - 2);
+    cards.forEach(function(card) {
+      var repo = card.getAttribute('data-repo');
+      fetch('https://api.github.com/repos/' + owner + '/' + repo + '/commits?per_page=1')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (!data || !data[0] || !data[0].commit) return;
+          var d = new Date(data[0].commit.committer.date);
+          if (d < cutoff) return;
+          var el = document.createElement('div');
+          el.className = 'card-updated';
+          el.textContent = 'עדכון: ' + d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
+          card.querySelector('.card-body').appendChild(el);
+        }).catch(function() {});
+    });
   })();
 
   // === Count-up Animation ===
