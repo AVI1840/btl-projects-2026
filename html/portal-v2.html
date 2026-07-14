@@ -1,3 +1,4 @@
+<!-- BUILD_MODE: public -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -9,7 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--primary:#1B3A5C;--secondary:#2A5A8C;--accent:#E8A020;--light:#F0F4F8;--white:#FFF;--text:#1A2332;--muted:#6B7A8D;--success:#1A7A4E;--danger:#C0392B;--warning:#CC7A00}
+:root{--primary:#1B3A5C;--secondary:#2A5A8C;--accent:#E8A020;--light:#F0F4F8;--white:#FFF;--text:#1A2332;--muted:#6B7A8D;--success:#1A7A4E;--danger:#C0392B;--warning:#CC7A00;--challenge-integration:#3B82F6;--challenge-data:#F59E0B;--challenge-ai:#8B5CF6}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Heebo',Arial,sans-serif;background:var(--light);color:var(--text);direction:rtl;min-height:100vh}
 html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
@@ -53,10 +54,10 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 .section-title{font-size:22px;font-weight:800;color:var(--primary);padding-bottom:8px;border-bottom:3px solid var(--accent);display:inline-block}
 .section-count{font-size:13px;color:var(--muted);font-weight:500}
 
-/* === Project Grid === */
+/* === Project Grid (legacy) === */
 .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;margin-bottom:48px}
 
-/* === Project Card === */
+/* === Project Card (legacy) === */
 .project-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 16px rgba(27,58,92,.07);border:1.5px solid #E0E8F0;transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;opacity:0;transform:translateY(24px)}
 .project-card.visible{opacity:1;transform:translateY(0);transition:opacity .45s ease,transform .45s cubic-bezier(.4,0,.2,1)}
 .project-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(27,58,92,.14)}
@@ -69,12 +70,14 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 /* === Status Badges === */
 .status-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:700;margin-bottom:10px}
 .status-live{background:#D8F5E8;color:var(--success)}
+.status-production{background:#D8F5E8;color:var(--success)}
 .status-pilot{background:#D8E8F8;color:var(--secondary)}
 .status-mvp{background:#E8F0FF;color:#2940A0}
 .status-dev{background:#F0EAF8;color:#6B2DA8}
 .status-plan{background:#FFF8E8;color:#A07020}
 .status-approved{background:#D8F5E8;color:var(--success)}
 .status-infra{background:#FFF0E8;color:#B85C00}
+.status-prototype{background:#FFF8E8;color:#A07020}
 
 /* Pulse */
 .pulse-dot{display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-left:4px;animation:pulse 2s ease-in-out infinite}
@@ -101,49 +104,93 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 .btn-live{background:linear-gradient(135deg,#D8F5E8,#C0EDDA);color:var(--success);border:1.5px solid #A8E0C0;font-weight:700}
 .btn-live:hover{background:linear-gradient(135deg,#C0EDDA,#A8E0C0)}
 
-/* === Achievements === */
-.achievements-section{background:linear-gradient(135deg,#0F2640 0%,var(--primary) 50%,#244B6E 100%);border-radius:18px;padding:40px 36px;margin-bottom:48px;position:relative;overflow:hidden;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
-.achievements-section.visible{opacity:1;transform:translateY(0)}
-.achievements-section::before{content:'';position:absolute;top:-50%;left:-20%;width:80%;height:200%;background:radial-gradient(ellipse,rgba(232,160,32,.08),transparent 60%);pointer-events:none}
-.achievements-section h2{font-size:22px;font-weight:800;color:#fff;margin-bottom:28px;text-align:center;position:relative;z-index:1}
-.achievements-section h2 span{color:var(--accent)}
-.achievements-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;position:relative;z-index:1}
-.achievement-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:20px 22px;display:flex;align-items:flex-start;gap:14px;backdrop-filter:blur(4px);transition:transform .25s ease,background .25s ease}
-.achievement-item:hover{transform:translateY(-3px);background:rgba(255,255,255,.11)}
-.achievement-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.achievement-icon-green{background:rgba(125,255,181,.15);border:1px solid rgba(125,255,181,.25)}
-.achievement-icon-gold{background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.25)}
-.achievement-icon-blue{background:rgba(100,180,255,.15);border:1px solid rgba(100,180,255,.25)}
-.achievement-content h4{font-size:14.5px;font-weight:700;color:#fff;margin-bottom:4px}
-.achievement-content p{font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.5}
-.achievement-number{font-size:26px;font-weight:900;color:var(--accent);display:block;margin-bottom:2px}
-
 /* === Download Button === */
 .btn-download{background:linear-gradient(135deg,#2B579A,#1E3F70);color:#fff;border:1.5px solid #3B67AA;font-size:12px;padding:7px 12px;letter-spacing:-.2px}
 .btn-download:hover{background:linear-gradient(135deg,#3B67AA,#2B579A);opacity:1}
 .btn-download .dl-icon{font-weight:900;font-size:11px;background:rgba(255,255,255,.18);padding:2px 5px;border-radius:3px;margin-left:2px}
 
-/* === Needs Box === */
-.needs-box{background:#fff;border-radius:18px;padding:30px 32px;margin-bottom:36px;border:1.5px solid #E0E8F0;box-shadow:0 4px 20px rgba(27,58,92,.06);opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
-.needs-box.visible{opacity:1;transform:translateY(0)}
-.needs-box h2{font-size:20px;font-weight:800;color:var(--primary);margin-bottom:20px;border-bottom:3px solid var(--accent);display:inline-block;padding-bottom:8px}
-.needs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
-.need-item{background:var(--light);border-radius:12px;padding:18px;border-right:4px solid var(--accent);transition:transform .2s ease,box-shadow .2s ease}
-.need-item:hover{transform:translateX(-3px);box-shadow:0 4px 16px rgba(27,58,92,.08)}
-.need-item h4{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:6px}
-.need-item p{font-size:13px;color:var(--muted);line-height:1.55}
-.need-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;margin-top:8px}
-.need-tag-blocker{background:#FFE8E8;color:#C0392B}
-.need-tag-improve{background:#E8F0FF;color:#2A5A8C}
-.need-tag-ready{background:#D8F5E8;color:var(--success)}
-.need-tag-critical{background:#FFF3D8;color:#CC7A00}
-.need-item-done{border-right-color:var(--success);background:#F0FAF4}
+/* === Flagship === */
+.flagship-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;margin-bottom:48px}
+.flagship-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(27,58,92,.1);border:2px solid #D0DAE8;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;opacity:0;transform:translateY(24px)}
+.flagship-card.visible{opacity:1;transform:translateY(0)}
+.flagship-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(27,58,92,.14)}
+.flagship-header{background:linear-gradient(135deg,var(--primary),#244B6E);padding:22px 24px;color:#fff}
+.flagship-header h3{font-size:17px;font-weight:700;margin-bottom:5px}
+.flagship-header p{font-size:12.5px;opacity:.78;line-height:1.55}
+.flagship-body{flex:1;display:flex;flex-direction:column;padding:20px 24px;gap:12px}
+.flagship-proves{font-size:13px;color:var(--text);line-height:1.6;padding:10px 14px;background:#F8FAFC;border-radius:10px;border-right:3px solid var(--accent)}
+.flagship-proves strong{color:var(--primary);display:block;font-size:12px;margin-bottom:4px}
+.flagship-needed{font-size:12.5px;color:var(--muted);line-height:1.5;padding:8px 12px;background:#FFF8F0;border-radius:8px;border-right:3px solid var(--challenge-integration)}
+.flagship-needed[data-challenge="data"]{border-right-color:#F59E0B}
+.flagship-needed[data-challenge="ai"]{border-right-color:#8B5CF6}
+.flagship-needed strong{display:block;font-size:11px;color:var(--primary);margin-bottom:2px}
+.flagship-relevant{font-size:12px;color:var(--muted);line-height:1.5}
+.flagship-relevant strong{color:var(--secondary);font-size:11px}
+.flagship-recipe{font-size:11.5px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap;padding-top:8px;border-top:1px solid #E8EDF2}
+.flagship-recipe span{display:inline-flex;align-items:center;gap:4px}
+.flagship-recipe span::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.flagship-metrics{display:flex;gap:8px;flex-wrap:wrap}
+.flagship-actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:8px}
+.challenge-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:10px;font-size:10.5px;font-weight:700}
+.challenge-badge-integration{background:#EBF4FF;color:#3B82F6}
+.challenge-badge-data{background:#FEF9E7;color:#F59E0B}
+.challenge-badge-ai{background:#F3EEFF;color:#8B5CF6}
+
+/* === Taxonomy === */
+.taxonomy-section{background:linear-gradient(135deg,#0F2640,var(--primary),#244B6E);border-radius:18px;padding:36px;margin-bottom:48px;overflow:hidden;opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.taxonomy-section.visible{opacity:1;transform:translateY(0)}
+.taxonomy-section h2{font-size:20px;font-weight:800;color:#fff;margin-bottom:24px;text-align:center}
+.taxonomy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.taxonomy-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px 20px;text-align:center;transition:background .25s,transform .25s}
+.taxonomy-card:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.taxonomy-card .tax-icon{font-size:32px;margin-bottom:10px}
+.taxonomy-card h4{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+.taxonomy-card p{font-size:12px;color:rgba(255,255,255,.65);line-height:1.5;margin-bottom:12px}
+.taxonomy-card .tax-count{font-size:28px;font-weight:900;color:var(--accent)}
+.taxonomy-card .tax-count-label{font-size:11px;color:rgba(255,255,255,.5)}
+
+/* === Summary section (replaces needs-box) === */
+.summary-section{background:#fff;border-radius:18px;padding:36px;margin-bottom:36px;border:1.5px solid #E0E8F0;box-shadow:0 4px 20px rgba(27,58,92,.06);opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.summary-section.visible{opacity:1;transform:translateY(0)}
+.summary-section h2{font-size:22px;font-weight:800;color:var(--primary);margin-bottom:24px;border-bottom:3px solid var(--accent);display:inline-block;padding-bottom:8px}
+.summary-columns{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.summary-col h3{font-size:16px;font-weight:700;color:var(--primary);margin-bottom:16px}
+.summary-item{padding:12px 16px;border-radius:10px;margin-bottom:10px;font-size:13px;line-height:1.6}
+.summary-col-right .summary-item{background:#F0FAF4;border-right:3px solid var(--success)}
+.summary-col-left .summary-item{background:#FFF8F0;border-right:3px solid var(--accent)}
+.summary-framing{margin-top:24px;padding:20px 24px;background:linear-gradient(135deg,#F8FAFF,#F0F4FF);border-radius:12px;border:1.5px solid #D0DAE8;font-size:14px;line-height:1.8;color:var(--primary);font-weight:600;text-align:center}
+
+/* === Compact grid for remaining tools === */
+.compact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:48px}
+.compact-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 12px rgba(27,58,92,.06);border:1px solid #E0E8F0;border-right:3px solid var(--secondary);transition:transform .2s,box-shadow .2s;opacity:0;transform:translateY(16px)}
+.compact-card.visible{opacity:1;transform:translateY(0)}
+.compact-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(27,58,92,.1)}
+.compact-card h4{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:6px}
+.compact-card p{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.compact-card .card-metrics{margin-bottom:8px}
+.compact-card .card-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* === Policy section === */
+.policy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:48px}
+.policy-card{background:#fff;border-radius:12px;padding:20px 24px;border:1.5px solid #E0E8F0;border-right:4px solid #9B59B6;opacity:0;transform:translateY(16px);transition:opacity .4s,transform .4s}
+.policy-card.visible{opacity:1;transform:translateY(0)}
+.policy-card h4{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:6px}
+.policy-card p{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:8px}
+.policy-card .card-metrics{margin-bottom:8px}
+.policy-card .card-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* === Disclaimer === */
+.demo-disclaimer{font-size:11px;color:var(--warning);background:#FFF8E8;padding:6px 12px;border-radius:8px;margin-bottom:8px;border:1px solid #F0D080}
+.footer-disclaimer{font-size:11px;color:var(--muted);margin-top:8px;font-style:italic}
 
 /* === Footer === */
 .footer-info{text-align:center;font-size:13px;color:var(--muted);margin-top:28px;padding:20px;background:#fff;border-radius:14px;border:1.5px solid #E0E8F0}
 
 /* === Animations === */
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* === Internal-only content (hidden in public, shown via JS in internal) === */
+.internal-only{display:none}
 
 /* === Responsive === */
 @media(max-width:768px){
@@ -156,7 +203,9 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   .stat{border-left:none;border-bottom:1px solid rgba(255,255,255,.12);padding:12px 0}
   .stat:last-child{border-bottom:none}
   .stat-value{font-size:30px}
-  .needs-grid{grid-template-columns:1fr}
+  .flagship-grid,.compact-grid,.policy-grid{grid-template-columns:1fr}
+  .taxonomy-grid{grid-template-columns:1fr}
+  .summary-columns{grid-template-columns:1fr}
   .project-card{margin:0}
   .card-actions{flex-direction:column}
   .btn{width:100%;justify-content:center}
@@ -187,8 +236,8 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   <!-- ═══ Hero Stats ═══ -->
   <div class="hero-stats" role="region" aria-label="מספרים מרכזיים">
     <div class="stat stat-live">
-      <div class="stat-value" data-count="8">0</div>
-      <div class="stat-label">כלים חיים באוויר <span class="pulse-dot" aria-hidden="true"></span></div>
+      <div class="stat-value" data-count="5">0</div>
+      <div class="stat-label">נכסי דגל <span class="pulse-dot" aria-hidden="true"></span></div>
     </div>
     <div class="stat">
       <div class="stat-value" data-count="13">0</div>
@@ -199,8 +248,8 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
       <div class="stat-label">אזרחים מקבלי שירות</div>
     </div>
     <div class="stat">
-      <div class="stat-value" data-count="170" data-suffix="B">0</div>
-      <div class="stat-label">₪ תקציב שנתי</div>
+      <div class="stat-value" data-count="3">0</div>
+      <div class="stat-label">אתגרי תשתית</div>
     </div>
     <div class="stat">
       <div class="stat-value" data-count="98">0</div>
@@ -208,50 +257,114 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     </div>
   </div>
 
-  <!-- ═══ כלים טכנולוגיים ═══ -->
+  <!-- ═══ חמישה נכסי דגל ═══ -->
   <div class="section-header">
-    <span class="section-title">🖥 כלים טכנולוגיים</span>
-    <span class="section-count">6 כלים — כולם חיים באוויר</span>
+    <span class="section-title">🏆 חמישה נכסי דגל</span>
+    <span class="section-count">5 נכסים מוכחים — מוכנים לפריצה</span>
   </div>
-  <div class="projects-grid">
+  <div class="flagship-grid">
 
-    <!-- 1. דשבורד -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>📊 דשבורד פערי גמלאות ברשויות</h3>
-        <p>תמונת מצב ארצית של פערי מיצוי גמלאות — 257 רשויות, 9 גמלאות, 339 ישובים</p>
+    <!-- Flagship 1: סיכום תביעה בסיעוד -->
+    <div class="flagship-card" aria-label="נכס דגל: סיכום תביעה בסיעוד">
+      <div class="flagship-header">
+        <h3>🤖 סיכום תביעה בסיעוד</h3>
+        <p>AI לסיכום אוטומטי של תיקי תביעה — מ-1.7 מיליון מסמכים לתמונה ברורה</p>
       </div>
-      <div class="card-body">
-        <div class="status-badge status-live"><span class="pulse-dot"></span> חי באוויר</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="כל הרשויות המקומיות בישראל"><span>257</span> רשויות</div>
-          <div class="metric-chip" data-tip="נכות, סיעוד, ילד נכה, ניידות, אבטלה ועוד"><span>9</span> גמלאות</div>
-          <div class="metric-chip" data-tip="נתונים מנורמלים לאוכלוסייה"><span>339</span> ישובים</div>
+      <div class="flagship-body">
+        <div class="status-badge status-prototype">● אב-טיפוס</div>
+        <span class="challenge-badge challenge-badge-ai">🔌 זמינות AI</span>
+        <div class="flagship-metrics card-metrics">
+          <div class="metric-chip" data-tip="מספר תביעות סיעוד בשנה"><span>450K</span> תביעות/שנה</div>
+          <div class="metric-chip" data-tip="מסמכים שנסרקים ומסוכמים"><span>1.7M</span> מסמכים</div>
         </div>
-        <div class="why-line">לראשונה — תמונת מצב ארצית אחת של כל פערי הגמלאות</div>
-        <div class="card-actions">
-          <a href="https://avi1840.github.io/dashboard-gamlaut/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="word/03-dashboard-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-          <a href="https://github.com/AVI1840/dashboard-gamlaut" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <div class="flagship-proves">
+          <strong>מה זה מוכיח</strong>
+          AI מסכם תיק מורכב בשניות
+        </div>
+        <div class="flagship-needed" data-challenge="ai">
+          <strong>מה נדרש כדי לפרוץ לייצור</strong>
+          Runtime AI ארגוני
+        </div>
+        <div class="flagship-relevant">
+          <strong>למי עוד רלוונטי: </strong>ביטוח, בנקים, בריאות, בתי משפט, מיסים
+        </div>
+        <div class="flagship-recipe">
+          <span>3 שבועות</span>
+          <span>Python + Azure OpenAI + RAG</span>
+          <span>צוות: 1</span>
+        </div>
+        <div class="flagship-actions">
+          <a href="word/06-bot-siud.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
         </div>
       </div>
     </div>
 
-    <!-- 2. ארנק -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>👛 ארנק זכויות — מצפן ההטבות</h3>
-        <p>מיצוי זכויות 360 בכל הממשלה — ONE GOV — רשימת זכויות אישית לכל אזרח</p>
+    <!-- Flagship 2: סל שירותי הזדקנות מיטבית -->
+    <div class="flagship-card" aria-label="נכס דגל: סל שירותי הזדקנות מיטבית">
+      <div class="flagship-header">
+        <h3>🧺 סל שירותי הזדקנות מיטבית</h3>
+        <p>שדרוג מערכת ההפעלה — שירות מותאם אישית לאזרח, פיילוט פעיל</p>
       </div>
-      <div class="card-body">
-        <div class="status-badge status-live"><span class="pulse-dot"></span> חי באוויר</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="מאגר מלא — כל הטבות ביטוח לאומי"><span>98</span>/98 הטבות</div>
-          <div class="metric-chip" data-tip="בריאות, סיעוד, נכות, ילדים ועוד"><span>8</span> קטגוריות</div>
-          <div class="metric-chip" data-tip="סוגי גמלה מסוננים ומסווגים"><span>13</span> קצבאות</div>
+      <div class="flagship-body">
+        <div class="status-badge status-pilot">◉ בפיילוט</div>
+        <span class="challenge-badge challenge-badge-integration">🔗 אינטגרציה</span>
+        <div class="flagship-metrics card-metrics">
+          <div class="metric-chip" data-tip="משתתפי פיילוט פעילים"><span>286</span> משתתפים</div>
+          <div class="metric-chip" data-tip="סטטוס פיילוט">פיילוט פעיל</div>
         </div>
-        <div class="why-line">כל אזרח מקבל תמונה שלמה של מה שמגיע לו — לפי הפרופיל שלו</div>
-        <div class="card-actions">
+        <div class="flagship-proves">
+          <strong>מה זה מוכיח</strong>
+          מודל שירות מותאם אישית במקום אחיד
+        </div>
+        <div class="flagship-needed" data-challenge="integration">
+          <strong>מה נדרש כדי לפרוץ לייצור</strong>
+          אינטגרציה למערכות ליבה
+        </div>
+        <div class="flagship-relevant">
+          <strong>למי עוד רלוונטי: </strong>בריאות, רווחה, כל שירות עם ספקים
+        </div>
+        <div class="flagship-recipe">
+          <span>6 שבועות</span>
+          <span>React + API ממשלתי</span>
+          <span>צוות: 2</span>
+        </div>
+        <div class="flagship-actions">
+          <a href="word/11-sal-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flagship 3: ארנק הזכויות -->
+    <div class="flagship-card" aria-label="נכס דגל: ארנק הזכויות">
+      <div class="flagship-header">
+        <h3>👛 ארנק הזכויות — ONE GOV</h3>
+        <p>מיצוי זכויות 360 בכל הממשלה — רשימת זכויות אישית לכל אזרח</p>
+      </div>
+      <div class="flagship-body">
+        <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+        <span class="challenge-badge challenge-badge-data">📊 נגישות דאטה</span>
+        <div class="demo-disclaimer" role="note">כלי הדגמה. אינו מהווה קביעת זכאות רשמית.</div>
+        <div class="flagship-metrics card-metrics">
+          <div class="metric-chip" data-tip="מאגר מלא — כל הטבות ביטוח לאומי"><span>98</span> הטבות</div>
+          <div class="metric-chip" data-tip="מיצוי חוצה-ממשלה">מיצוי 360</div>
+        </div>
+        <div class="flagship-proves">
+          <strong>מה זה מוכיח</strong>
+          הנגשת זכאות חוצה-ממשלה בממשק אחד
+        </div>
+        <div class="flagship-needed" data-challenge="data">
+          <strong>מה נדרש כדי לפרוץ לייצור</strong>
+          גישה לדאטה ארגוני
+        </div>
+        <div class="flagship-relevant">
+          <strong>למי עוד רלוונטי: </strong>כל משרד שמעניק הטבות, מערך הדיגיטל, רשויות
+        </div>
+        <div class="flagship-recipe">
+          <span>4 שבועות</span>
+          <span>React + TypeScript + Rules Engine</span>
+          <span>צוות: 1</span>
+        </div>
+        <div class="flagship-actions">
           <a href="https://avi1840.github.io/arnak-zchuyot/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
           <a href="word/01-arnak-zchuyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
           <a href="https://github.com/AVI1840/arnak-zchuyot" target="_blank" class="btn btn-secondary">💻 GitHub</a>
@@ -259,249 +372,72 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
       </div>
     </div>
 
-    <!-- 3. ועדות -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>🏥 ועדות רפואיות — צ'קליסט מסמכים חכם</h3>
-        <p>הכנה מושלמת לוועדה רפואית — מותאם אישית לסוג הוועדה</p>
+    <!-- Flagship 4: דשבורד פערי הגמלאות -->
+    <div class="flagship-card" aria-label="נכס דגל: דשבורד פערי הגמלאות">
+      <div class="flagship-header">
+        <h3>📊 דשבורד פערי הגמלאות</h3>
+        <p>תמונת מצב ארצית של פערי מיצוי גמלאות — 257 רשויות, 9 גמלאות</p>
       </div>
-      <div class="card-body">
-        <div class="status-badge status-live"><span class="pulse-dot"></span> חי באוויר</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="נכות כללית, נפגעי עבודה, ילד, סיעוד, אובדן כושר, שירותים מיוחדים"><span>6</span> סוגי ועדות</div>
-          <div class="metric-chip" data-tip="מותאם לסוג הוועדה הספציפי">צ'קליסט חכם</div>
+      <div class="flagship-body">
+        <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+        <span class="challenge-badge challenge-badge-data">📊 נגישות דאטה</span>
+        <div class="flagship-metrics card-metrics">
+          <div class="metric-chip" data-tip="כל הרשויות המקומיות בישראל"><span>257</span> רשויות</div>
+          <div class="metric-chip" data-tip="נכות, סיעוד, ילד נכה, ניידות, אבטלה ועוד"><span>9</span> גמלאות</div>
         </div>
-        <div class="why-line">אזרח שמגיע מוכן = פחות דחיות, פחות תסכול, פחות עלויות</div>
-        <div class="card-actions">
-          <a href="https://avi1840.github.io/vaadot-refuiyot/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="word/05-vaadot-refuiyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-          <a href="https://github.com/AVI1840/vaadot-refuiyot" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <div class="flagship-proves">
+          <strong>מה זה מוכיח</strong>
+          ערך עסקי מהיר מדאטה פומבי
         </div>
-      </div>
-    </div>
-
-    <!-- 4. מיצוי 360 -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>🎯 מיצוי זכויות 360</h3>
-        <p>כלי AI לסיוע לאזרח במצבי משבר — זיהוי כל הזכויות הרלוונטיות תוך 30 שניות</p>
-      </div>
-      <div class="card-body">
-        <div class="status-badge status-live"><span class="pulse-dot"></span> חי באוויר</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="ותיק, הורה לילד נכה, אלמנה, חד-הורי, עולה, נפגע עבודה, הבטחת הכנסה"><span>7</span> תרחישים</div>
-          <div class="metric-chip" data-tip="כל הטבות ביטוח לאומי"><span>98</span> הטבות</div>
-          <div class="metric-chip" data-tip="תוצאה מלאה + תסריט שיחה"><span>30"</span> לתוצאה</div>
+        <div class="flagship-needed" data-challenge="data">
+          <strong>מה נדרש כדי לפרוץ לייצור</strong>
+          גישה ל-DWH לדיוק
         </div>
-        <div class="why-line">כלי לסיוע לאזרח במצבי משבר — מזהה כל זכות רלוונטית</div>
-        <div class="card-actions">
-          <a href="https://avi1840.github.io/mitzui-360/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="word/04-mitzui-360.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-          <a href="https://github.com/AVI1840/mitzui-360" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <div class="flagship-relevant">
+          <strong>למי עוד רלוונטי: </strong>אגף תקציבים, פנים, כל תוכנית ברמת רשות
+        </div>
+        <div class="flagship-recipe">
+          <span>3 שבועות</span>
+          <span>React + D3.js + GeoJSON</span>
+          <span>צוות: 1</span>
+        </div>
+        <div class="flagship-actions">
+          <a href="https://avi1840.github.io/dashboard-gamlaut/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
+          <a href="word/03-dashboard-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+          <a href="https://github.com/AVI1840/dashboard-gamlaut" target="_blank" class="btn btn-secondary">💻 GitHub</a>
         </div>
       </div>
     </div>
 
-    <!-- 5. מחשבון -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>🧮 מחשבון גמלאות — כפל וסעיף 320</h3>
-        <p>כלי לסיוע לאזרח בבחירה מורכבת — חישוב אוטומטי של זכאות לכפל גמלאות</p>
+    <!-- Flagship 5: מצפן התובנות -->
+    <div class="flagship-card" aria-label="נכס דגל: מצפן התובנות">
+      <div class="flagship-header">
+        <h3>🧭 מצפן התובנות</h3>
+        <p>הפיכת פניות גולמיות לתובנות ניהוליות — 9.8 מיליון פניות מנותחות</p>
       </div>
-      <div class="card-body">
-        <div class="status-badge status-live"><span class="pulse-dot"></span> חי באוויר</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="כיסוי מלא של כל מקרי סעיף 320">כיסוי מלא</div>
-          <div class="metric-chip" data-tip="תוצאה תוך שניות">חישוב מיידי</div>
-          <div class="metric-chip" data-tip="נימוק משפטי לכל תוצאה">הסבר מפורט</div>
+      <div class="flagship-body">
+        <div class="status-badge status-prototype">● אב-טיפוס</div>
+        <span class="challenge-badge challenge-badge-integration">🔗 אינטגרציה</span>
+        <div class="flagship-metrics card-metrics">
+          <div class="metric-chip" data-tip="פניות אזרחים שנותחו"><span>9.8M</span> פניות מנותחות</div>
         </div>
-        <div class="why-line">מתן כלי לסיוע לאזרח בבחירה מורכבת — חישוב מיידי עם נימוק</div>
-        <div class="card-actions">
-          <a href="https://avi1840.github.io/machshevon-kefel--ZOSH/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="word/02-machshevon-kefel.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-          <a href="https://github.com/AVI1840/machshevon-kefel--ZOSH" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <div class="flagship-proves">
+          <strong>מה זה מוכיח</strong>
+          הפיכת פניות גולמיות לתובנות ניהוליות
         </div>
-      </div>
-    </div>
-
-    <!-- 6. הנגשת סיעוד -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>♿ הנגשת בחירה ומיצוי זכויות בסיעוד</h3>
-        <p>כלי לבחירת שירותים ומיצוי זכויות ל-390 אלף זכאי סיעוד</p>
-      </div>
-      <div class="card-body">
-        <div class="status-badge status-live"><span class="pulse-dot"></span> חי באוויר</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="כל מקבלי גמלת סיעוד"><span>390K</span> זכאים</div>
-          <div class="metric-chip" data-tip="תקן הנגישות הישראלי — תאימות מלאה">תקן 5568</div>
-          <div class="metric-chip" data-tip="ממשק מודולרי ומותאם">React</div>
+        <div class="flagship-needed" data-challenge="integration">
+          <strong>מה נדרש כדי לפרוץ לייצור</strong>
+          אינטגרציה למערכת פניות
         </div>
-        <div class="why-line">390K זכאים — כלי לבחירת שירותים ומיצוי מלא של זכויות</div>
-        <div class="card-actions">
-          <a href="https://avi1840.github.io/nursing-helper/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="word/08-nursing-helper.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-          <a href="https://github.com/AVI1840/nursing-helper" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <div class="flagship-relevant">
+          <strong>למי עוד רלוונטי: </strong>כל ארגון עם מוקד שירות
         </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ═══ מהלכים אסטרטגיים ═══ -->
-  <div class="section-header">
-    <span class="section-title">🧭 מהלכים אסטרטגיים</span>
-    <span class="section-count">5 מהלכים</span>
-  </div>
-  <div class="projects-grid">
-
-    <!-- 8. סיכום תביעה -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>🤖 סיכום תביעה בסיעוד</h3>
-        <p>AI לסיכום אוטומטי של תיקי תביעה — מ-1.7 מיליון מסמכים לתמונה ברורה</p>
-      </div>
-      <div class="card-body">
-        <div class="status-badge status-infra">● תשתית ארגונית אושרה — POC</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="מספר תביעות סיעוד בשנה"><span>450K</span> תביעות/שנה</div>
-          <div class="metric-chip" data-tip="מסמכים שנסרקים ומסוכמים"><span>1.7M</span> מסמכים</div>
-          <div class="metric-chip" data-tip="חיסכון בשעות עבודה ידנית">עשרות אלפי שעות</div>
+        <div class="flagship-recipe">
+          <span>4 שבועות</span>
+          <span>Python + NLP + Power BI</span>
+          <span>צוות: 1</span>
         </div>
-        <div class="why-line">450K תביעות, 1.7M מסמכים — עשרות אלפי שעות חיסכון פוטנציאלי</div>
-        <div class="card-actions">
-          <a href="word/06-bot-siud.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 9. המקפצה -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>🚀 המקפצה — כיפת ברזל תעסוקתית</h3>
-        <p>אסטרטגיה לאומית בין-משרדית — תעסוקת אוכלוסיות בסיכון בעידן AI</p>
-      </div>
-      <div class="card-body">
-        <div class="status-badge status-live"><span class="pulse-dot"></span> אתר חי</div>
-        <div class="status-badge status-pilot">◉ לקראת אישור בהיגוי</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="תקציב מאושר"><span>999K</span> ₪</div>
-          <div class="metric-chip" data-tip="אזרחים בפיילוט"><span>500</span> אזרחים</div>
-          <div class="metric-chip" data-tip="מסלולי הכשרה"><span>3</span> מסלולים</div>
-        </div>
-        <div class="why-line">מהלך בין-משרדי — כיפת ברזל תעסוקתית בעידן AI</div>
-        <div class="card-actions">
-          <a href="https://avi1840.github.io/hamakfetza1/" target="_blank" class="btn btn-live">🟢 אתר חי</a>
-          <a href="https://github.com/AVI1840/hamakfetza1" target="_blank" class="btn btn-secondary">💻 GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 10. סל אישי -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>🧺 סל אישי בסיעוד — רפורמת שירות</h3>
-        <p>שדרוג מערכת ההפעלה — שירות מותאם אישית לאזרח</p>
-      </div>
-      <div class="card-body">
-        <div class="status-badge status-plan">◇ בתכנון</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="כל מקבלי סיעוד"><span>390K</span> זכאים</div>
-          <div class="metric-chip" data-tip="ספקי שירות בפריסה ארצית"><span>21</span> ספקים</div>
-          <div class="metric-chip" data-tip="מעבר ממודל אחיד לסל מותאם">רפורמת ביזור</div>
-        </div>
-        <div class="why-line">שדרוג מערכת ההפעלה בשירות הממשלתי — שירות מותאם אישית לאזרח</div>
-        <div class="card-actions">
-          <a href="word/11-sal-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 11. עוזר אישי -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>🧠 עוזר אישי חכם לאזרח</h3>
-        <p>אייג'נט AI לליווי פרואקטיבי באתגרי החיים — MVP ראשון: אלמנות בזקנה</p>
-      </div>
-      <div class="card-body">
-        <div class="status-badge status-mvp">◉ MVP בזקנה</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="אזרחים ותיקים בפיילוט"><span>500</span> אזרחי פיילוט</div>
-          <div class="metric-chip" data-tip="ערוץ תקשורת נגיש">WhatsApp</div>
-          <div class="metric-chip" data-tip="תשתית מוכחת לליווי אישי">TailorPath</div>
-        </div>
-        <div class="why-line">אייג'נט AI לליווי אזרחים באתגרי החיים — MVP ראשון באלמנות בזקנה</div>
-        <div class="card-actions">
-          <a href="word/10-ozer-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 12. פורטל -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>🌐 פורטל גמלאות 2.0 — מגדלור הידע</h3>
-        <p>בוטים חכמים על חוזרים ותדריכים, חיפוש AI — שלב ב'</p>
-      </div>
-      <div class="card-body">
-        <div class="status-badge status-dev">◔ שלב ב' — בוטים</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="דפי תוכן מקצועי"><span>1,500+</span> דפים</div>
-          <div class="metric-chip" data-tip="כלים מוטמעים בפורטל"><span>123</span> כלים</div>
-          <div class="metric-chip" data-tip="שביעות רצון משתמשים"><span>9.5</span>/10 UX</div>
-        </div>
-        <div class="why-line">4,500 עובדים מחפשים מידע מקצועי — ברגע, לא בדקות</div>
-        <div class="card-actions">
-          <a href="word/07-portal-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ═══ הכשרות AI ═══ -->
-  <div class="section-header">
-    <span class="section-title">🎓 הכשרות AI</span>
-    <span class="section-count">2 פרויקטים</span>
-  </div>
-  <div class="projects-grid">
-
-    <!-- 13. אקדמיית AI -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>🌐 אקדמיית AI למגזר הציבורי</h3>
-        <p>אתר ידע ולמידה בינה מלאכותית לכל עובד ציבורי בישראל</p>
-      </div>
-      <div class="card-body">
-        <div class="status-badge status-live"><span class="pulse-dot"></span> חי באוויר</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="תכנים מותאמים לעובדי מדינה">מגזר ציבורי</div>
-          <div class="metric-chip" data-tip="כלים ליישום מיידי">כלים מעשיים</div>
-          <div class="metric-chip" data-tip="תכנים מתעדכנים שוטף">תכנים עדכניים</div>
-        </div>
-        <div class="why-line">הנגשת AI לכל עובד ציבורי — לא רק לטכנולוגיים</div>
-        <div class="card-actions">
-          <a href="https://avi1840.github.io/ai-academy/" target="_blank" class="btn btn-live">🟢 אתר חי</a>
-          <a href="https://github.com/AVI1840/ai-academy" target="_blank" class="btn btn-secondary">💻 GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 14. הכשרת 30 מאיצים -->
-    <div class="project-card">
-      <div class="card-header">
-        <h3>⚡ הכשרת 30 מאיצי AI באגפים</h3>
-        <p>שדרוג תהליכי עבודה בארגון — 30 מנהלים, 40 בוטים עובדים, 4 מיומנויות</p>
-      </div>
-      <div class="card-body">
-        <div class="status-badge status-pilot">◉ בפיילוט</div>
-        <div class="card-metrics">
-          <div class="metric-chip" data-tip="מנהלים מכל אגפי המינהל"><span>30</span> מנהלים</div>
-          <div class="metric-chip" data-tip="בוטים פעילים שנבנו בהכשרה"><span>40</span> בוטים</div>
-          <div class="metric-chip" data-tip="4 מיומנויות AI ליבה ב-4 שעות">4×4</div>
-        </div>
-        <div class="why-line">30 מנהלים בנו 40 בוטים עובדים — שדרוג תהליכי עבודה בארגון</div>
-        <div class="card-actions">
+        <div class="flagship-actions">
           <a href="#" class="btn btn-primary">📄 One Pager</a>
         </div>
       </div>
@@ -509,113 +445,260 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 
   </div>
 
-  <!-- ═══ הישגים מרכזיים ═══ -->
-  <div class="achievements-section">
-    <h2>🏆 הישגים מרכזיים — <span>מה כבר קרה</span></h2>
-    <div class="achievements-grid">
-
-      <div class="achievement-item">
-        <div class="achievement-icon achievement-icon-green">🟢</div>
-        <div class="achievement-content">
-          <span class="achievement-number">8</span>
-          <h4>כלים חיים באוויר</h4>
-          <p>8 כלי AI פעילים ונגישים — דשבורד, ארנק, ועדות, מיצוי, מחשבון, סיעוד, המקפצה, אקדמייה</p>
-        </div>
+  <!-- ═══ טקסונומיית אתגרים ═══ -->
+  <div class="taxonomy-section" role="region" aria-label="טקסונומיית אתגרי תשתית">
+    <h2>🔑 טקסונומיית אתגרים — מה חוסם את הפריצה</h2>
+    <div class="taxonomy-grid">
+      <div class="taxonomy-card">
+        <div class="tax-icon" aria-hidden="true">🔗</div>
+        <h4>אינטגרציה</h4>
+        <p>היכולת עובדת ואינה מחוברת למערכות הליבה</p>
+        <div class="tax-count">3</div>
+        <div class="tax-count-label">נכסים חוסמים: סל + מצפן + פורטל</div>
       </div>
-
-      <div class="achievement-item">
-        <div class="achievement-icon achievement-icon-gold">📊</div>
-        <div class="achievement-content">
-          <span class="achievement-number">98/98</span>
-          <h4>הטבות מונגשות במאגר</h4>
-          <p>כיסוי מלא של כל הטבות ביטוח לאומי — מידע, קריטריונים ותרחישים</p>
-        </div>
+      <div class="taxonomy-card">
+        <div class="tax-icon" aria-hidden="true">📊</div>
+        <h4>נגישות דאטה</h4>
+        <p>מוגבלת לדאטה פומבי, נדרשת גישה מוסדרת</p>
+        <div class="tax-count">2</div>
+        <div class="tax-count-label">נכסים: ארנק + דשבורד</div>
       </div>
-
-      <div class="achievement-item">
-        <div class="achievement-icon achievement-icon-blue">🗺</div>
-        <div class="achievement-content">
-          <span class="achievement-number">257</span>
-          <h4>רשויות מקומיות ממופות</h4>
-          <p>דשבורד ארצי ראשון מסוגו — פערי מיצוי ב-9 גמלאות לכל רשות</p>
-        </div>
+      <div class="taxonomy-card">
+        <div class="tax-icon" aria-hidden="true">🤖</div>
+        <h4>זמינות AI</h4>
+        <p>אין מנוע AI בתוך סביבת העבודה הארגונית</p>
+        <div class="tax-count">1</div>
+        <div class="tax-count-label">נכס: סיכום תביעה</div>
       </div>
-
-      <div class="achievement-item">
-        <div class="achievement-icon achievement-icon-green">♿</div>
-        <div class="achievement-content">
-          <span class="achievement-number">390K</span>
-          <h4>זכאי סיעוד מונגשים</h4>
-          <p>כלי בחירת שירותים ומיצוי זכויות — נגיש לכל מקבלי גמלת סיעוד</p>
-        </div>
-      </div>
-
-      <div class="achievement-item">
-        <div class="achievement-icon achievement-icon-gold">⚡</div>
-        <div class="achievement-content">
-          <span class="achievement-number">40</span>
-          <h4>בוטים נבנו בהכשרה</h4>
-          <p>30 מנהלים באגפי המינהל בנו 40 בוטים עובדים — 4 מיומנויות, 4 שעות</p>
-        </div>
-      </div>
-
-      <div class="achievement-item">
-        <div class="achievement-icon achievement-icon-blue">✅</div>
-        <div class="achievement-content">
-          <span class="achievement-number">POC</span>
-          <h4>בוט סיכום תביעה — אושר</h4>
-          <p>תשתית ארגונית אושרה — MVP מוכן לעיבוד 450K תביעות ו-1.7M מסמכים</p>
-        </div>
-      </div>
-
     </div>
   </div>
 
-  <!-- ═══ מה נדרש לשלב הבא ═══ -->
-  <div class="needs-box">
-    <h2>🔑 מה נדרש לשלב הבא</h2>
-    <div class="needs-grid">
-      <div class="need-item">
-        <h4>🖥 שרת ארגוני / סביבת ענן</h4>
-        <p>בוט סיכום סיעוד ופורטל גמלאות דורשים שרת ארגוני. כרגע הכלים פועלים כ-static sites.</p>
-        <span class="need-tag need-tag-blocker">חוסם 2 פרויקטים</span>
+  <!-- ═══ כלים נוספים (compact) ═══ -->
+  <div class="section-header">
+    <span class="section-title">🖥 כלים נוספים</span>
+    <span class="section-count">8 כלים בייצור</span>
+  </div>
+  <div class="compact-grid">
+
+    <!-- ועדות רפואיות -->
+    <div class="compact-card">
+      <h4>🏥 ועדות רפואיות — צ'קליסט חכם</h4>
+      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <p>הכנה מושלמת לוועדה רפואית — מותאם אישית לסוג הוועדה</p>
+      <div class="card-metrics">
+        <div class="metric-chip"><span>6</span> סוגי ועדות</div>
       </div>
-      <div class="need-item">
-        <h4>🤖 רישיון AI ארגוני</h4>
-        <p>בוט סיכום סיעוד ומיצוי 360 דורשים API של מודל שפה. עלות: ~200$ לחודש לפיילוט.</p>
-        <span class="need-tag need-tag-blocker">חוסם 2 פרויקטים</span>
+      <div class="card-actions">
+        <a href="https://avi1840.github.io/vaadot-refuiyot/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
+        <a href="word/05-vaadot-refuiyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+        <a href="https://github.com/AVI1840/vaadot-refuiyot" target="_blank" class="btn btn-secondary">💻 GitHub</a>
       </div>
-      <div class="need-item">
-        <h4>📊 גישה לנתוני אמת</h4>
-        <p>הדשבורד והארנק מבוססים על נתונים פומביים. חיבור ל-DWH הארגוני ישפר דיוק והתאמה אישית.</p>
-        <span class="need-tag need-tag-improve">משפר 2 פרויקטים</span>
+    </div>
+
+    <!-- מיצוי 360 -->
+    <div class="compact-card">
+      <h4>🎯 מיצוי זכויות 360</h4>
+      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <div class="demo-disclaimer" role="note">כלי הדגמה. אינו מהווה קביעת זכאות רשמית.</div>
+      <p>כלי AI לסיוע לאזרח במצבי משבר — זיהוי כל הזכויות הרלוונטיות תוך 30 שניות</p>
+      <div class="card-metrics">
+        <div class="metric-chip"><span>7</span> תרחישים</div>
+        <div class="metric-chip"><span>98</span> הטבות</div>
       </div>
-      <div class="need-item need-item-done">
-        <h4>👥 פיילוט עם משתמשים</h4>
-        <p>8 כלים חיים באוויר — פיילוטים פעילים עם פקידים ואזרחים. הניסיון מצטבר.</p>
-        <span class="need-tag need-tag-ready">✅ מתקיים</span>
+      <div class="card-actions">
+        <a href="https://avi1840.github.io/mitzui-360/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
+        <a href="word/04-mitzui-360.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+        <a href="https://github.com/AVI1840/mitzui-360" target="_blank" class="btn btn-secondary">💻 GitHub</a>
       </div>
-      <div class="need-item">
-        <h4>🎨 עיצוב UX מקצועי</h4>
-        <p>הכלים עוצבו בפיתוח עצמי. סבב עיצוב מקצועי ישפר חוויית משתמש ונגישות.</p>
-        <span class="need-tag need-tag-improve">משפר הכל</span>
+    </div>
+
+    <!-- מחשבון -->
+    <div class="compact-card">
+      <h4>🧮 מחשבון גמלאות — כפל וסעיף 320</h4>
+      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <div class="demo-disclaimer" role="note">כלי הדגמה. אינו מהווה קביעת זכאות רשמית.</div>
+      <p>חישוב אוטומטי של זכאות לכפל גמלאות — עם נימוק משפטי</p>
+      <div class="card-metrics">
+        <div class="metric-chip">כיסוי מלא</div>
+        <div class="metric-chip">חישוב מיידי</div>
       </div>
-      <div class="need-item">
-        <h4>📋 ליווי מקצועי-תוכני</h4>
-        <p>אימות נתונים, בדיקת תרחישים ותיקוף מול מומחי תוכן בגמלאות.</p>
-        <span class="need-tag need-tag-critical">קריטי לדיוק</span>
+      <div class="card-actions">
+        <a href="https://avi1840.github.io/machshevon-kefel--ZOSH/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
+        <a href="word/02-machshevon-kefel.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+        <a href="https://github.com/AVI1840/machshevon-kefel--ZOSH" target="_blank" class="btn btn-secondary">💻 GitHub</a>
       </div>
+    </div>
+
+    <!-- הנגשת סיעוד -->
+    <div class="compact-card">
+      <h4>♿ הנגשת בחירה ומיצוי זכויות בסיעוד</h4>
+      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <p>כלי לבחירת שירותים ומיצוי זכויות ל-220 אלף זכאי סיעוד</p>
+      <div class="card-metrics">
+        <div class="metric-chip"><span>220K</span> זכאים</div>
+        <div class="metric-chip">תקן 5568</div>
+      </div>
+      <div class="card-actions">
+        <a href="https://avi1840.github.io/nursing-helper/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
+        <a href="word/08-nursing-helper.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+        <a href="https://github.com/AVI1840/nursing-helper" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+      </div>
+    </div>
+
+    <!-- אקדמיית AI -->
+    <div class="compact-card">
+      <h4>🌐 אקדמיית AI למגזר הציבורי</h4>
+      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <p>אתר ידע ולמידה בינה מלאכותית לכל עובד ציבורי בישראל</p>
+      <div class="card-metrics">
+        <div class="metric-chip">מגזר ציבורי</div>
+        <div class="metric-chip">כלים מעשיים</div>
+      </div>
+      <div class="card-actions">
+        <a href="https://avi1840.github.io/ai-academy/" target="_blank" class="btn btn-live">🟢 אתר חי</a>
+        <a href="https://github.com/AVI1840/ai-academy" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+      </div>
+    </div>
+
+    <!-- הכשרת מאיצים -->
+    <div class="compact-card">
+      <h4>⚡ הכשרת 30 מאיצי AI באגפים</h4>
+      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <p>30 מנהלים בנו 40 בוטים עובדים — 4 מיומנויות, 4 שעות</p>
+      <div class="card-metrics">
+        <div class="metric-chip"><span>30</span> מנהלים</div>
+        <div class="metric-chip"><span>40</span> בוטים</div>
+        <div class="metric-chip">4×4</div>
+      </div>
+      <div class="card-actions">
+        <a href="#" class="btn btn-primary">📄 One Pager</a>
+      </div>
+    </div>
+
+    <!-- עוזר אישי חכם -->
+    <div class="compact-card">
+      <h4>🧠 עוזר אישי חכם לאזרח</h4>
+      <div class="status-badge status-pilot">◉ בפיילוט</div>
+      <p>אייג'נט AI לליווי פרואקטיבי באתגרי החיים — MVP ראשון: אלמנות בזקנה</p>
+      <div class="card-metrics">
+        <div class="metric-chip"><span>500</span> אזרחי פיילוט</div>
+        <div class="metric-chip">WhatsApp</div>
+      </div>
+      <div class="card-actions">
+        <a href="word/10-ozer-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+      </div>
+    </div>
+
+    <!-- פורטל גמלאות 2.0 -->
+    <div class="compact-card">
+      <h4>🌐 פורטל גמלאות 2.0 — מגדלור הידע</h4>
+      <div class="status-badge status-dev">◔ בפיתוח</div>
+      <p>בוטים חכמים על חוזרים ותדריכים, חיפוש AI — שלב ב'</p>
+      <div class="card-metrics">
+        <div class="metric-chip"><span>1,500+</span> דפים</div>
+        <div class="metric-chip"><span>123</span> כלים</div>
+      </div>
+      <div class="card-actions">
+        <a href="word/07-portal-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ מהלכי מדיניות ואסטרטגיה ═══ -->
+  <div class="section-header">
+    <span class="section-title">🧭 מהלכי מדיניות ואסטרטגיה</span>
+    <span class="section-count">מהלך מדיניות — לא כלי AI</span>
+  </div>
+  <div class="policy-grid">
+
+    <!-- המקפצה -->
+    <div class="policy-card">
+      <h4>🚀 המקפצה — כיפת ברזל תעסוקתית</h4>
+      <div class="status-badge status-prototype">● אב-טיפוס</div>
+      <p>אסטרטגיה לאומית בין-משרדית — תעסוקת אוכלוסיות בסיכון בעידן AI</p>
+      <div class="card-metrics">
+        <div class="metric-chip"><span>999K</span> ₪</div>
+        <div class="metric-chip"><span>500</span> אזרחים</div>
+        <div class="metric-chip"><span>3</span> מסלולים</div>
+      </div>
+      <div class="card-actions">
+        <a href="https://avi1840.github.io/hamakfetza1/" target="_blank" class="btn btn-live">🟢 אתר חי</a>
+        <a href="https://github.com/AVI1840/hamakfetza1" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+      </div>
+    </div>
+
+    <!-- הכשרת מנהלים 4x4 -->
+    <div class="policy-card">
+      <h4>⚡ תוכנית 4×4 — הכשרת מנהלים</h4>
+      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <p>שדרוג תהליכי עבודה ארגוניים — 4 מיומנויות AI ב-4 שעות לכל מנהל</p>
+      <div class="card-metrics">
+        <div class="metric-chip"><span>30</span> מנהלים</div>
+        <div class="metric-chip"><span>40</span> בוטים</div>
+      </div>
+      <div class="card-actions">
+        <a href="#" class="btn btn-primary">📄 One Pager</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ מה כבר אפשר · מה נדרש כדי לפרוץ ═══ -->
+  <div class="summary-section" role="region" aria-label="סיכום: מה כבר אפשר ומה נדרש">
+    <h2>מה כבר אפשר · מה נדרש כדי לפרוץ</h2>
+    <div class="summary-columns">
+      <div class="summary-col summary-col-right">
+        <h3>✅ מה כבר אפשר היום, בשבועות ולא בשנים</h3>
+        <div class="summary-item">הפקת ערך עסקי מהיר מדאטה פומבי — הדשבורד הוא ההוכחה: ערך לכל הארגון בלי תלות בדאטה פנימי</div>
+        <div class="summary-item">הנגשת זכאות לאזרח בחיתוך חוצה-ממשלה</div>
+        <div class="summary-item">קידוד חוזרים ונהלים למנוע כללים מוסבר עם שביל ביקורת</div>
+        <div class="summary-item">סיכום תיקים ומסמכים בקנה מידה</div>
+        <div class="summary-item">הפיכת פניות שירות גולמיות לתובנות ניהוליות</div>
+      </div>
+      <div class="summary-col summary-col-left">
+        <h3>🔑 מה נדרש כדי לפרוץ</h3>
+        <div class="summary-item">תשתית אינטגרציה — מנגנון סטנדרטי לחיבור יכולת AI למערכות הליבה</div>
+        <div class="summary-item">גישה מוסדרת לדאטה — פרוטוקול הרשאות וממשל דאטה ארגוני</div>
+        <div class="summary-item">Runtime ארגוני ל-AI — מנוע זמין בתוך סביבת העבודה, לא רק בסביבת פיתוח</div>
+      </div>
+    </div>
+    <div class="summary-framing">
+      היכולות קיימות. אף אחת מהן אינה ממתינה להוכחת היתכנות — כולן ממתינות לאותם שלושה תנאי תשתית. ואותם תנאים בדיוק חסרים בכל משרד בממשלה. זו אינה שאלה של ארגון אחד: מי שיפתור אותם פעם אחת, יפתור אותם לכולם. זהו בדיוק תפקידה של תשתית לאומית.
     </div>
   </div>
 
   <!-- Footer -->
   <div class="footer-info">
-    <strong>אביעד יצחקי</strong> | מוביל AI, מינהל גמלאות | ביטוח לאומי | מרץ 2026 | 8 כלים חיים באוויר | פותח לשיפור שירות האזרח
+    <strong>אביעד יצחקי</strong> | מוביל AI, מינהל גמלאות | ביטוח לאומי | מרץ 2026 | 13 פרויקטים | 5 נכסי דגל
+    <div class="footer-disclaimer">אתר עבודה אישי המציג פרויקטים שאני מוביל במינהל גמלאות. אינו אתר רשמי של המוסד לביטוח לאומי.</div>
+    <div class="footer-disclaimer internal-only" style="margin-top:4px;color:var(--secondary)">📌 גרסה פנימית — מכיל פרטים תפעוליים. לא לפרסום חיצוני.</div>
   </div>
 
 </main>
 
 <script>
+// === BUILD_MODE conditional (internal version would load analytics) ===
+(function(){
+  var htmlContent = document.documentElement.outerHTML;
+  var isInternal = htmlContent.indexOf('BUILD_MODE: internal') > -1;
+  if (isInternal) {
+    // Add noindex for internal version
+    var meta = document.createElement('meta');
+    meta.name = 'robots';
+    meta.content = 'noindex, nofollow';
+    document.head.appendChild(meta);
+    // Show internal-only elements
+    var internalEls = document.querySelectorAll('.internal-only');
+    internalEls.forEach(function(el) { el.style.display = ''; });
+    console.log('[Portal] Internal mode — noindex applied');
+  } else {
+    // Hide internal-only elements in public version
+    var internalEls = document.querySelectorAll('.internal-only');
+    internalEls.forEach(function(el) { el.style.display = 'none'; });
+  }
+})();
+
 (function(){
   // === Count-up Animation ===
   var counters = document.querySelectorAll('[data-count]');
@@ -650,13 +733,12 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   counters.forEach(function(c) { counterObserver.observe(c); });
 
   // === Scroll Reveal Animation ===
-  var revealEls = document.querySelectorAll('.project-card, .section-header, .needs-box, .achievements-section');
+  var revealEls = document.querySelectorAll('.flagship-card, .compact-card, .policy-card, .section-header, .summary-section, .taxonomy-section');
   var revealObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        // Stagger cards within grids
         var el = entry.target;
-        if (el.classList.contains('project-card')) {
+        if (el.classList.contains('flagship-card') || el.classList.contains('compact-card') || el.classList.contains('policy-card')) {
           var siblings = el.parentElement.children;
           var index = Array.prototype.indexOf.call(siblings, el);
           el.style.transitionDelay = (index * 0.08) + 's';
