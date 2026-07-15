@@ -10,287 +10,829 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--primary:#1B3A5C;--secondary:#2A5A8C;--accent:#E8A020;--light:#F0F4F8;--white:#FFF;--text:#1A2332;--muted:#6B7A8D;--success:#1A7A4E;--danger:#C0392B;--warning:#CC7A00;--challenge-integration:#3B82F6;--challenge-data:#F59E0B;--challenge-ai:#8B5CF6}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Heebo',Arial,sans-serif;background:var(--light);color:var(--text);direction:rtl;min-height:100vh}
-html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
+/* ═══════════════════════════════════════════
+   Design Tokens
+   ═══════════════════════════════════════════ */
+:root {
+  --primary: #12284C;
+  --accent: #C68A1E;
+  --bg-page: #F5F7FA;
+  --bg-warm: #FBF4E6;
+  --white: #FFFFFF;
+  --text: #1A2332;
+  --muted: #5A6A7D;
+  --border: #D8E2EE;
+  --success: #1A7A4E;
+  --success-bg: #E6F5ED;
+  --success-border: #6DC09A;
+  --pilot-blue: #2563EB;
+  --pilot-bg: #EBF3FF;
+  --pilot-border: #7BAEFC;
+  --amber: #B8860B;
+  --amber-bg: #FFF8E8;
+  --amber-border: #D4A843;
+  --gray-status: #5A6A7D;
+  --gray-status-bg: #F0F2F5;
+  --gray-status-border: #A0ACBA;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --shadow-sm: 0 2px 8px rgba(18,40,76,0.06);
+  --shadow-md: 0 4px 16px rgba(18,40,76,0.1);
+  --shadow-lg: 0 12px 32px rgba(18,40,76,0.14);
+}
 
-/* === Skip link === */
-.skip-link{position:absolute;top:-40px;right:0;background:var(--primary);color:#fff;padding:8px 16px;z-index:100;border-radius:0 0 8px 8px;font-weight:600;text-decoration:none}
-.skip-link:focus{top:0}
+/* ═══════════════════════════════════════════
+   Reset & Base
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { overflow-x: hidden; max-width: 100vw; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Heebo', sans-serif;
+  background: var(--bg-page);
+  color: var(--text);
+  direction: rtl;
+  min-height: 100vh;
+  line-height: 1.6;
+}
 
-/* === Header === */
-.site-header{background:linear-gradient(160deg,#0F2640 0%,var(--primary) 40%,var(--secondary) 100%);color:#fff;position:relative;overflow:hidden}
-.site-header::before{content:'';position:absolute;top:-60%;right:-15%;width:60%;height:220%;background:radial-gradient(ellipse,rgba(232,160,32,.06),transparent 70%);pointer-events:none}
-.site-header::after{content:'';position:absolute;bottom:-40%;left:-10%;width:50%;height:160%;background:radial-gradient(ellipse,rgba(42,90,140,.15),transparent 60%);pointer-events:none}
-.header-top{display:flex;align-items:center;justify-content:space-between;padding:28px 44px;position:relative;z-index:1}
-.logo-area{display:flex;align-items:center;gap:14px}
-.logo-emblem{width:76px;height:76px;border-radius:50%;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15);flex-shrink:0}
-.logo-emblem img{width:100%;height:155%;object-fit:cover;object-position:center 5%}
-.logo-text-area div:first-child{font-size:18px;font-weight:700}
-.logo-text-area div:last-child{font-size:13px;opacity:.65}
-.header-center{text-align:center;flex:1}
-.header-center h1{font-size:32px;font-weight:900;margin-bottom:8px;letter-spacing:-.5px}
-.header-center p{font-size:15px;opacity:.7;line-height:1.5;max-width:520px;margin:0 auto}
-.header-meta{text-align:left;font-size:13px;opacity:.65;line-height:1.7}
-.color-bar{height:5px;background:linear-gradient(90deg,var(--accent) 0%,var(--accent) 30%,var(--secondary) 65%,var(--primary) 100%)}
+/* ═══════════════════════════════════════════
+   Skip Link
+   ═══════════════════════════════════════════ */
+.skip-link {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 20px;
+  z-index: 200;
+  border-radius: 0 0 8px 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+}
+.skip-link:focus { top: 0; }
 
-/* === Main === */
-.main{max-width:1160px;margin:0 auto;padding:40px 24px}
+/* ═══════════════════════════════════════════
+   Color Bar
+   ═══════════════════════════════════════════ */
+.color-bar {
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 35%, var(--primary) 100%);
+}
 
-/* === Hero Stats === */
-.hero-stats{background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:18px;padding:36px 40px;margin-bottom:40px;display:flex;gap:0;box-shadow:0 8px 32px rgba(27,58,92,.2);position:relative;overflow:hidden}
-.hero-stats::before{content:'';position:absolute;top:0;right:0;width:100%;height:100%;background:repeating-linear-gradient(135deg,transparent,transparent 50px,rgba(255,255,255,.02) 50px,rgba(255,255,255,.02) 100px);pointer-events:none}
-.stat{flex:1;text-align:center;padding:0 20px;border-left:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
-.stat:last-child{border-left:none}
-.stat-value{font-size:38px;font-weight:900;color:#fff;line-height:1.1}
-.stat-value .stat-suffix{font-size:20px;font-weight:700;opacity:.8}
-.stat-label{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:6px;font-weight:500}
-.stat-live .stat-value{color:#7DFFB5}
+/* ═══════════════════════════════════════════
+   Header
+   ═══════════════════════════════════════════ */
+.site-header {
+  background: var(--primary);
+  color: #fff;
+  padding: 32px 40px;
+  position: relative;
+}
+.header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.logo-area { display: flex; align-items: center; gap: 14px; }
+.logo-emblem {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+.logo-emblem img { width: 100%; height: 155%; object-fit: cover; object-position: center 5%; }
+.header-title { font-size: 24px; font-weight: 800; letter-spacing: -0.3px; }
+.header-subtitle { font-size: 13px; opacity: 0.7; margin-top: 2px; }
+.header-meta { text-align: left; font-size: 12px; opacity: 0.6; line-height: 1.8; }
 
-/* === Section Headers === */
-.section-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;margin-top:16px;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
-.section-header.visible{opacity:1;transform:translateY(0)}
-.section-title{font-size:22px;font-weight:800;color:var(--primary);padding-bottom:8px;border-bottom:3px solid var(--accent);display:inline-block}
-.section-count{font-size:13px;color:var(--muted);font-weight:500}
+/* ═══════════════════════════════════════════
+   Hero Section
+   ═══════════════════════════════════════════ */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #1C3A60 100%);
+  padding: 56px 40px 48px;
+  text-align: center;
+  color: #fff;
+}
+.hero-thesis {
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.hero-subtitle {
+  font-size: 16px;
+  opacity: 0.75;
+  max-width: 560px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.hero-stat { text-align: center; }
+.hero-stat-value {
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.hero-stat-label {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 4px;
+  font-weight: 500;
+}
 
-/* === Project Grid (legacy) === */
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;margin-bottom:48px}
+/* ═══════════════════════════════════════════
+   Main Container
+   ═══════════════════════════════════════════ */
+.main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
 
-/* === Project Card (legacy) === */
-.project-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 16px rgba(27,58,92,.07);border:1.5px solid #E0E8F0;transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;opacity:0;transform:translateY(24px)}
-.project-card.visible{opacity:1;transform:translateY(0);transition:opacity .45s ease,transform .45s cubic-bezier(.4,0,.2,1)}
-.project-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(27,58,92,.14)}
-.card-header{background:linear-gradient(135deg,var(--primary) 0%,#244B6E 100%);padding:22px 24px;color:#fff;position:relative}
-.card-header::after{content:'';position:absolute;bottom:0;right:0;width:80px;height:80px;background:radial-gradient(circle,rgba(232,160,32,.1),transparent 70%);pointer-events:none}
-.card-header h3{font-size:16.5px;font-weight:700;margin-bottom:5px;position:relative;z-index:1}
-.card-header p{font-size:12.5px;opacity:.78;line-height:1.55;position:relative;z-index:1}
-.card-body{flex:1;display:flex;flex-direction:column;padding:20px 24px}
+/* ═══════════════════════════════════════════
+   Section Titles (no emoji)
+   ═══════════════════════════════════════════ */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+  margin-top: 48px;
+}
+.section-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+  padding-bottom: 6px;
+  border-bottom: 3px solid var(--accent);
+}
+.section-count {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
 
-/* === Status Badges === */
-.status-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:700;margin-bottom:10px}
-.status-live{background:#D8F5E8;color:var(--success)}
-.status-production{background:#D8F5E8;color:var(--success)}
-.status-pilot{background:#D8E8F8;color:var(--secondary)}
-.status-mvp{background:#E8F0FF;color:#2940A0}
-.status-dev{background:#F0EAF8;color:#6B2DA8}
-.status-plan{background:#FFF8E8;color:#A07020}
-.status-approved{background:#D8F5E8;color:var(--success)}
-.status-infra{background:#FFF0E8;color:#B85C00}
-.status-prototype{background:#FFF8E8;color:#A07020}
+/* ═══════════════════════════════════════════
+   Status Badges (production/pilot/prototype/dev)
+   ═══════════════════════════════════════════ */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.status-production {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1.5px solid var(--success-border);
+}
+.status-pilot {
+  background: var(--pilot-bg);
+  color: var(--pilot-blue);
+  border: 1.5px solid var(--pilot-border);
+}
+.status-prototype {
+  background: var(--amber-bg);
+  color: var(--amber);
+  border: 1.5px solid var(--amber-border);
+}
+.status-dev {
+  background: var(--gray-status-bg);
+  color: var(--gray-status);
+  border: 1.5px solid var(--gray-status-border);
+}
+.status-plan {
+  background: var(--gray-status-bg);
+  color: var(--gray-status);
+  border: 1.5px solid var(--gray-status-border);
+}
 
-/* Pulse */
-.pulse-dot{display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-left:4px;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(26,122,78,.45)}50%{box-shadow:0 0 0 7px rgba(26,122,78,0)}}
+/* ═══════════════════════════════════════════
+   Taxonomy Section (3 columns, colored top-border, dot-chips)
+   ═══════════════════════════════════════════ */
+.taxonomy-section {
+  margin-bottom: 48px;
+}
+.taxonomy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.taxonomy-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.taxonomy-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4px;
+}
+.taxonomy-card--integration::before { background: var(--pilot-blue); }
+.taxonomy-card--data::before { background: var(--amber); }
+.taxonomy-card--ai::before { background: #7C3AED; }
+.taxonomy-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.taxonomy-card p {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+.taxonomy-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.dot-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  background: var(--bg-page);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.dot-chip::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.taxonomy-card--integration .dot-chip::before { background: var(--pilot-blue); }
+.taxonomy-card--data .dot-chip::before { background: var(--amber); }
+.taxonomy-card--ai .dot-chip::before { background: #7C3AED; }
+.taxonomy-count {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--primary);
+}
+.taxonomy-count-label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
 
-/* === Metrics === */
-.card-metrics{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.metric-chip{background:var(--light);padding:5px 10px;border-radius:20px;font-size:12px;font-weight:600;color:var(--secondary);border:1px solid #D0DAE8;position:relative;cursor:default;transition:background .2s,transform .15s}
-.metric-chip:hover{background:#DEEAF6;transform:scale(1.03)}
-.metric-chip span{font-weight:800;color:var(--primary)}
-.metric-chip[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);right:50%;transform:translateX(50%);background:var(--text);color:#fff;font-size:11px;font-weight:500;padding:6px 12px;border-radius:8px;white-space:nowrap;z-index:10;pointer-events:none;animation:fadeIn .15s ease;box-shadow:0 4px 12px rgba(0,0,0,.15)}
-.metric-chip[data-tip]:hover::before{content:'';position:absolute;bottom:calc(100% + 4px);right:50%;transform:translateX(50%);border:5px solid transparent;border-top-color:var(--text);z-index:10}
+/* ═══════════════════════════════════════════
+   Flagship Cards
+   ═══════════════════════════════════════════ */
+.flagship-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.flagship-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.flagship-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.flagship-number {
+  background: var(--primary);
+  padding: 20px 24px;
+  border-bottom: 3px solid var(--accent);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.flagship-number-value {
+  font-size: 36px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+.flagship-number-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+}
+.flagship-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px;
+  gap: 8px;
+}
+.flagship-body h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 2px;
+}
+.flagship-insights {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 6px 0;
+}
+.flagship-proves,
+.flagship-blocks,
+.flagship-relevant {
+  font-size: 12.5px;
+  line-height: 1.5;
+  padding: 7px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.flagship-proves {
+  background: var(--success-bg);
+  border-right: 3px solid var(--success);
+  color: var(--text);
+}
+.flagship-blocks {
+  background: #FFF5F0;
+  border-right: 3px solid #D97706;
+  color: var(--text);
+}
+.flagship-relevant {
+  background: var(--bg-page);
+  border-right: 3px solid var(--border);
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.flagship-proves strong,
+.flagship-blocks strong,
+.flagship-relevant strong {
+  font-size: 11px;
+  color: var(--primary);
+  white-space: nowrap;
+}
+.flagship-recipe {
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.flagship-recipe span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.flagship-recipe span::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.flagship-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+}
 
-/* === Why line === */
-.why-line{font-size:12.5px;color:var(--muted);margin-bottom:14px;line-height:1.5;padding-right:2px}
-.why-line::before{content:'💡 ';font-size:11px}
+/* ═══════════════════════════════════════════
+   Compact Cards (remaining tools)
+   ═══════════════════════════════════════════ */
+.compact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.compact-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.compact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.compact-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+.compact-card p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
 
-/* === Card Actions === */
-.card-actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
-.card-updated{font-size:10px;color:var(--muted);opacity:.6;margin-top:8px;text-align:left}
-.btn{padding:9px 16px;border-radius:8px;border:none;font-family:'Heebo',Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:all .2s ease}
-.btn:hover{opacity:.88;transform:translateY(-1px)}
-.btn-primary{background:var(--primary);color:#fff}
-.btn-secondary{background:var(--light);color:var(--primary);border:1.5px solid #C8D8E8;font-size:12px;padding:7px 12px}
-.btn-live{background:linear-gradient(135deg,#D8F5E8,#C0EDDA);color:var(--success);border:1.5px solid #A8E0C0;font-weight:700}
-.btn-live:hover{background:linear-gradient(135deg,#C0EDDA,#A8E0C0)}
+/* ═══════════════════════════════════════════
+   Policy Cards
+   ═══════════════════════════════════════════ */
+.policy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.policy-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+  border-right: 4px solid var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+.policy-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+.policy-card p {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
 
-/* === Download Button === */
-.btn-download{background:linear-gradient(135deg,#2B579A,#1E3F70);color:#fff;border:1.5px solid #3B67AA;font-size:12px;padding:7px 12px;letter-spacing:-.2px}
-.btn-download:hover{background:linear-gradient(135deg,#3B67AA,#2B579A);opacity:1}
-.btn-download .dl-icon{font-weight:900;font-size:11px;background:rgba(255,255,255,.18);padding:2px 5px;border-radius:3px;margin-left:2px}
+/* ═══════════════════════════════════════════
+   Shared: Metrics + Actions
+   ═══════════════════════════════════════════ */
+.card-metrics {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.metric-chip {
+  background: var(--bg-page);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.metric-chip span {
+  font-weight: 800;
+  color: var(--primary);
+}
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+.card-updated {
+  font-size: 10px;
+  color: var(--muted);
+  opacity: 0.6;
+  margin-top: 8px;
+  text-align: left;
+}
 
-/* === Flagship === */
-.flagship-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;margin-bottom:48px}
-.flagship-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(27,58,92,.1);border:2px solid #D0DAE8;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;opacity:0;transform:translateY(24px)}
-.flagship-card.visible{opacity:1;transform:translateY(0)}
-.flagship-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(27,58,92,.14)}
-.flagship-header{background:linear-gradient(135deg,var(--primary),#244B6E);padding:16px 20px;color:#fff}
-.flagship-header h3{font-size:15.5px;font-weight:700;margin-bottom:3px}
-.flagship-header p{font-size:12px;opacity:.78;line-height:1.45}
-.flagship-body{flex:1;display:flex;flex-direction:column;padding:16px 20px;gap:6px}
-.flagship-insights{display:grid;grid-template-columns:1fr;gap:6px;margin:4px 0}
-.flagship-proves{font-size:12.5px;color:var(--text);line-height:1.5;padding:8px 12px;background:#F8FAFC;border-radius:8px;border-right:3px solid var(--accent);display:flex;align-items:baseline;gap:6px}
-.flagship-proves strong{color:var(--primary);font-size:11px;white-space:nowrap;min-width:fit-content}
-.flagship-needed{font-size:12px;color:var(--muted);line-height:1.4;padding:6px 12px;background:#FFF8F0;border-radius:8px;border-right:3px solid var(--challenge-integration);display:flex;align-items:baseline;gap:6px}
-.flagship-needed[data-challenge="data"]{border-right-color:#F59E0B}
-.flagship-needed[data-challenge="ai"]{border-right-color:#8B5CF6}
-.flagship-needed strong{font-size:11px;color:var(--primary);white-space:nowrap;min-width:fit-content}
-.flagship-relevant{font-size:11.5px;color:var(--muted);line-height:1.4;padding:4px 12px}
-.flagship-relevant strong{color:var(--secondary);font-size:11px}
-.flagship-recipe{font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;padding-top:6px;border-top:1px solid #E8EDF2;margin-top:2px}
-.flagship-recipe span{display:inline-flex;align-items:center;gap:4px}
-.flagship-recipe span::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
-.flagship-metrics{display:flex;gap:6px;flex-wrap:wrap}
-.flagship-actions{margin-top:auto;display:flex;gap:6px;flex-wrap:wrap;padding-top:6px}
-.challenge-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:10px;font-size:10.5px;font-weight:700}
-.challenge-badge-integration{background:#EBF4FF;color:#3B82F6}
-.challenge-badge-data{background:#FEF9E7;color:#F59E0B}
-.challenge-badge-ai{background:#F3EEFF;color:#8B5CF6}
+/* ═══════════════════════════════════════════
+   Buttons
+   ═══════════════════════════════════════════ */
+.btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Heebo', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+.btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-secondary {
+  background: var(--bg-page);
+  color: var(--primary);
+  border: 1.5px solid var(--border);
+  font-size: 12px;
+  padding: 7px 12px;
+}
+.btn-live {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1.5px solid var(--success-border);
+  font-weight: 700;
+}
+.btn-live::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  display: inline-block;
+}
+.btn-live:hover { background: #D4F0E0; }
+.btn-download {
+  background: var(--primary);
+  color: #fff;
+  font-size: 12px;
+  padding: 7px 12px;
+}
+.btn-download .dl-icon {
+  font-weight: 900;
+  font-size: 10px;
+  background: rgba(255,255,255,0.2);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
 
-/* === Taxonomy === */
-.taxonomy-section{background:linear-gradient(135deg,#0F2640,var(--primary),#244B6E);border-radius:18px;padding:36px;margin-bottom:48px;overflow:hidden;opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
-.taxonomy-section.visible{opacity:1;transform:translateY(0)}
-.taxonomy-section h2{font-size:20px;font-weight:800;color:#fff;margin-bottom:24px;text-align:center}
-.taxonomy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.taxonomy-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px 20px;text-align:center;transition:background .25s,transform .25s}
-.taxonomy-card:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
-.taxonomy-card .tax-icon{font-size:32px;margin-bottom:10px}
-.taxonomy-card h4{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
-.taxonomy-card p{font-size:12px;color:rgba(255,255,255,.65);line-height:1.5;margin-bottom:12px}
-.taxonomy-card .tax-count{font-size:28px;font-weight:900;color:var(--accent)}
-.taxonomy-card .tax-count-label{font-size:11px;color:rgba(255,255,255,.5)}
+/* ═══════════════════════════════════════════
+   Summary Section
+   ═══════════════════════════════════════════ */
+.summary-section {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  margin-bottom: 36px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.summary-section h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 24px;
+  border-bottom: 3px solid var(--accent);
+  display: inline-block;
+  padding-bottom: 8px;
+}
+.summary-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.summary-col h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+.summary-item {
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.summary-col-right .summary-item {
+  background: var(--success-bg);
+  border-right: 3px solid var(--success);
+}
+.summary-col-left .summary-item {
+  background: var(--bg-warm);
+  border-right: 3px solid var(--accent);
+}
+.summary-framing {
+  margin-top: 24px;
+  padding: 24px;
+  background: var(--bg-warm);
+  border-radius: var(--radius);
+  border: 1.5px solid #E8D5A8;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--primary);
+  font-weight: 600;
+  text-align: center;
+}
 
-/* === Summary section (replaces needs-box) === */
-.summary-section{background:#fff;border-radius:18px;padding:36px;margin-bottom:36px;border:1.5px solid #E0E8F0;box-shadow:0 4px 20px rgba(27,58,92,.06);opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
-.summary-section.visible{opacity:1;transform:translateY(0)}
-.summary-section h2{font-size:22px;font-weight:800;color:var(--primary);margin-bottom:24px;border-bottom:3px solid var(--accent);display:inline-block;padding-bottom:8px}
-.summary-columns{display:grid;grid-template-columns:1fr 1fr;gap:32px}
-.summary-col h3{font-size:16px;font-weight:700;color:var(--primary);margin-bottom:16px}
-.summary-item{padding:12px 16px;border-radius:10px;margin-bottom:10px;font-size:13px;line-height:1.6}
-.summary-col-right .summary-item{background:#F0FAF4;border-right:3px solid var(--success)}
-.summary-col-left .summary-item{background:#FFF8F0;border-right:3px solid var(--accent)}
-.summary-framing{margin-top:24px;padding:20px 24px;background:linear-gradient(135deg,#F8FAFF,#F0F4FF);border-radius:12px;border:1.5px solid #D0DAE8;font-size:14px;line-height:1.8;color:var(--primary);font-weight:600;text-align:center}
+/* ═══════════════════════════════════════════
+   Disclaimer
+   ═══════════════════════════════════════════ */
+.demo-disclaimer {
+  font-size: 11px;
+  color: var(--amber);
+  background: var(--amber-bg);
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  border: 1px solid var(--amber-border);
+}
 
-/* === Compact grid for remaining tools === */
-.compact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:48px}
-.compact-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 12px rgba(27,58,92,.06);border:1px solid #E0E8F0;border-right:3px solid var(--secondary);transition:transform .2s,box-shadow .2s;opacity:0;transform:translateY(16px)}
-.compact-card.visible{opacity:1;transform:translateY(0)}
-.compact-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(27,58,92,.1)}
-.compact-card h4{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:6px}
-.compact-card p{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px}
-.compact-card .card-metrics{margin-bottom:8px}
-.compact-card .card-actions{display:flex;gap:8px;flex-wrap:wrap}
+/* ═══════════════════════════════════════════
+   Footer (minimal one-line)
+   ═══════════════════════════════════════════ */
+.site-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 20px 24px;
+  margin-top: 24px;
+  line-height: 1.8;
+}
+.site-footer strong { color: var(--primary); }
+.footer-disclaimer {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-style: italic;
+}
 
-/* === Policy section === */
-.policy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:48px}
-.policy-card{background:#fff;border-radius:12px;padding:20px 24px;border:1.5px solid #E0E8F0;border-right:4px solid #9B59B6;opacity:0;transform:translateY(16px);transition:opacity .4s,transform .4s}
-.policy-card.visible{opacity:1;transform:translateY(0)}
-.policy-card h4{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:6px}
-.policy-card p{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:8px}
-.policy-card .card-metrics{margin-bottom:8px}
-.policy-card .card-actions{display:flex;gap:8px;flex-wrap:wrap}
+/* ═══════════════════════════════════════════
+   Internal-only (hidden in public)
+   ═══════════════════════════════════════════ */
+.internal-only { display: none; }
 
-/* === Disclaimer === */
-.demo-disclaimer{font-size:11px;color:var(--warning);background:#FFF8E8;padding:6px 12px;border-radius:8px;margin-bottom:8px;border:1px solid #F0D080}
-.footer-disclaimer{font-size:11px;color:var(--muted);margin-top:8px;font-style:italic}
+/* ═══════════════════════════════════════════
+   Presentation Mode
+   ═══════════════════════════════════════════ */
+.pres-toggle {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+.pres-toggle:hover { transform: scale(1.1); }
+.pres-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
-/* === Footer === */
-.footer-info{text-align:center;font-size:13px;color:var(--muted);margin-top:28px;padding:20px;background:#fff;border-radius:14px;border:1.5px solid #E0E8F0}
+body.pres-mode .site-header,
+body.pres-mode .compact-grid,
+body.pres-mode .policy-grid,
+body.pres-mode .site-footer { display: none; }
+body.pres-mode .hero-thesis { font-size: 44px; }
+body.pres-mode .hero-stat-value { font-size: 52px; }
+body.pres-mode .flagship-number-value { font-size: 44px; }
+body.pres-mode .section-title { font-size: 28px; }
+body.pres-mode .flagship-body h3 { font-size: 20px; }
 
-/* === Animations === */
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+/* ═══════════════════════════════════════════
+   Print CSS
+   ═══════════════════════════════════════════ */
+@media print {
+  .site-header, .pres-toggle, .btn, .card-actions, .flagship-actions { display: none !important; }
+  body { background: #fff; }
+  .main { padding: 16px; max-width: 100%; }
+  .flagship-grid, .compact-grid, .policy-grid, .taxonomy-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px;
+  }
+  .flagship-card, .compact-card, .policy-card, .taxonomy-card, .summary-section {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  .hero { padding: 24px; }
+  .hero-stats { gap: 24px; }
+}
 
-/* === Internal-only content (hidden in public, shown via JS in internal) === */
-.internal-only{display:none}
-
-/* === Responsive === */
-@media(max-width:768px){
-  .header-top{flex-direction:column;text-align:center;padding:20px;gap:12px}
-  .header-meta{text-align:center}
-  .logo-emblem{width:54px;height:54px}
-  .header-center h1{font-size:23px}
-  .projects-grid{grid-template-columns:1fr}
-  .hero-stats{flex-direction:column;gap:12px;padding:24px 20px}
-  .stat{border-left:none;border-bottom:1px solid rgba(255,255,255,.12);padding:12px 0}
-  .stat:last-child{border-bottom:none}
-  .stat-value{font-size:30px}
-  .flagship-grid,.compact-grid,.policy-grid{grid-template-columns:1fr}
-  .taxonomy-grid{grid-template-columns:1fr}
-  .summary-columns{grid-template-columns:1fr}
-  .project-card{margin:0}
-  .card-actions{flex-direction:column}
-  .btn{width:100%;justify-content:center}
-  .metric-chip[data-tip]:hover::after{display:none}
-  .metric-chip[data-tip]:hover::before{display:none}
+/* ═══════════════════════════════════════════
+   Mobile
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .site-header { padding: 20px; }
+  .header-inner { flex-direction: column; text-align: center; gap: 12px; }
+  .header-meta { text-align: center; }
+  .logo-emblem { width: 48px; height: 48px; }
+  .header-title { font-size: 20px; }
+  .hero { padding: 36px 20px 32px; }
+  .hero-thesis { font-size: 24px; }
+  .hero-subtitle { font-size: 14px; }
+  .hero-stats { gap: 24px; }
+  .hero-stat-value { font-size: 32px; }
+  .main { padding: 24px 16px; }
+  .section-title { font-size: 18px; }
+  .flagship-grid, .compact-grid, .policy-grid { grid-template-columns: 1fr; }
+  .taxonomy-grid { grid-template-columns: 1fr; }
+  .summary-columns { grid-template-columns: 1fr; }
+  .flagship-number-value { font-size: 28px; }
+  .card-actions { flex-direction: column; }
+  .btn { width: 100%; justify-content: center; }
+  .pres-toggle { display: none; }
 }
 </style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">דלג לתוכן</a>
 
+<!-- ═══ Color Bar ═══ -->
+<div class="color-bar" aria-hidden="true"></div>
+
+<!-- ═══ Header ═══ -->
 <header class="site-header" role="banner">
-  <div class="header-top">
+  <div class="header-inner">
     <div class="logo-area">
       <div class="logo-emblem"><img src="btl-logo.png" alt="לוגו המוסד לביטוח לאומי"></div>
-    </div>
-    <div class="header-center">
-      <h1>פרויקטי AI — מינהל גמלאות</h1>
-      <p>כלים דיגיטליים מבוססי בינה מלאכותית לשיפור מיצוי זכויות ושירות לאזרח</p>
+      <div>
+        <div class="header-title">פרויקטי AI — מינהל גמלאות</div>
+        <div class="header-subtitle">כלים דיגיטליים מבוססי בינה מלאכותית לשיפור מיצוי זכויות ושירות לאזרח</div>
+      </div>
     </div>
     <div class="header-meta"><div>אביעד יצחקי</div><div>מינהל גמלאות, ביטוח לאומי</div><div>יולי 2026</div></div>
   </div>
-  <div class="color-bar" aria-hidden="true"></div>
 </header>
 
-<main id="main-content" class="main" role="main">
-
-  <!-- ═══ Hero Stats ═══ -->
-  <div class="hero-stats" role="region" aria-label="מספרים מרכזיים">
-    <div class="stat stat-live">
-      <div class="stat-value" data-count="12">0</div>
-      <div class="stat-label">כלים חיים באוויר <span class="pulse-dot" aria-hidden="true"></span></div>
+<!-- ═══ Hero ═══ -->
+<section class="hero" role="region" aria-label="תזה מרכזית">
+  <h1 class="hero-thesis">היכולות קיימות. החסם אחד.</h1>
+  <p class="hero-subtitle">כל הכלים כבר עובדים. הם ממתינים לשלושה תנאי תשתית שזהים בכל משרד בממשלה. מי שיפתור אותם פעם אחת — יפתור לכולם.</p>
+  <div class="hero-stats" role="group" aria-label="מספרים מרכזיים">
+    <div class="hero-stat">
+      <div class="hero-stat-value">12</div>
+      <div class="hero-stat-label">כלים חיים באוויר</div>
     </div>
-    <div class="stat">
-      <div class="stat-value" data-count="17">0</div>
-      <div class="stat-label">פרויקטי AI פעילים</div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">450K</div>
+      <div class="hero-stat-label">תביעות מעובדות בשנה</div>
     </div>
-    <div class="stat">
-      <div class="stat-value" data-count="10" data-suffix="M">0</div>
-      <div class="stat-label">אזרחים מקבלי שירות</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value" data-count="3">0</div>
-      <div class="stat-label">אתגרי תשתית</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value" data-count="98">0</div>
-      <div class="stat-label">הטבות מונגשות</div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">257</div>
+      <div class="hero-stat-label">רשויות מקומיות ממופות</div>
     </div>
   </div>
+</section>
+
+<!-- ═══ Main Content ═══ -->
+<main id="main-content" class="main" role="main">
 
   <!-- ═══ חמישה נכסי דגל ═══ -->
   <div class="section-header">
-    <span class="section-title">🏆 חמישה נכסי דגל</span>
+    <span class="section-title">חמישה נכסי דגל</span>
     <span class="section-count">5 נכסים מוכחים — מוכנים לפריצה</span>
   </div>
   <div class="flagship-grid">
 
     <!-- Flagship 1: סיכום תביעה בסיעוד -->
-    <div class="flagship-card" aria-label="נכס דגל: סיכום תביעה בסיעוד">
-      <div class="flagship-header">
-        <h3>🤖 סיכום תביעה בסיעוד</h3>
-        <p>AI לסיכום אוטומטי של תיקי תביעה — מ-1.7 מיליון מסמכים לתמונה ברורה</p>
+    <article class="flagship-card" aria-label="נכס דגל: סיכום תביעה בסיעוד">
+      <div class="flagship-number">
+        <div class="flagship-number-value">450K</div>
+        <div class="flagship-number-label">תביעות/שנה</div>
       </div>
       <div class="flagship-body">
-        <div class="status-badge status-prototype">● אב-טיפוס</div>
-        <span class="challenge-badge challenge-badge-ai">🔌 זמינות AI</span>
-        <div class="flagship-metrics card-metrics">
-          <div class="metric-chip" data-tip="מספר תביעות סיעוד בשנה"><span>450K</span> תביעות/שנה</div>
-          <div class="metric-chip" data-tip="מסמכים שנסרקים ומסוכמים"><span>1.7M</span> מסמכים</div>
-        </div>
+        <h3>סיכום תביעה בסיעוד</h3>
+        <div class="status-badge status-prototype">אב-טיפוס</div>
         <div class="flagship-insights">
-          <div class="flagship-proves">
-            <strong>מוכיח:</strong>
-            AI מסכם תיק מורכב בשניות
-          </div>
-          <div class="flagship-needed" data-challenge="ai">
-            <strong>חוסם:</strong>
-            Runtime AI ארגוני
-          </div>
-          <div class="flagship-relevant">
-            <strong>רלוונטי ל:</strong> ביטוח, בנקים, בריאות, בתי משפט, מיסים
-          </div>
+          <div class="flagship-proves"><strong>מוכיח:</strong> AI מסכם תיק מורכב בשניות</div>
+          <div class="flagship-blocks"><strong>חוסם:</strong> Runtime AI ארגוני</div>
+          <div class="flagship-relevant"><strong>רלוונטי ל:</strong> ביטוח, בנקים, בריאות, בתי משפט, מיסים</div>
         </div>
         <div class="flagship-recipe">
           <span>3 שבועות</span>
@@ -298,38 +840,26 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
           <span>צוות: 1</span>
         </div>
         <div class="flagship-actions">
-          <a href="bot-siud.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-          <a href="infographics/bot-siud.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
-          <a href="../word/06-bot-siud.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+          <a href="bot-siud.html" target="_blank" class="btn btn-primary">One Pager</a>
+          <a href="infographics/bot-siud.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
+          <a href="../word/06-bot-siud.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
         </div>
       </div>
-    </div>
+    </article>
 
     <!-- Flagship 2: סל שירותי הזדקנות מיטבית -->
-    <div class="flagship-card" data-repo="SAL-ISHI-SIUD" aria-label="נכס דגל: סל שירותי הזדקנות מיטבית">
-      <div class="flagship-header">
-        <h3>🧺 סל שירותי הזדקנות מיטבית</h3>
-        <p>שדרוג מערכת ההפעלה — שירות מותאם אישית לאזרח, פיילוט פעיל</p>
+    <article class="flagship-card" data-repo="SAL-ISHI-SIUD" aria-label="נכס דגל: סל שירותי הזדקנות מיטבית">
+      <div class="flagship-number">
+        <div class="flagship-number-value">286</div>
+        <div class="flagship-number-label">משתתפים</div>
       </div>
       <div class="flagship-body">
-        <div class="status-badge status-pilot">◉ בפיילוט</div>
-        <span class="challenge-badge challenge-badge-integration">🔗 אינטגרציה</span>
-        <div class="flagship-metrics card-metrics">
-          <div class="metric-chip" data-tip="משתתפי פיילוט פעילים"><span>286</span> משתתפים</div>
-          <div class="metric-chip" data-tip="סטטוס פיילוט">פיילוט פעיל</div>
-        </div>
+        <h3>סל שירותי הזדקנות מיטבית</h3>
+        <div class="status-badge status-pilot">בפיילוט</div>
         <div class="flagship-insights">
-          <div class="flagship-proves">
-            <strong>מוכיח:</strong>
-            מודל שירות מותאם אישית במקום אחיד
-          </div>
-          <div class="flagship-needed" data-challenge="integration">
-            <strong>חוסם:</strong>
-            אינטגרציה למערכות ליבה
-          </div>
-          <div class="flagship-relevant">
-            <strong>רלוונטי ל:</strong> בריאות, רווחה, כל שירות עם ספקים
-          </div>
+          <div class="flagship-proves"><strong>מוכיח:</strong> מודל שירות מותאם אישית במקום אחיד</div>
+          <div class="flagship-blocks"><strong>חוסם:</strong> אינטגרציה למערכות ליבה</div>
+          <div class="flagship-relevant"><strong>רלוונטי ל:</strong> בריאות, רווחה, כל שירות עם ספקים</div>
         </div>
         <div class="flagship-recipe">
           <span>6 שבועות</span>
@@ -337,42 +867,30 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
           <span>צוות: 2</span>
         </div>
         <div class="flagship-actions">
-          <a href="https://libi-landing.vercel.app" target="_blank" class="btn btn-live">🟢 LIBI — מערכת סל אישי</a>
-          <a href="https://avi1840.github.io/sal-ishi-v2/" target="_blank" class="btn btn-live">🟢 ממשק מתאמת v2</a>
-          <a href="sal-ishi-decisions.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-          <a href="infographics/sal-ishi.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
+          <a href="https://libi-landing.vercel.app" target="_blank" class="btn btn-live">LIBI — מערכת סל אישי</a>
+          <a href="https://avi1840.github.io/sal-ishi-v2/" target="_blank" class="btn btn-live">ממשק מתאמת v2</a>
+          <a href="sal-ishi-decisions.html" target="_blank" class="btn btn-primary">One Pager</a>
+          <a href="infographics/sal-ishi.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
           <a href="../word/11-sal-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
-          <a href="https://github.com/AVI1840/SAL-ISHI-SIUD" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+          <a href="https://github.com/AVI1840/SAL-ISHI-SIUD" target="_blank" class="btn btn-secondary">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
     <!-- Flagship 3: ארנק הזכויות -->
-    <div class="flagship-card" data-repo="arnak-zchuyot" aria-label="נכס דגל: ארנק הזכויות">
-      <div class="flagship-header">
-        <h3>👛 ארנק הזכויות — ONE GOV</h3>
-        <p>מיצוי זכויות 360 בכל הממשלה — רשימת זכויות אישית לכל אזרח</p>
+    <article class="flagship-card" data-repo="arnak-zchuyot" aria-label="נכס דגל: ארנק הזכויות">
+      <div class="flagship-number">
+        <div class="flagship-number-value">98</div>
+        <div class="flagship-number-label">הטבות</div>
       </div>
       <div class="flagship-body">
-        <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
-        <span class="challenge-badge challenge-badge-data">📊 נגישות דאטה</span>
+        <h3>ארנק הזכויות — ONE GOV</h3>
+        <div class="status-badge status-production">בייצור</div>
         <div class="demo-disclaimer" role="note">כלי הדגמה. אינו מהווה קביעת זכאות רשמית.</div>
-        <div class="flagship-metrics card-metrics">
-          <div class="metric-chip" data-tip="מאגר מלא — כל הטבות ביטוח לאומי"><span>98</span> הטבות</div>
-          <div class="metric-chip" data-tip="מיצוי חוצה-ממשלה">מיצוי 360</div>
-        </div>
         <div class="flagship-insights">
-          <div class="flagship-proves">
-            <strong>מוכיח:</strong>
-            הנגשת זכאות חוצה-ממשלה בממשק אחד
-          </div>
-          <div class="flagship-needed" data-challenge="data">
-            <strong>חוסם:</strong>
-            גישה לדאטה ארגוני
-          </div>
-          <div class="flagship-relevant">
-            <strong>רלוונטי ל:</strong> כל משרד שמעניק הטבות, מערך הדיגיטל, רשויות
-          </div>
+          <div class="flagship-proves"><strong>מוכיח:</strong> הנגשת זכאות חוצה-ממשלה בממשק אחד</div>
+          <div class="flagship-blocks"><strong>חוסם:</strong> גישה לדאטה ארגוני</div>
+          <div class="flagship-relevant"><strong>רלוונטי ל:</strong> כל משרד שמעניק הטבות, מערך הדיגיטל, רשויות</div>
         </div>
         <div class="flagship-recipe">
           <span>4 שבועות</span>
@@ -380,40 +898,28 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
           <span>צוות: 1</span>
         </div>
         <div class="flagship-actions">
-          <a href="https://avi1840.github.io/arnak-zchuyot/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="arnak-zchuyot.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-          <a href="infographics/arnak-zchuyot.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
+          <a href="https://avi1840.github.io/arnak-zchuyot/" target="_blank" class="btn btn-live">כלי חי</a>
+          <a href="arnak-zchuyot.html" target="_blank" class="btn btn-primary">One Pager</a>
+          <a href="infographics/arnak-zchuyot.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
           <a href="../word/01-arnak-zchuyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
-          <a href="https://github.com/AVI1840/arnak-zchuyot" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+          <a href="https://github.com/AVI1840/arnak-zchuyot" target="_blank" class="btn btn-secondary">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
     <!-- Flagship 4: דשבורד פערי הגמלאות -->
-    <div class="flagship-card" data-repo="dashboard-gamlaut" aria-label="נכס דגל: דשבורד פערי הגמלאות">
-      <div class="flagship-header">
-        <h3>📊 דשבורד פערי הגמלאות</h3>
-        <p>תמונת מצב ארצית של פערי מיצוי גמלאות — 257 רשויות, 9 גמלאות</p>
+    <article class="flagship-card" data-repo="dashboard-gamlaut" aria-label="נכס דגל: דשבורד פערי הגמלאות">
+      <div class="flagship-number">
+        <div class="flagship-number-value">257</div>
+        <div class="flagship-number-label">רשויות</div>
       </div>
       <div class="flagship-body">
-        <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
-        <span class="challenge-badge challenge-badge-data">📊 נגישות דאטה</span>
-        <div class="flagship-metrics card-metrics">
-          <div class="metric-chip" data-tip="כל הרשויות המקומיות בישראל"><span>257</span> רשויות</div>
-          <div class="metric-chip" data-tip="נכות, סיעוד, ילד נכה, ניידות, אבטלה ועוד"><span>9</span> גמלאות</div>
-        </div>
+        <h3>דשבורד פערי הגמלאות</h3>
+        <div class="status-badge status-production">בייצור</div>
         <div class="flagship-insights">
-          <div class="flagship-proves">
-            <strong>מוכיח:</strong>
-            ערך עסקי מהיר מדאטה פומבי
-          </div>
-          <div class="flagship-needed" data-challenge="data">
-            <strong>חוסם:</strong>
-            גישה ל-DWH לדיוק
-          </div>
-          <div class="flagship-relevant">
-            <strong>רלוונטי ל:</strong> אגף תקציבים, פנים, כל תוכנית ברמת רשות
-          </div>
+          <div class="flagship-proves"><strong>מוכיח:</strong> ערך עסקי מהיר מדאטה פומבי</div>
+          <div class="flagship-blocks"><strong>חוסם:</strong> גישה ל-DWH לדיוק</div>
+          <div class="flagship-relevant"><strong>רלוונטי ל:</strong> אגף תקציבים, פנים, כל תוכנית ברמת רשות</div>
         </div>
         <div class="flagship-recipe">
           <span>3 שבועות</span>
@@ -421,39 +927,28 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
           <span>צוות: 1</span>
         </div>
         <div class="flagship-actions">
-          <a href="https://avi1840.github.io/dashboard-gamlaut/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="dashboard-gamlaut.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-          <a href="infographics/dashboard-gamlaut.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
+          <a href="https://avi1840.github.io/dashboard-gamlaut/" target="_blank" class="btn btn-live">כלי חי</a>
+          <a href="dashboard-gamlaut.html" target="_blank" class="btn btn-primary">One Pager</a>
+          <a href="infographics/dashboard-gamlaut.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
           <a href="../word/03-dashboard-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
-          <a href="https://github.com/AVI1840/dashboard-gamlaut" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+          <a href="https://github.com/AVI1840/dashboard-gamlaut" target="_blank" class="btn btn-secondary">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
     <!-- Flagship 5: מצפן התובנות -->
-    <div class="flagship-card" data-repo="btl-insight-hub" aria-label="נכס דגל: מצפן התובנות">
-      <div class="flagship-header">
-        <h3>🧭 מצפן התובנות</h3>
-        <p>הפיכת פניות גולמיות לתובנות ניהוליות — 9.8 מיליון פניות מנותחות</p>
+    <article class="flagship-card" data-repo="btl-insight-hub" aria-label="נכס דגל: מצפן התובנות">
+      <div class="flagship-number">
+        <div class="flagship-number-value">9.8M</div>
+        <div class="flagship-number-label">פניות</div>
       </div>
       <div class="flagship-body">
-        <div class="status-badge status-approved"><span class="pulse-dot"></span> POC הושלם — לקראת פיילוט</div>
-        <span class="challenge-badge challenge-badge-integration">🔗 אינטגרציה</span>
-        <div class="flagship-metrics card-metrics">
-          <div class="metric-chip" data-tip="פניות אזרחים שנותחו"><span>9.8M</span> פניות מנותחות</div>
-        </div>
+        <h3>מצפן התובנות</h3>
+        <div class="status-badge status-production">POC הושלם — לקראת פיילוט</div>
         <div class="flagship-insights">
-          <div class="flagship-proves">
-            <strong>מוכיח:</strong>
-            הפיכת פניות גולמיות לתובנות ניהוליות
-          </div>
-          <div class="flagship-needed" data-challenge="integration">
-            <strong>חוסם:</strong>
-            אינטגרציה למערכת פניות
-          </div>
-          <div class="flagship-relevant">
-            <strong>רלוונטי ל:</strong> כל ארגון עם מוקד שירות
-          </div>
+          <div class="flagship-proves"><strong>מוכיח:</strong> הפיכת פניות גולמיות לתובנות ניהוליות</div>
+          <div class="flagship-blocks"><strong>חוסם:</strong> אינטגרציה למערכת פניות</div>
+          <div class="flagship-relevant"><strong>רלוונטי ל:</strong> כל ארגון עם מוקד שירות</div>
         </div>
         <div class="flagship-recipe">
           <span>4 שבועות</span>
@@ -461,72 +956,84 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
           <span>צוות: 1</span>
         </div>
         <div class="flagship-actions">
-          <a href="https://avi1840.github.io/btl-insight-hub/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-          <a href="mokad-sherut.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-          <a href="infographics/strategic-insight.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
-          <a href="https://github.com/AVI1840/btl-insight-hub" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+          <a href="https://avi1840.github.io/btl-insight-hub/" target="_blank" class="btn btn-live">כלי חי</a>
+          <a href="mokad-sherut.html" target="_blank" class="btn btn-primary">One Pager</a>
+          <a href="infographics/strategic-insight.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
+          <a href="https://github.com/AVI1840/btl-insight-hub" target="_blank" class="btn btn-secondary">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
   </div>
 
   <!-- ═══ טקסונומיית אתגרים ═══ -->
+  <div class="section-header">
+    <span class="section-title">טקסונומיית אתגרים</span>
+    <span class="section-count">מה חוסם את הפריצה</span>
+  </div>
   <div class="taxonomy-section" role="region" aria-label="טקסונומיית אתגרי תשתית">
-    <h2>🔑 טקסונומיית אתגרים — מה חוסם את הפריצה</h2>
     <div class="taxonomy-grid">
-      <div class="taxonomy-card">
-        <div class="tax-icon" aria-hidden="true">🔗</div>
+      <div class="taxonomy-card taxonomy-card--integration">
         <h4>אינטגרציה</h4>
         <p>היכולת עובדת ואינה מחוברת למערכות הליבה</p>
-        <div class="tax-count">3</div>
-        <div class="tax-count-label">נכסים חוסמים: סל + מצפן + פורטל</div>
+        <div class="taxonomy-chips">
+          <span class="dot-chip">סל אישי</span>
+          <span class="dot-chip">מצפן</span>
+          <span class="dot-chip">פורטל</span>
+        </div>
+        <div class="taxonomy-count">3</div>
+        <div class="taxonomy-count-label">נכסים חסומים</div>
       </div>
-      <div class="taxonomy-card">
-        <div class="tax-icon" aria-hidden="true">📊</div>
+      <div class="taxonomy-card taxonomy-card--data">
         <h4>נגישות דאטה</h4>
         <p>מוגבלת לדאטה פומבי, נדרשת גישה מוסדרת</p>
-        <div class="tax-count">2</div>
-        <div class="tax-count-label">נכסים: ארנק + דשבורד</div>
+        <div class="taxonomy-chips">
+          <span class="dot-chip">ארנק</span>
+          <span class="dot-chip">דשבורד</span>
+        </div>
+        <div class="taxonomy-count">2</div>
+        <div class="taxonomy-count-label">נכסים חסומים</div>
       </div>
-      <div class="taxonomy-card">
-        <div class="tax-icon" aria-hidden="true">🤖</div>
+      <div class="taxonomy-card taxonomy-card--ai">
         <h4>זמינות AI</h4>
         <p>אין מנוע AI בתוך סביבת העבודה הארגונית</p>
-        <div class="tax-count">1</div>
-        <div class="tax-count-label">נכס: סיכום תביעה</div>
+        <div class="taxonomy-chips">
+          <span class="dot-chip">סיכום תביעה</span>
+        </div>
+        <div class="taxonomy-count">1</div>
+        <div class="taxonomy-count-label">נכס חסום</div>
       </div>
     </div>
   </div>
 
   <!-- ═══ כלים נוספים (compact) ═══ -->
   <div class="section-header">
-    <span class="section-title">🖥 כלים נוספים</span>
-    <span class="section-count">8 כלים בייצור</span>
+    <span class="section-title">כלים נוספים</span>
+    <span class="section-count">11 כלים בייצור ובפיתוח</span>
   </div>
   <div class="compact-grid">
 
     <!-- ועדות רפואיות -->
     <div class="compact-card">
-      <h4>🏥 ועדות רפואיות — צ'קליסט חכם</h4>
-      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <h4>ועדות רפואיות — צ'קליסט חכם</h4>
+      <div class="status-badge status-production">בייצור</div>
       <p>הכנה מושלמת לוועדה רפואית — מותאם אישית לסוג הוועדה</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>6</span> סוגי ועדות</div>
       </div>
       <div class="card-actions">
-        <a href="https://avi1840.github.io/vaadot-refuiyot/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-        <a href="vaadot-refuiyot.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-        <a href="infographics/vaadot-refuiyot.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
-        <a href="word/05-vaadot-refuiyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-        <a href="https://github.com/AVI1840/vaadot-refuiyot" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <a href="https://avi1840.github.io/vaadot-refuiyot/" target="_blank" class="btn btn-live">כלי חי</a>
+        <a href="vaadot-refuiyot.html" target="_blank" class="btn btn-primary">One Pager</a>
+        <a href="infographics/vaadot-refuiyot.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
+        <a href="word/05-vaadot-refuiyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+        <a href="https://github.com/AVI1840/vaadot-refuiyot" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
 
     <!-- מיצוי 360 -->
     <div class="compact-card">
-      <h4>🎯 מיצוי זכויות 360</h4>
-      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <h4>מיצוי זכויות 360</h4>
+      <div class="status-badge status-production">בייצור</div>
       <div class="demo-disclaimer" role="note">כלי הדגמה. אינו מהווה קביעת זכאות רשמית.</div>
       <p>כלי AI לסיוע לאזרח במצבי משבר — זיהוי כל הזכויות הרלוונטיות תוך 30 שניות</p>
       <div class="card-metrics">
@@ -534,18 +1041,18 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="metric-chip"><span>98</span> הטבות</div>
       </div>
       <div class="card-actions">
-        <a href="https://avi1840.github.io/mitzui-360/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-        <a href="mitzui-360.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-        <a href="infographics/mitzui-360.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
-        <a href="word/04-mitzui-360.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-        <a href="https://github.com/AVI1840/mitzui-360" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <a href="https://avi1840.github.io/mitzui-360/" target="_blank" class="btn btn-live">כלי חי</a>
+        <a href="mitzui-360.html" target="_blank" class="btn btn-primary">One Pager</a>
+        <a href="infographics/mitzui-360.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
+        <a href="word/04-mitzui-360.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+        <a href="https://github.com/AVI1840/mitzui-360" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
 
     <!-- מחשבון -->
     <div class="compact-card">
-      <h4>🧮 מחשבון גמלאות — כפל וסעיף 320</h4>
-      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <h4>מחשבון גמלאות — כפל וסעיף 320</h4>
+      <div class="status-badge status-production">בייצור</div>
       <div class="demo-disclaimer" role="note">כלי הדגמה. אינו מהווה קביעת זכאות רשמית.</div>
       <p>חישוב אוטומטי של זכאות לכפל גמלאות — עם נימוק משפטי</p>
       <div class="card-metrics">
@@ -553,51 +1060,51 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="metric-chip">חישוב מיידי</div>
       </div>
       <div class="card-actions">
-        <a href="https://avi1840.github.io/machshevon-kefel--ZOSH/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-        <a href="machshevon-kefel.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-        <a href="infographics/machshevon-kefel.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
-        <a href="word/02-machshevon-kefel.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-        <a href="https://github.com/AVI1840/machshevon-kefel--ZOSH" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <a href="https://avi1840.github.io/machshevon-kefel--ZOSH/" target="_blank" class="btn btn-live">כלי חי</a>
+        <a href="machshevon-kefel.html" target="_blank" class="btn btn-primary">One Pager</a>
+        <a href="infographics/machshevon-kefel.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
+        <a href="word/02-machshevon-kefel.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+        <a href="https://github.com/AVI1840/machshevon-kefel--ZOSH" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
 
     <!-- הנגשת סיעוד -->
     <div class="compact-card">
-      <h4>♿ הנגשת בחירה ומיצוי זכויות בסיעוד</h4>
-      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <h4>הנגשת בחירה ומיצוי זכויות בסיעוד</h4>
+      <div class="status-badge status-production">בייצור</div>
       <p>כלי לבחירת שירותים ומיצוי זכויות ל-390 אלף זכאי סיעוד</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>390K</span> זכאים</div>
         <div class="metric-chip">תקן 5568</div>
       </div>
       <div class="card-actions">
-        <a href="https://avi1840.github.io/nursing-helper/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-        <a href="nursing-helper.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-        <a href="infographics/nursing-helper.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
-        <a href="word/08-nursing-helper.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
-        <a href="https://github.com/AVI1840/nursing-helper" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <a href="https://avi1840.github.io/nursing-helper/" target="_blank" class="btn btn-live">כלי חי</a>
+        <a href="nursing-helper.html" target="_blank" class="btn btn-primary">One Pager</a>
+        <a href="infographics/nursing-helper.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
+        <a href="word/08-nursing-helper.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+        <a href="https://github.com/AVI1840/nursing-helper" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
 
     <!-- אקדמיית AI -->
     <div class="compact-card">
-      <h4>🌐 אקדמיית AI למגזר הציבורי</h4>
-      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <h4>אקדמיית AI למגזר הציבורי</h4>
+      <div class="status-badge status-production">בייצור</div>
       <p>אתר ידע ולמידה בינה מלאכותית לכל עובד ציבורי בישראל</p>
       <div class="card-metrics">
         <div class="metric-chip">מגזר ציבורי</div>
         <div class="metric-chip">כלים מעשיים</div>
       </div>
       <div class="card-actions">
-        <a href="https://avi1840.github.io/ai-academy/" target="_blank" class="btn btn-live">🟢 אתר חי</a>
-        <a href="https://github.com/AVI1840/ai-academy" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <a href="https://avi1840.github.io/ai-academy/" target="_blank" class="btn btn-live">אתר חי</a>
+        <a href="https://github.com/AVI1840/ai-academy" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
 
     <!-- הכשרת מאיצים -->
     <div class="compact-card">
-      <h4>⚡ הכשרת 30 מאיצי AI באגפים</h4>
-      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <h4>הכשרת 30 מאיצי AI באגפים</h4>
+      <div class="status-badge status-production">בייצור</div>
       <p>30 מנהלים בנו 40 בוטים עובדים — 4 מיומנויות, 4 שעות</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>30</span> מנהלים</div>
@@ -605,86 +1112,86 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="metric-chip">4×4</div>
       </div>
       <div class="card-actions">
-        <a href="#" class="btn btn-primary">📄 One Pager</a>
+        <a href="#" class="btn btn-primary">One Pager</a>
       </div>
     </div>
 
     <!-- עוזר אישי חכם -->
     <div class="compact-card">
-      <h4>🧠 עוזר אישי חכם לאזרח</h4>
-      <div class="status-badge status-pilot">◉ בפיילוט</div>
+      <h4>עוזר אישי חכם לאזרח</h4>
+      <div class="status-badge status-pilot">בפיילוט</div>
       <p>אייג'נט AI לליווי פרואקטיבי באתגרי החיים — MVP ראשון: אלמנות בזקנה</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>500</span> אזרחי פיילוט</div>
         <div class="metric-chip">WhatsApp</div>
       </div>
       <div class="card-actions">
-        <a href="ozer-ishi.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-        <a href="infographics/ozer-ishi.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
-        <a href="word/10-ozer-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+        <a href="ozer-ishi.html" target="_blank" class="btn btn-primary">One Pager</a>
+        <a href="infographics/ozer-ishi.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
+        <a href="word/10-ozer-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
       </div>
     </div>
 
     <!-- פורטל גמלאות 2.0 -->
     <div class="compact-card">
-      <h4>🌐 פורטל גמלאות 2.0 — מגדלור הידע</h4>
-      <div class="status-badge status-dev">◔ בפיתוח</div>
+      <h4>פורטל גמלאות 2.0 — מגדלור הידע</h4>
+      <div class="status-badge status-dev">בפיתוח</div>
       <p>בוטים חכמים על חוזרים ותדריכים, חיפוש AI — שלב ב'</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>1,500+</span> דפים</div>
         <div class="metric-chip"><span>123</span> כלים</div>
       </div>
       <div class="card-actions">
-        <a href="infographics/portal-gamlaut.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
-        <a href="word/07-portal-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> One Pager</a>
+        <a href="infographics/portal-gamlaut.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
+        <a href="word/07-portal-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
       </div>
     </div>
 
     <!-- מנוע זכויות ניידות -->
     <div class="compact-card">
-      <h4>⚖️ מנוע זכויות ניידות — מחוזרים למערכת</h4>
-      <div class="status-badge status-pilot">◉ בפיילוט</div>
+      <h4>מנוע זכויות ניידות — מחוזרים למערכת</h4>
+      <div class="status-badge status-pilot">בפיילוט</div>
       <p>כלי תומך החלטה מבוסס כללים לאגף הניידות — Rules-as-Code, Explainable AI</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>14</span> מקורות מקצועיים</div>
         <div class="metric-chip">החלטה מנומקת</div>
       </div>
       <div class="card-actions">
-        <a href="https://avi1840.github.io/mobility-rules-engine/" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-        <a href="mobility-onepager.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-        <a href="infographic-mobility.html" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
-        <a href="https://github.com/AVI1840/mobility-rules-engine" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <a href="https://avi1840.github.io/mobility-rules-engine/" target="_blank" class="btn btn-live">כלי חי</a>
+        <a href="mobility-onepager.html" target="_blank" class="btn btn-primary">One Pager</a>
+        <a href="infographic-mobility.html" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
+        <a href="https://github.com/AVI1840/mobility-rules-engine" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
 
     <!-- מערכת לאומית — מבחני הכנסות -->
     <div class="compact-card">
-      <h4>🏛 מערכת לאומית — מבחני הכנסות</h4>
-      <div class="status-badge status-plan">◇ לקראת אישור</div>
+      <h4>מערכת לאומית — מבחני הכנסות</h4>
+      <div class="status-badge status-plan">לקראת אישור</div>
       <p>העברת נתונים דיגיטלית מביטוח לאומי לגופי ממשלה — ASK ONCE, באישור המבוטח</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>70+</span> זכויות</div>
         <div class="metric-chip"><span>15</span> משרדים</div>
       </div>
       <div class="card-actions">
-        <a href="mivhnei-hachnasot.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-        <a href="infographics/mivhnei-hachnasot.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
+        <a href="mivhnei-hachnasot.html" target="_blank" class="btn btn-primary">One Pager</a>
+        <a href="infographics/mivhnei-hachnasot.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
         <a href="../word/12-mivhnei-hachnasot.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
       </div>
     </div>
 
     <!-- מחשבון חל"ת חירום -->
     <div class="compact-card">
-      <h4>🚨 מחשבון חל"ת חירום — שאגת הארי</h4>
-      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <h4>מחשבון חל"ת חירום — שאגת הארי</h4>
+      <div class="status-badge status-production">בייצור</div>
       <p>שאלון דינמי לבדיקת זכאות לדמי אבטלה בחל"ת חירום — כל 7 ההקלות מהחוזר</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>7</span> הקלות חוזר</div>
         <div class="metric-chip">מנוע חוקים</div>
       </div>
       <div class="card-actions">
-        <a href="https://shaagat-haari-app-2jmy.vercel.app/chalat" target="_blank" class="btn btn-live">🟢 כלי חי</a>
-        <a href="https://github.com/AVI1840/shaagat-haari-app" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <a href="https://shaagat-haari-app-2jmy.vercel.app/chalat" target="_blank" class="btn btn-live">כלי חי</a>
+        <a href="https://github.com/AVI1840/shaagat-haari-app" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
 
@@ -692,15 +1199,15 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 
   <!-- ═══ מהלכי מדיניות ואסטרטגיה ═══ -->
   <div class="section-header">
-    <span class="section-title">🧭 מהלכי מדיניות ואסטרטגיה</span>
+    <span class="section-title">מהלכי מדיניות ואסטרטגיה</span>
     <span class="section-count">מהלך מדיניות — לא כלי AI</span>
   </div>
   <div class="policy-grid">
 
     <!-- המקפצה -->
     <div class="policy-card">
-      <h4>🚀 המקפצה — כיפת ברזל תעסוקתית</h4>
-      <div class="status-badge status-prototype">● אב-טיפוס</div>
+      <h4>המקפצה — כיפת ברזל תעסוקתית</h4>
+      <div class="status-badge status-prototype">אב-טיפוס</div>
       <p>אסטרטגיה לאומית בין-משרדית — תעסוקת אוכלוסיות בסיכון בעידן AI</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>999K</span> ₪</div>
@@ -708,35 +1215,35 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="metric-chip"><span>3</span> מסלולים</div>
       </div>
       <div class="card-actions">
-        <a href="https://avi1840.github.io/hamakfetza1/" target="_blank" class="btn btn-live">🟢 אתר חי</a>
-        <a href="hamakpetza.html" target="_blank" class="btn btn-primary">📄 One Pager</a>
-        <a href="infographics/hamakpetza.png" target="_blank" class="btn btn-secondary">📊 אינפוגרפיקה</a>
-        <a href="https://github.com/AVI1840/hamakfetza1" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <a href="https://avi1840.github.io/hamakfetza1/" target="_blank" class="btn btn-live">אתר חי</a>
+        <a href="hamakpetza.html" target="_blank" class="btn btn-primary">One Pager</a>
+        <a href="infographics/hamakpetza.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
+        <a href="https://github.com/AVI1840/hamakfetza1" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
 
-    <!-- הכשרת מנהלים 4x4 -->
+    <!-- תוכנית 4×4 -->
     <div class="policy-card">
-      <h4>⚡ תוכנית 4×4 — הכשרת מנהלים</h4>
-      <div class="status-badge status-production"><span class="pulse-dot"></span> בייצור</div>
+      <h4>תוכנית 4×4 — הכשרת מנהלים</h4>
+      <div class="status-badge status-production">בייצור</div>
       <p>שדרוג תהליכי עבודה ארגוניים — 4 מיומנויות AI ב-4 שעות לכל מנהל</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>30</span> מנהלים</div>
         <div class="metric-chip"><span>40</span> בוטים</div>
       </div>
       <div class="card-actions">
-        <a href="#" class="btn btn-primary">📄 One Pager</a>
+        <a href="#" class="btn btn-primary">One Pager</a>
       </div>
     </div>
 
   </div>
 
-  <!-- ═══ מה כבר אפשר · מה נדרש כדי לפרוץ ═══ -->
+  <!-- ═══ סיכום: מה כבר אפשר · מה נדרש כדי לפרוץ ═══ -->
   <div class="summary-section" role="region" aria-label="סיכום: מה כבר אפשר ומה נדרש">
     <h2>מה כבר אפשר · מה נדרש כדי לפרוץ</h2>
     <div class="summary-columns">
       <div class="summary-col summary-col-right">
-        <h3>✅ מה כבר אפשר היום, בשבועות ולא בשנים</h3>
+        <h3>מה כבר אפשר היום, בשבועות ולא בשנים</h3>
         <div class="summary-item">הפקת ערך עסקי מהיר מדאטה פומבי — הדשבורד הוא ההוכחה: ערך לכל הארגון בלי תלות בדאטה פנימי</div>
         <div class="summary-item">הנגשת זכאות לאזרח בחיתוך חוצה-ממשלה</div>
         <div class="summary-item">קידוד חוזרים ונהלים למנוע כללים מוסבר עם שביל ביקורת</div>
@@ -744,7 +1251,7 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="summary-item">הפיכת פניות שירות גולמיות לתובנות ניהוליות</div>
       </div>
       <div class="summary-col summary-col-left">
-        <h3>🔑 מה נדרש כדי לפרוץ</h3>
+        <h3>מה נדרש כדי לפרוץ</h3>
         <div class="summary-item">תשתית אינטגרציה — מנגנון סטנדרטי לחיבור יכולת AI למערכות הליבה</div>
         <div class="summary-item">גישה מוסדרת לדאטה — פרוטוקול הרשאות וממשל דאטה ארגוני</div>
         <div class="summary-item">Runtime ארגוני ל-AI — מנוע זמין בתוך סביבת העבודה, לא רק בסביבת פיתוח</div>
@@ -755,15 +1262,17 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer-info" id="footer-trigger" style="cursor:default;user-select:none">
-    <strong>אביעד יצחקי</strong> | מוביל AI, מינהל גמלאות | ביטוח לאומי | יולי 2026 | 17 פרויקטים | 5 נכסי דגל
-    <div class="footer-disclaimer">אתר עבודה אישי המציג פרויקטים שאני מוביל במינהל גמלאות. אינו אתר רשמי של המוסד לביטוח לאומי.</div>
-    <div class="footer-disclaimer internal-only" style="margin-top:4px;color:var(--secondary)">📌 גרסה פנימית — מכיל פרטים תפעוליים. לא לפרסום חיצוני.</div>
-    <div style="margin-top:6px;font-size:11px;opacity:.5">עדכון אחרון: 15.07.2026</div>
-  </div>
-
 </main>
+
+<!-- ═══ Footer ═══ -->
+<footer class="site-footer" id="footer-trigger" style="cursor:default;user-select:none">
+  <strong>אביעד יצחקי</strong> · מוביל AI, מינהל גמלאות · ביטוח לאומי · יולי 2026
+  <div class="footer-disclaimer">אתר עבודה אישי המציג פרויקטים שאני מוביל במינהל גמלאות. אינו אתר רשמי של המוסד לביטוח לאומי.</div>
+  <div class="footer-disclaimer internal-only" style="margin-top:4px;color:var(--pilot-blue)">גרסה פנימית — מכיל פרטים תפעוליים. לא לפרסום חיצוני.</div>
+</footer>
+
+<!-- ═══ Presentation Mode Toggle ═══ -->
+<button class="pres-toggle" aria-label="מצב מצגת" title="מצב מצגת" onclick="document.body.classList.toggle('pres-mode')">⛶</button>
 
 <script>
 // === BUILD_MODE conditional (internal version would load analytics) ===
@@ -771,95 +1280,40 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
   var htmlContent = document.documentElement.outerHTML;
   var isInternal = htmlContent.indexOf('BUILD_MODE: internal') > -1;
   if (isInternal) {
-    // Add noindex for internal version
     var meta = document.createElement('meta');
     meta.name = 'robots';
     meta.content = 'noindex, nofollow';
     document.head.appendChild(meta);
-    // Show internal-only elements
     var internalEls = document.querySelectorAll('.internal-only');
     internalEls.forEach(function(el) { el.style.display = ''; });
     console.log('[Portal] Internal mode — noindex applied');
   } else {
-    // Hide internal-only elements in public version
     var internalEls = document.querySelectorAll('.internal-only');
     internalEls.forEach(function(el) { el.style.display = 'none'; });
   }
 })();
 
 (function(){
-  // === Count-up Animation ===
-  var counters = document.querySelectorAll('[data-count]');
-  var counterObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (!entry.isIntersecting) return;
-      var el = entry.target;
-      var target = parseInt(el.getAttribute('data-count'));
-      var suffix = el.getAttribute('data-suffix') || '';
-      var duration = 1400;
-      var start = performance.now();
-      function update(now) {
-        var elapsed = now - start;
-        var progress = Math.min(elapsed / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 4);
-        var current = Math.round(eased * target);
-        if (suffix === 'M') {
-          el.innerHTML = current + '<span class="stat-suffix">M</span>';
-        } else if (suffix === 'B') {
-          el.innerHTML = current + '<span class="stat-suffix">B</span>';
-        } else if (suffix === 'K') {
-          el.innerHTML = current + '<span class="stat-suffix">K</span>';
-        } else {
-          el.textContent = current.toLocaleString('he-IL');
-        }
-        if (progress < 1) requestAnimationFrame(update);
-      }
-      requestAnimationFrame(update);
-      counterObserver.unobserve(el);
-    });
-  }, { threshold: 0.2 });
-  counters.forEach(function(c) { counterObserver.observe(c); });
-
-  // === Scroll Reveal Animation ===
-  var revealEls = document.querySelectorAll('.flagship-card, .compact-card, .policy-card, .section-header, .summary-section, .taxonomy-section');
-  var revealObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var el = entry.target;
-        if (el.classList.contains('flagship-card') || el.classList.contains('compact-card') || el.classList.contains('policy-card')) {
-          var siblings = el.parentElement.children;
-          var index = Array.prototype.indexOf.call(siblings, el);
-          el.style.transitionDelay = (index * 0.08) + 's';
-        }
-        el.classList.add('visible');
-        revealObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  revealEls.forEach(function(el) { revealObserver.observe(el); });
-
   // === Auto-update dates from GitHub ===
-  (function() {
-    var cards = document.querySelectorAll('[data-repo]');
-    var owner = 'AVI1840';
-    cards.forEach(function(card) {
-      var repo = card.getAttribute('data-repo');
-      fetch('https://api.github.com/repos/' + owner + '/' + repo + '/commits?per_page=1')
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          if (!data || !data[0] || !data[0].commit) return;
-          var d = new Date(data[0].commit.committer.date);
-          var cutoff = new Date();
-          cutoff.setMonth(cutoff.getMonth() - 2);
-          if (d < cutoff) return;
-          var el = document.createElement('div');
-          el.style.cssText = 'font-size:10px;color:var(--muted);opacity:.6;margin-top:8px;text-align:left';
-          el.textContent = 'עדכון: ' + d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
-          var body = card.querySelector('.flagship-body') || card.querySelector('.card-body') || card;
-          body.appendChild(el);
-        }).catch(function() {});
-    });
-  })();
+  var cards = document.querySelectorAll('[data-repo]');
+  var owner = 'AVI1840';
+  cards.forEach(function(card) {
+    var repo = card.getAttribute('data-repo');
+    fetch('https://api.github.com/repos/' + owner + '/' + repo + '/commits?per_page=1')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data || !data[0] || !data[0].commit) return;
+        var d = new Date(data[0].commit.committer.date);
+        var cutoff = new Date();
+        cutoff.setMonth(cutoff.getMonth() - 2);
+        if (d < cutoff) return;
+        var el = document.createElement('div');
+        el.className = 'card-updated';
+        el.textContent = 'עדכון: ' + d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
+        var body = card.querySelector('.flagship-body') || card.querySelector('.card-body') || card;
+        body.appendChild(el);
+      }).catch(function() {});
+  });
 })();
 </script>
 </body>
