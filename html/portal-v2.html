@@ -115,23 +115,24 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
 .flagship-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(27,58,92,.1);border:2px solid #D0DAE8;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;opacity:0;transform:translateY(24px)}
 .flagship-card.visible{opacity:1;transform:translateY(0)}
 .flagship-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(27,58,92,.14)}
-.flagship-header{background:linear-gradient(135deg,var(--primary),#244B6E);padding:22px 24px;color:#fff}
-.flagship-header h3{font-size:17px;font-weight:700;margin-bottom:5px}
-.flagship-header p{font-size:12.5px;opacity:.78;line-height:1.55}
-.flagship-body{flex:1;display:flex;flex-direction:column;padding:20px 24px;gap:12px}
-.flagship-proves{font-size:13px;color:var(--text);line-height:1.6;padding:10px 14px;background:#F8FAFC;border-radius:10px;border-right:3px solid var(--accent)}
-.flagship-proves strong{color:var(--primary);display:block;font-size:12px;margin-bottom:4px}
-.flagship-needed{font-size:12.5px;color:var(--muted);line-height:1.5;padding:8px 12px;background:#FFF8F0;border-radius:8px;border-right:3px solid var(--challenge-integration)}
+.flagship-header{background:linear-gradient(135deg,var(--primary),#244B6E);padding:16px 20px;color:#fff}
+.flagship-header h3{font-size:15.5px;font-weight:700;margin-bottom:3px}
+.flagship-header p{font-size:12px;opacity:.78;line-height:1.45}
+.flagship-body{flex:1;display:flex;flex-direction:column;padding:16px 20px;gap:6px}
+.flagship-insights{display:grid;grid-template-columns:1fr;gap:6px;margin:4px 0}
+.flagship-proves{font-size:12.5px;color:var(--text);line-height:1.5;padding:8px 12px;background:#F8FAFC;border-radius:8px;border-right:3px solid var(--accent);display:flex;align-items:baseline;gap:6px}
+.flagship-proves strong{color:var(--primary);font-size:11px;white-space:nowrap;min-width:fit-content}
+.flagship-needed{font-size:12px;color:var(--muted);line-height:1.4;padding:6px 12px;background:#FFF8F0;border-radius:8px;border-right:3px solid var(--challenge-integration);display:flex;align-items:baseline;gap:6px}
 .flagship-needed[data-challenge="data"]{border-right-color:#F59E0B}
 .flagship-needed[data-challenge="ai"]{border-right-color:#8B5CF6}
-.flagship-needed strong{display:block;font-size:11px;color:var(--primary);margin-bottom:2px}
-.flagship-relevant{font-size:12px;color:var(--muted);line-height:1.5}
+.flagship-needed strong{font-size:11px;color:var(--primary);white-space:nowrap;min-width:fit-content}
+.flagship-relevant{font-size:11.5px;color:var(--muted);line-height:1.4;padding:4px 12px}
 .flagship-relevant strong{color:var(--secondary);font-size:11px}
-.flagship-recipe{font-size:11.5px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap;padding-top:8px;border-top:1px solid #E8EDF2}
+.flagship-recipe{font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;padding-top:6px;border-top:1px solid #E8EDF2;margin-top:2px}
 .flagship-recipe span{display:inline-flex;align-items:center;gap:4px}
 .flagship-recipe span::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
-.flagship-metrics{display:flex;gap:8px;flex-wrap:wrap}
-.flagship-actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:8px}
+.flagship-metrics{display:flex;gap:6px;flex-wrap:wrap}
+.flagship-actions{margin-top:auto;display:flex;gap:6px;flex-wrap:wrap;padding-top:6px}
 .challenge-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:10px;font-size:10.5px;font-weight:700}
 .challenge-badge-integration{background:#EBF4FF;color:#3B82F6}
 .challenge-badge-data{background:#FEF9E7;color:#F59E0B}
@@ -278,16 +279,18 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
           <div class="metric-chip" data-tip="מספר תביעות סיעוד בשנה"><span>450K</span> תביעות/שנה</div>
           <div class="metric-chip" data-tip="מסמכים שנסרקים ומסוכמים"><span>1.7M</span> מסמכים</div>
         </div>
-        <div class="flagship-proves">
-          <strong>מה זה מוכיח</strong>
-          AI מסכם תיק מורכב בשניות
-        </div>
-        <div class="flagship-needed" data-challenge="ai">
-          <strong>מה נדרש כדי לפרוץ לייצור</strong>
-          Runtime AI ארגוני
-        </div>
-        <div class="flagship-relevant">
-          <strong>למי עוד רלוונטי: </strong>ביטוח, בנקים, בריאות, בתי משפט, מיסים
+        <div class="flagship-insights">
+          <div class="flagship-proves">
+            <strong>מוכיח:</strong>
+            AI מסכם תיק מורכב בשניות
+          </div>
+          <div class="flagship-needed" data-challenge="ai">
+            <strong>חוסם:</strong>
+            Runtime AI ארגוני
+          </div>
+          <div class="flagship-relevant">
+            <strong>רלוונטי ל:</strong> ביטוח, בנקים, בריאות, בתי משפט, מיסים
+          </div>
         </div>
         <div class="flagship-recipe">
           <span>3 שבועות</span>
@@ -315,16 +318,18 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
           <div class="metric-chip" data-tip="משתתפי פיילוט פעילים"><span>286</span> משתתפים</div>
           <div class="metric-chip" data-tip="סטטוס פיילוט">פיילוט פעיל</div>
         </div>
-        <div class="flagship-proves">
-          <strong>מה זה מוכיח</strong>
-          מודל שירות מותאם אישית במקום אחיד
-        </div>
-        <div class="flagship-needed" data-challenge="integration">
-          <strong>מה נדרש כדי לפרוץ לייצור</strong>
-          אינטגרציה למערכות ליבה
-        </div>
-        <div class="flagship-relevant">
-          <strong>למי עוד רלוונטי: </strong>בריאות, רווחה, כל שירות עם ספקים
+        <div class="flagship-insights">
+          <div class="flagship-proves">
+            <strong>מוכיח:</strong>
+            מודל שירות מותאם אישית במקום אחיד
+          </div>
+          <div class="flagship-needed" data-challenge="integration">
+            <strong>חוסם:</strong>
+            אינטגרציה למערכות ליבה
+          </div>
+          <div class="flagship-relevant">
+            <strong>רלוונטי ל:</strong> בריאות, רווחה, כל שירות עם ספקים
+          </div>
         </div>
         <div class="flagship-recipe">
           <span>6 שבועות</span>
@@ -356,16 +361,18 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
           <div class="metric-chip" data-tip="מאגר מלא — כל הטבות ביטוח לאומי"><span>98</span> הטבות</div>
           <div class="metric-chip" data-tip="מיצוי חוצה-ממשלה">מיצוי 360</div>
         </div>
-        <div class="flagship-proves">
-          <strong>מה זה מוכיח</strong>
-          הנגשת זכאות חוצה-ממשלה בממשק אחד
-        </div>
-        <div class="flagship-needed" data-challenge="data">
-          <strong>מה נדרש כדי לפרוץ לייצור</strong>
-          גישה לדאטה ארגוני
-        </div>
-        <div class="flagship-relevant">
-          <strong>למי עוד רלוונטי: </strong>כל משרד שמעניק הטבות, מערך הדיגיטל, רשויות
+        <div class="flagship-insights">
+          <div class="flagship-proves">
+            <strong>מוכיח:</strong>
+            הנגשת זכאות חוצה-ממשלה בממשק אחד
+          </div>
+          <div class="flagship-needed" data-challenge="data">
+            <strong>חוסם:</strong>
+            גישה לדאטה ארגוני
+          </div>
+          <div class="flagship-relevant">
+            <strong>רלוונטי ל:</strong> כל משרד שמעניק הטבות, מערך הדיגיטל, רשויות
+          </div>
         </div>
         <div class="flagship-recipe">
           <span>4 שבועות</span>
@@ -395,16 +402,18 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
           <div class="metric-chip" data-tip="כל הרשויות המקומיות בישראל"><span>257</span> רשויות</div>
           <div class="metric-chip" data-tip="נכות, סיעוד, ילד נכה, ניידות, אבטלה ועוד"><span>9</span> גמלאות</div>
         </div>
-        <div class="flagship-proves">
-          <strong>מה זה מוכיח</strong>
-          ערך עסקי מהיר מדאטה פומבי
-        </div>
-        <div class="flagship-needed" data-challenge="data">
-          <strong>מה נדרש כדי לפרוץ לייצור</strong>
-          גישה ל-DWH לדיוק
-        </div>
-        <div class="flagship-relevant">
-          <strong>למי עוד רלוונטי: </strong>אגף תקציבים, פנים, כל תוכנית ברמת רשות
+        <div class="flagship-insights">
+          <div class="flagship-proves">
+            <strong>מוכיח:</strong>
+            ערך עסקי מהיר מדאטה פומבי
+          </div>
+          <div class="flagship-needed" data-challenge="data">
+            <strong>חוסם:</strong>
+            גישה ל-DWH לדיוק
+          </div>
+          <div class="flagship-relevant">
+            <strong>רלוונטי ל:</strong> אגף תקציבים, פנים, כל תוכנית ברמת רשות
+          </div>
         </div>
         <div class="flagship-recipe">
           <span>3 שבועות</span>
@@ -433,16 +442,18 @@ html,body{overflow-x:hidden;max-width:100vw;-webkit-text-size-adjust:100%}
         <div class="flagship-metrics card-metrics">
           <div class="metric-chip" data-tip="פניות אזרחים שנותחו"><span>9.8M</span> פניות מנותחות</div>
         </div>
-        <div class="flagship-proves">
-          <strong>מה זה מוכיח</strong>
-          הפיכת פניות גולמיות לתובנות ניהוליות
-        </div>
-        <div class="flagship-needed" data-challenge="integration">
-          <strong>מה נדרש כדי לפרוץ לייצור</strong>
-          אינטגרציה למערכת פניות
-        </div>
-        <div class="flagship-relevant">
-          <strong>למי עוד רלוונטי: </strong>כל ארגון עם מוקד שירות
+        <div class="flagship-insights">
+          <div class="flagship-proves">
+            <strong>מוכיח:</strong>
+            הפיכת פניות גולמיות לתובנות ניהוליות
+          </div>
+          <div class="flagship-needed" data-challenge="integration">
+            <strong>חוסם:</strong>
+            אינטגרציה למערכת פניות
+          </div>
+          <div class="flagship-relevant">
+            <strong>רלוונטי ל:</strong> כל ארגון עם מוקד שירות
+          </div>
         </div>
         <div class="flagship-recipe">
           <span>4 שבועות</span>
