@@ -210,6 +210,11 @@ body {
   color: var(--pilot-blue);
   border: 1.5px solid var(--pilot-border);
 }
+.status-demo {
+  background: rgba(13,148,136,.1);
+  color: #0D7377;
+  border: 1.5px solid rgba(13,148,136,.3);
+}
 .status-prototype {
   background: var(--amber-bg);
   color: var(--amber);
@@ -682,11 +687,6 @@ body {
 }
 
 /* ═══════════════════════════════════════════
-   Internal-only (hidden in public)
-   ═══════════════════════════════════════════ */
-.internal-only { display: none; }
-
-/* ═══════════════════════════════════════════
    Presentation Mode
    ═══════════════════════════════════════════ */
 .pres-toggle {
@@ -885,7 +885,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
       </div>
       <div class="flagship-body">
         <h3>ארנק הזכויות — ONE GOV</h3>
-        <div class="status-badge status-production">בייצור</div>
+        <div class="status-badge status-demo">דמו ציבורי</div>
         <div class="demo-disclaimer" role="note">כלי הדגמה. אינו מהווה קביעת זכאות רשמית.</div>
         <div class="flagship-insights">
           <div class="flagship-proves"><strong>מוכיח:</strong> הנגשת זכאות חוצה-ממשלה בממשק אחד</div>
@@ -1009,7 +1009,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
   <!-- ═══ כלים נוספים (compact) ═══ -->
   <div class="section-header">
     <span class="section-title">כלים נוספים</span>
-    <span class="section-count">11 כלים בייצור ובפיתוח</span>
+    <span class="section-count">10 כלים בייצור ובפיתוח</span>
   </div>
   <div class="compact-grid">
 
@@ -1033,7 +1033,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
     <!-- מיצוי 360 -->
     <div class="compact-card">
       <h4>מיצוי זכויות 360</h4>
-      <div class="status-badge status-production">בייצור</div>
+      <div class="status-badge status-demo">דמו ציבורי</div>
       <div class="demo-disclaimer" role="note">כלי הדגמה. אינו מהווה קביעת זכאות רשמית.</div>
       <p>כלי AI לסיוע לאזרח במצבי משבר — זיהוי כל הזכויות הרלוונטיות תוך 30 שניות</p>
       <div class="card-metrics">
@@ -1052,7 +1052,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
     <!-- מחשבון -->
     <div class="compact-card">
       <h4>מחשבון גמלאות — כפל וסעיף 320</h4>
-      <div class="status-badge status-production">בייצור</div>
+      <div class="status-badge status-demo">דמו ציבורי</div>
       <div class="demo-disclaimer" role="note">כלי הדגמה. אינו מהווה קביעת זכאות רשמית.</div>
       <p>חישוב אוטומטי של זכאות לכפל גמלאות — עם נימוק משפטי</p>
       <div class="card-metrics">
@@ -1098,21 +1098,6 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
       <div class="card-actions">
         <a href="https://avi1840.github.io/ai-academy/" target="_blank" class="btn btn-live">אתר חי</a>
         <a href="https://github.com/AVI1840/ai-academy" target="_blank" class="btn btn-secondary">GitHub</a>
-      </div>
-    </div>
-
-    <!-- הכשרת מאיצים -->
-    <div class="compact-card">
-      <h4>הכשרת 30 מאיצי AI באגפים</h4>
-      <div class="status-badge status-production">בייצור</div>
-      <p>30 מנהלים בנו 40 בוטים עובדים — 4 מיומנויות, 4 שעות</p>
-      <div class="card-metrics">
-        <div class="metric-chip"><span>30</span> מנהלים</div>
-        <div class="metric-chip"><span>40</span> בוטים</div>
-        <div class="metric-chip">4×4</div>
-      </div>
-      <div class="card-actions">
-        <a href="#" class="btn btn-primary">One Pager</a>
       </div>
     </div>
 
@@ -1231,9 +1216,6 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
         <div class="metric-chip"><span>30</span> מנהלים</div>
         <div class="metric-chip"><span>40</span> בוטים</div>
       </div>
-      <div class="card-actions">
-        <a href="#" class="btn btn-primary">One Pager</a>
-      </div>
     </div>
 
   </div>
@@ -1268,7 +1250,6 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
 <footer class="site-footer" id="footer-trigger" style="cursor:default;user-select:none">
   <strong>אביעד יצחקי</strong> · מוביל AI, מינהל גמלאות · ביטוח לאומי · יולי 2026
   <div class="footer-disclaimer">אתר עבודה אישי המציג פרויקטים שאני מוביל במינהל גמלאות. אינו אתר רשמי של המוסד לביטוח לאומי.</div>
-  <div class="footer-disclaimer internal-only" style="margin-top:4px;color:var(--pilot-blue)">גרסה פנימית — מכיל פרטים תפעוליים. לא לפרסום חיצוני.</div>
 </footer>
 
 <!-- ═══ Presentation Mode Toggle ═══ -->
@@ -1284,12 +1265,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
     meta.name = 'robots';
     meta.content = 'noindex, nofollow';
     document.head.appendChild(meta);
-    var internalEls = document.querySelectorAll('.internal-only');
-    internalEls.forEach(function(el) { el.style.display = ''; });
     console.log('[Portal] Internal mode — noindex applied');
-  } else {
-    var internalEls = document.querySelectorAll('.internal-only');
-    internalEls.forEach(function(el) { el.style.display = 'none'; });
   }
 })();
 
