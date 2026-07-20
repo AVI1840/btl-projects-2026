@@ -200,36 +200,92 @@ body {
   font-weight: 700;
   margin-bottom: 8px;
 }
-.status-production {
-  background: var(--success-bg);
-  color: var(--success);
-  border: 1.5px solid var(--success-border);
+.status-demo {
+  background: rgba(13,148,136,.1);
+  color: #0D7377;
+  border: 1.5px solid rgba(13,148,136,.3);
 }
 .status-pilot {
   background: var(--pilot-bg);
   color: var(--pilot-blue);
   border: 1.5px solid var(--pilot-border);
 }
-.status-demo {
-  background: rgba(13,148,136,.1);
-  color: #0D7377;
-  border: 1.5px solid rgba(13,148,136,.3);
-}
-.status-prototype {
-  background: var(--amber-bg);
-  color: var(--amber);
-  border: 1.5px solid var(--amber-border);
+.status-embed {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1.5px solid var(--success-border);
 }
 .status-dev {
   background: var(--gray-status-bg);
   color: var(--gray-status);
   border: 1.5px solid var(--gray-status-border);
 }
-.status-plan {
-  background: var(--gray-status-bg);
-  color: var(--gray-status);
-  border: 1.5px solid var(--gray-status-border);
+.site-disclaimer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 8px 24px;
+  background: var(--bg-page);
+  border-bottom: 1px solid var(--border);
 }
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+.sticky-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.sticky-nav a:hover, .sticky-nav a:focus {
+  color: var(--primary);
+  border-bottom-color: var(--accent);
+}
+.cta-section {
+  background: var(--bg-warm);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  margin-bottom: 36px;
+  text-align: center;
+  border: 1.5px solid #E8D5A8;
+}
+.cta-section h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+.cta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.cta-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  border: 1px solid var(--border);
+  text-align: right;
+  text-decoration: none;
+  color: var(--text);
+  transition: box-shadow .2s;
+}
+.cta-card:hover { box-shadow: var(--shadow-md); }
+.cta-card strong { display: block; color: var(--primary); margin-bottom: 6px; font-size: 14px; }
+.cta-card p { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 
 /* ═══════════════════════════════════════════
    Taxonomy Section (3 columns, colored top-border, dot-chips)
@@ -551,6 +607,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  min-height: 44px;
   transition: opacity 0.2s ease, transform 0.15s ease;
 }
 .btn:hover { opacity: 0.88; transform: translateY(-1px); }
@@ -765,8 +822,10 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
   .summary-columns { grid-template-columns: 1fr; }
   .flagship-number-value { font-size: 28px; }
   .card-actions { flex-direction: column; }
-  .btn { width: 100%; justify-content: center; }
+  .btn { width: 100%; justify-content: center; min-height: 44px; }
   .pres-toggle { display: none; }
+  .sticky-nav { gap: 12px; font-size: 12px; overflow-x: auto; justify-content: flex-start; padding: 10px 16px; }
+  .cta-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -792,16 +851,16 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
 
 <!-- ═══ Hero ═══ -->
 <section class="hero" role="region" aria-label="תזה מרכזית">
-  <h1 class="hero-thesis">היכולות קיימות. החסם אחד.</h1>
-  <p class="hero-subtitle">כל הכלים כבר עובדים. הם ממתינים לשלושה תנאי תשתית שזהים בכל משרד בממשלה. מי שיפתור אותם פעם אחת — יפתור לכולם.</p>
+  <h1 class="hero-thesis">היכולות קיימות. החסם — תשתית.</h1>
+  <p class="hero-subtitle"><bdi dir="ltr">17</bdi> כלים עובדים. כולם ממתינים לאותם שלושה תנאי תשתית, הזהים בכל משרד ממשלתי. מי שפותר אותם פעם אחת — פותר לכולם.</p>
   <div class="hero-stats" role="group" aria-label="מספרים מרכזיים">
     <div class="hero-stat">
-      <div class="hero-stat-value">12</div>
-      <div class="hero-stat-label">כלים חיים באוויר</div>
+      <div class="hero-stat-value">17</div>
+      <div class="hero-stat-label">כלים פעילים</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-value">450K</div>
-      <div class="hero-stat-label">תביעות מעובדות בשנה</div>
+      <div class="hero-stat-label">תביעות סיעוד בשנה</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-value">257</div>
@@ -809,12 +868,21 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
     </div>
   </div>
 </section>
+<div class="site-disclaimer" role="note">אתר עבודה אישי המציג פרויקטים בהובלת אביעד יצחקי, מינהל גמלאות. אינו אתר רשמי של המוסד לביטוח לאומי.</div>
+
+<nav class="sticky-nav" aria-label="ניווט מהיר">
+  <a href="#flagships">נכסי דגל</a>
+  <a href="#taxonomy">חסמים</a>
+  <a href="#tools">כלים נוספים</a>
+  <a href="#policy">מדיניות</a>
+  <a href="#summary">מה נדרש</a>
+</nav>
 
 <!-- ═══ Main Content ═══ -->
 <main id="main-content" class="main" role="main">
 
   <!-- ═══ חמישה נכסי דגל ═══ -->
-  <div class="section-header">
+  <div class="section-header" id="flagships">
     <span class="section-title">חמישה נכסי דגל</span>
     <span class="section-count">5 נכסים מוכחים — מוכנים לפריצה</span>
   </div>
@@ -828,7 +896,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
       </div>
       <div class="flagship-body">
         <h3>סיכום תביעה בסיעוד</h3>
-        <div class="status-badge status-prototype">אב-טיפוס</div>
+        <div class="status-badge status-embed">בהטמעה ארגונית</div>
         <div class="flagship-insights">
           <div class="flagship-proves"><strong>מוכיח:</strong> AI מסכם תיק מורכב בשניות</div>
           <div class="flagship-blocks"><strong>חוסם:</strong> Runtime AI ארגוני</div>
@@ -842,7 +910,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
         <div class="flagship-actions">
           <a href="bot-siud.html" target="_blank" class="btn btn-primary">One Pager</a>
           <a href="infographics/bot-siud.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
-          <a href="../word/06-bot-siud.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+          <a href="../word/06-bot-siud.docx" download class="btn btn-download"><span class="dl-icon">W</span> מסמך Word</a>
         </div>
       </div>
     </article>
@@ -871,7 +939,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
           <a href="https://avi1840.github.io/sal-ishi-v2/" target="_blank" class="btn btn-live">ממשק מתאמת v2</a>
           <a href="sal-ishi-decisions.html" target="_blank" class="btn btn-primary">One Pager</a>
           <a href="infographics/sal-ishi.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
-          <a href="../word/11-sal-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+          <a href="../word/11-sal-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> מסמך Word</a>
           <a href="https://github.com/AVI1840/SAL-ISHI-SIUD" target="_blank" class="btn btn-secondary">GitHub</a>
         </div>
       </div>
@@ -901,7 +969,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
           <a href="https://avi1840.github.io/arnak-zchuyot/" target="_blank" class="btn btn-live">כלי חי</a>
           <a href="arnak-zchuyot.html" target="_blank" class="btn btn-primary">One Pager</a>
           <a href="infographics/arnak-zchuyot.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
-          <a href="../word/01-arnak-zchuyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+          <a href="../word/01-arnak-zchuyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> מסמך Word</a>
           <a href="https://github.com/AVI1840/arnak-zchuyot" target="_blank" class="btn btn-secondary">GitHub</a>
         </div>
       </div>
@@ -915,7 +983,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
       </div>
       <div class="flagship-body">
         <h3>דשבורד פערי הגמלאות</h3>
-        <div class="status-badge status-production">בייצור</div>
+        <div class="status-badge status-demo">דמו ציבורי</div>
         <div class="flagship-insights">
           <div class="flagship-proves"><strong>מוכיח:</strong> ערך עסקי מהיר מדאטה פומבי</div>
           <div class="flagship-blocks"><strong>חוסם:</strong> גישה ל-DWH לדיוק</div>
@@ -930,7 +998,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
           <a href="https://avi1840.github.io/dashboard-gamlaut/" target="_blank" class="btn btn-live">כלי חי</a>
           <a href="dashboard-gamlaut.html" target="_blank" class="btn btn-primary">One Pager</a>
           <a href="infographics/dashboard-gamlaut.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
-          <a href="../word/03-dashboard-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+          <a href="../word/03-dashboard-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> מסמך Word</a>
           <a href="https://github.com/AVI1840/dashboard-gamlaut" target="_blank" class="btn btn-secondary">GitHub</a>
         </div>
       </div>
@@ -944,7 +1012,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
       </div>
       <div class="flagship-body">
         <h3>מצפן התובנות</h3>
-        <div class="status-badge status-production">POC הושלם — לקראת פיילוט</div>
+        <div class="status-badge status-demo">דמו ציבורי</div>
         <div class="flagship-insights">
           <div class="flagship-proves"><strong>מוכיח:</strong> הפיכת פניות גולמיות לתובנות ניהוליות</div>
           <div class="flagship-blocks"><strong>חוסם:</strong> אינטגרציה למערכת פניות</div>
@@ -967,7 +1035,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
   </div>
 
   <!-- ═══ טקסונומיית אתגרים ═══ -->
-  <div class="section-header">
+  <div class="section-header" id="taxonomy">
     <span class="section-title">טקסונומיית אתגרים</span>
     <span class="section-count">מה חוסם את הפריצה</span>
   </div>
@@ -1007,7 +1075,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
   </div>
 
   <!-- ═══ כלים נוספים (compact) ═══ -->
-  <div class="section-header">
+  <div class="section-header" id="tools">
     <span class="section-title">כלים נוספים</span>
     <span class="section-count">10 כלים בייצור ובפיתוח</span>
   </div>
@@ -1016,7 +1084,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
     <!-- ועדות רפואיות -->
     <div class="compact-card">
       <h4>ועדות רפואיות — צ'קליסט חכם</h4>
-      <div class="status-badge status-production">בייצור</div>
+      <div class="status-badge status-demo">דמו ציבורי</div>
       <p>הכנה מושלמת לוועדה רפואית — מותאם אישית לסוג הוועדה</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>6</span> סוגי ועדות</div>
@@ -1025,7 +1093,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
         <a href="https://avi1840.github.io/vaadot-refuiyot/" target="_blank" class="btn btn-live">כלי חי</a>
         <a href="vaadot-refuiyot.html" target="_blank" class="btn btn-primary">One Pager</a>
         <a href="infographics/vaadot-refuiyot.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
-        <a href="word/05-vaadot-refuiyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+        <a href="../word/05-vaadot-refuiyot.docx" download class="btn btn-download"><span class="dl-icon">W</span> מסמך Word</a>
         <a href="https://github.com/AVI1840/vaadot-refuiyot" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
@@ -1044,7 +1112,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
         <a href="https://avi1840.github.io/mitzui-360/" target="_blank" class="btn btn-live">כלי חי</a>
         <a href="mitzui-360.html" target="_blank" class="btn btn-primary">One Pager</a>
         <a href="infographics/mitzui-360.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
-        <a href="word/04-mitzui-360.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+        <a href="../word/04-mitzui-360.docx" download class="btn btn-download"><span class="dl-icon">W</span> מסמך Word</a>
         <a href="https://github.com/AVI1840/mitzui-360" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
@@ -1063,7 +1131,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
         <a href="https://avi1840.github.io/machshevon-kefel--ZOSH/" target="_blank" class="btn btn-live">כלי חי</a>
         <a href="machshevon-kefel.html" target="_blank" class="btn btn-primary">One Pager</a>
         <a href="infographics/machshevon-kefel.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
-        <a href="word/02-machshevon-kefel.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+        <a href="../word/02-machshevon-kefel.docx" download class="btn btn-download"><span class="dl-icon">W</span> מסמך Word</a>
         <a href="https://github.com/AVI1840/machshevon-kefel--ZOSH" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
@@ -1071,7 +1139,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
     <!-- הנגשת סיעוד -->
     <div class="compact-card">
       <h4>הנגשת בחירה ומיצוי זכויות בסיעוד</h4>
-      <div class="status-badge status-production">בייצור</div>
+      <div class="status-badge status-demo">דמו ציבורי</div>
       <p>כלי לבחירת שירותים ומיצוי זכויות ל-390 אלף זכאי סיעוד</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>390K</span> זכאים</div>
@@ -1081,7 +1149,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
         <a href="https://avi1840.github.io/nursing-helper/" target="_blank" class="btn btn-live">כלי חי</a>
         <a href="nursing-helper.html" target="_blank" class="btn btn-primary">One Pager</a>
         <a href="infographics/nursing-helper.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
-        <a href="word/08-nursing-helper.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+        <a href="../word/08-nursing-helper.docx" download class="btn btn-download"><span class="dl-icon">W</span> מסמך Word</a>
         <a href="https://github.com/AVI1840/nursing-helper" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
@@ -1089,7 +1157,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
     <!-- אקדמיית AI -->
     <div class="compact-card">
       <h4>אקדמיית AI למגזר הציבורי</h4>
-      <div class="status-badge status-production">בייצור</div>
+      <div class="status-badge status-demo">דמו ציבורי</div>
       <p>אתר ידע ולמידה בינה מלאכותית לכל עובד ציבורי בישראל</p>
       <div class="card-metrics">
         <div class="metric-chip">מגזר ציבורי</div>
@@ -1113,7 +1181,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
       <div class="card-actions">
         <a href="ozer-ishi.html" target="_blank" class="btn btn-primary">One Pager</a>
         <a href="infographics/ozer-ishi.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
-        <a href="word/10-ozer-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+        <a href="../word/10-ozer-ishi.docx" download class="btn btn-download"><span class="dl-icon">W</span> מסמך Word</a>
       </div>
     </div>
 
@@ -1128,7 +1196,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
       </div>
       <div class="card-actions">
         <a href="infographics/portal-gamlaut.png" target="_blank" class="btn btn-secondary">אינפוגרפיקה</a>
-        <a href="word/07-portal-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> Word</a>
+        <a href="../word/07-portal-gamlaut.docx" download class="btn btn-download"><span class="dl-icon">W</span> מסמך Word</a>
       </div>
     </div>
 
@@ -1152,7 +1220,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
     <!-- מערכת לאומית — מבחני הכנסות -->
     <div class="compact-card">
       <h4>מערכת לאומית — מבחני הכנסות</h4>
-      <div class="status-badge status-plan">לקראת אישור</div>
+      <div class="status-badge status-dev">בפיתוח</div>
       <p>העברת נתונים דיגיטלית מביטוח לאומי לגופי ממשלה — ASK ONCE, באישור המבוטח</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>70+</span> זכויות</div>
@@ -1167,8 +1235,8 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
 
     <!-- מחשבון חל"ת חירום -->
     <div class="compact-card">
-      <h4>מחשבון חל"ת חירום — שאגת הארי</h4>
-      <div class="status-badge status-production">בייצור</div>
+      <h4>מחשבון חל"ת חירום</h4>
+      <div class="status-badge status-demo">דמו ציבורי</div>
       <p>שאלון דינמי לבדיקת זכאות לדמי אבטלה בחל"ת חירום — כל 7 ההקלות מהחוזר</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>7</span> הקלות חוזר</div>
@@ -1183,7 +1251,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
   </div>
 
   <!-- ═══ מהלכי מדיניות ואסטרטגיה ═══ -->
-  <div class="section-header">
+  <div class="section-header" id="policy">
     <span class="section-title">מהלכי מדיניות ואסטרטגיה</span>
     <span class="section-count">מהלך מדיניות — לא כלי AI</span>
   </div>
@@ -1191,8 +1259,8 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
 
     <!-- המקפצה -->
     <div class="policy-card">
-      <h4>המקפצה — כיפת ברזל תעסוקתית</h4>
-      <div class="status-badge status-prototype">אב-טיפוס</div>
+      <h4>המקפצה — אסטרטגיה לאומית לתעסוקת אוכלוסיות בסיכון</h4>
+      <div class="status-badge status-demo">דמו ציבורי</div>
       <p>אסטרטגיה לאומית בין-משרדית — תעסוקת אוכלוסיות בסיכון בעידן AI</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>999K</span> ₪</div>
@@ -1210,7 +1278,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
     <!-- תוכנית 4×4 -->
     <div class="policy-card">
       <h4>תוכנית 4×4 — הכשרת מנהלים</h4>
-      <div class="status-badge status-production">בייצור</div>
+      <div class="status-badge status-embed">בהטמעה ארגונית</div>
       <p>שדרוג תהליכי עבודה ארגוניים — 4 מיומנויות AI ב-4 שעות לכל מנהל</p>
       <div class="card-metrics">
         <div class="metric-chip"><span>30</span> מנהלים</div>
@@ -1221,7 +1289,7 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
   </div>
 
   <!-- ═══ סיכום: מה כבר אפשר · מה נדרש כדי לפרוץ ═══ -->
-  <div class="summary-section" role="region" aria-label="סיכום: מה כבר אפשר ומה נדרש">
+  <div class="summary-section" id="summary" role="region" aria-label="סיכום: מה כבר אפשר ומה נדרש">
     <h2>מה כבר אפשר · מה נדרש כדי לפרוץ</h2>
     <div class="summary-columns">
       <div class="summary-col summary-col-right">
@@ -1239,10 +1307,22 @@ body.pres-mode .flagship-body h3 { font-size: 20px; }
         <div class="summary-item">Runtime ארגוני ל-AI — מנוע זמין בתוך סביבת העבודה, לא רק בסביבת פיתוח</div>
       </div>
     </div>
-    <div class="summary-framing">
-      היכולות קיימות. אף אחת מהן אינה ממתינה להוכחת היתכנות — כולן ממתינות לאותם שלושה תנאי תשתית. ואותם תנאים בדיוק חסרים בכל משרד בממשלה. זו אינה שאלה של ארגון אחד: מי שיפתור אותם פעם אחת, יפתור אותם לכולם. זהו בדיוק תפקידה של תשתית לאומית.
-    </div>
   </div>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta-section" role="region" aria-label="יצירת קשר">
+    <h2>רוצים לראות מקרוב?</h2>
+    <div class="cta-grid">
+      <a href="mailto:aviad.yitzhaki@nioi.gov.il?subject=תיאום דמו - פרויקטי AI מינהל גמלאות" class="cta-card">
+        <strong>תיאום דמו חי — 30 דקות</strong>
+        <p>הדגמה של הכלים בזמן אמת, מותאמת לצורך שלכם</p>
+      </a>
+      <div class="cta-card">
+        <strong>שותפות פיילוט תשתית</strong>
+        <p>שלושת תנאי התשתית זהים בכל משרד. גוף שפותר אותם פעם אחת — פותר לכולם. נשמח לשותפות.</p>
+      </div>
+    </div>
+  </section>
 
 </main>
 
