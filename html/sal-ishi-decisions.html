@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סל אישי בסיעוד — One Pager | ביטוח לאומי</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#1B3A5C;--secondary:#2A5A8C;--accent:#E8A020;--light:#F0F4F8;--white:#FFF;--text:#1A2332;--muted:#6B7A8D;--success:#1A7A4E;--danger:#C0392B;--warning:#CC7A00}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Heebo',Arial,sans-serif;background:var(--light);color:var(--text);direction:rtl}
+.page{max-width:960px;margin:0 auto;padding:32px 24px}
+
+.header{background:linear-gradient(135deg,#0F2640,var(--primary),#1A7A4E);color:#fff;border-radius:18px;padding:36px 40px;margin-bottom:28px;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-40%;left:-10%;width:60%;height:200%;background:radial-gradient(ellipse,rgba(232,160,32,.08),transparent 60%);pointer-events:none}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.logo-area{display:flex;align-items:center;gap:12px}
+.logo-area img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.logo-text{font-size:13px;opacity:.75;line-height:1.6}
+.header-badge{background:rgba(125,255,181,.2);border:1px solid rgba(125,255,181,.4);color:#7DFFB5;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px}
+.header h1{font-size:32px;font-weight:900;margin-bottom:6px}
+.header h1 span{color:var(--accent)}
+.header-sub{font-size:14px;opacity:.75;line-height:1.5}
+.color-bar{height:4px;background:linear-gradient(90deg,var(--accent),#1A7A4E,var(--primary));border-radius:2px;margin-top:20px}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;border-radius:14px;padding:20px 16px;text-align:center;border:1.5px solid #E0E8F0;box-shadow:0 2px 12px rgba(27,58,92,.06)}
+.stat-number{font-size:32px;font-weight:900;color:var(--primary);line-height:1}
+.stat-label{font-size:12px;color:var(--muted);margin-top:6px;font-weight:500;line-height:1.4}
+
+.box{background:#fff;border-radius:14px;padding:24px;border:1.5px solid #E0E8F0;box-shadow:0 2px 12px rgba(27,58,92,.06);margin-bottom:20px}
+.box-title{font-size:15px;font-weight:800;color:var(--primary);margin-bottom:14px;display:flex;align-items:center;gap:8px;border-bottom:2px solid var(--accent);padding-bottom:8px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+
+/* Readiness */
+.readiness-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ready-item{background:var(--light);border-radius:10px;padding:14px;border-right:4px solid}
+.ready-green{border-color:var(--success)}
+.ready-yellow{border-color:var(--warning)}
+.ready-orange{border-color:#E8A020}
+.ready-title{font-size:13px;font-weight:700;margin-bottom:4px}
+.ready-score{font-size:11px;font-weight:800;margin-bottom:6px}
+.ready-have{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* Decisions table */
+.dec-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(27,58,92,.06);margin-bottom:20px}
+.dec-table th{background:var(--primary);color:#fff;padding:11px 14px;font-size:12px;font-weight:700;text-align:right}
+.dec-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid #F0F4F8;vertical-align:top;line-height:1.5}
+.dec-table tr:last-child td{border-bottom:none}
+.dec-table tr:nth-child(even) td{background:#F8FAFC}
+.urg-red{background:#FFE8E8;color:#C0392B;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;white-space:nowrap}
+.urg-yellow{background:#FFF3D8;color:#CC7A00;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;white-space:nowrap}
+
+/* Basket */
+.basket-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.basket-item{background:#fff;border-radius:12px;padding:16px;border:1.5px solid #E0E8F0;text-align:center}
+.basket-cost{font-size:22px;font-weight:900;color:var(--primary);margin-bottom:4px}
+.basket-label{font-size:12px;color:var(--muted);margin-bottom:8px}
+.basket-desc{font-size:11px;color:var(--text);line-height:1.4}
+
+/* Timeline */
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.tl-item{background:#fff;border-radius:12px;padding:16px;border-top:4px solid var(--accent);text-align:center}
+.tl-period{font-size:12px;font-weight:800;color:var(--accent);margin-bottom:6px}
+.tl-content{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* Axes */
+.axes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:20px}
+.axis-item{background:#fff;border-radius:12px;padding:16px;border:1.5px solid #E0E8F0}
+.axis-title{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:6px}
+.axis-rec{font-size:11px;color:var(--muted);margin-bottom:4px}
+.axis-impl{font-size:11px;color:var(--success);font-weight:600}
+
+.cta{background:linear-gradient(135deg,#0F2640,var(--primary));border-radius:14px;padding:24px 28px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.cta-text h3{font-size:16px;font-weight:800;margin-bottom:4px}
+.cta-text p{font-size:12px;opacity:.75;line-height:1.5}
+.cta-links{display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap}
+.cta-btn{padding:10px 18px;border-radius:8px;font-family:'Heebo',sans-serif;font-size:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.cta-btn-primary{background:var(--accent);color:#1A2332}
+.cta-btn-secondary{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+
+.footer{text-align:center;font-size:12px;color:var(--muted);margin-top:20px;padding:16px;background:#fff;border-radius:10px;border:1px solid #E0E8F0}
+
+@media(max-width:700px){
+  .stats-row,.two-col,.three-col,.basket-row,.timeline,.axes-grid,.readiness-grid{grid-template-columns:1fr}
+  .header{padding:24px 20px}
+  .header h1{font-size:24px}
+  .cta{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-top">
+      <div class="logo-area">
+        <img src="btl-logo.png" alt="ביטוח לאומי" onerror="this.style.display='none'">
+        <div class="logo-text"><div style="font-weight:700;font-size:14px">המוסד לביטוח לאומי</div><div>מינהל גמלאות | רפורמת סיעוד</div></div>
+      </div>
+      <div class="header-badge">🟢 פיילוט פעיל — פסגת זאב</div>
+    </div>
+    <h1>🧺 סל אישי בסיעוד<br><span>רפורמת מערכת הפעלה</span></h1>
+    <div class="header-sub">ממודל שעות טיפול למודל שימור תפקוד — ארנק דיגיטלי, סבסוד מותאם, CRM פרואקטיבי</div>
+    <div class="color-bar"></div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">286</div>
+      <div class="stat-label">משתתפים בפיילוט פסגת זאב (~12 חודשים)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="color:var(--danger)">44.6%</div>
+      <div class="stat-label">מרמה 1 שהידרדרו — קיבלו אפס שירותים</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">220K</div>
+      <div class="stat-label">זכאי סיעוד רמות 1-3 — יעד הרחבה</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="color:var(--accent)">3.6B</div>
+      <div class="stat-label">₪ תקציב שנתי גמלאות סיעוד</div>
+    </div>
+  </div>
+
+  <!-- Readiness -->
+  <div class="box">
+    <div class="box-title">📊 בשלות לפי צירים</div>
+    <div class="readiness-grid">
+      <div class="ready-item ready-green">
+        <div class="ready-title">🟢 מתאמת שירות + מערכת</div>
+        <div class="ready-score" style="color:var(--success)">4/5 — בשל</div>
+        <div class="ready-have">ממשק מלא בנוי ועובד | חסר: חיבור נתונים אמיתיים, סביבת ייצור</div>
+      </div>
+      <div class="ready-item ready-green">
+        <div class="ready-title">🟢 מדידה ו-KPI</div>
+        <div class="ready-score" style="color:var(--success)">4/5 — בשל</div>
+        <div class="ready-have">מדדי ניצול ותפקוד | חסר: דשבורד בזמן אמת, קבוצת ביקורת</div>
+      </div>
+      <div class="ready-item ready-yellow">
+        <div class="ready-title">🟡 סל שירותים + מודל פיננסי</div>
+        <div class="ready-score" style="color:var(--warning)">3/5 — בהתפתחות</div>
+        <div class="ready-have">מודל 6 ממדים, 18 שירותים | חסר: רשימה סגורה, תמחור, סל בסיס</div>
+      </div>
+      <div class="ready-item ready-orange">
+        <div class="ready-title">🟠 ספקים + התקשרויות</div>
+        <div class="ready-score" style="color:#E8A020">2.5/5 — בהקמה</div>
+        <div class="ready-have">אפיון ראשוני | חסר: חוזה מסגרת, מנגנון תשלום, מאגר מאושר</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decisions -->
+  <div class="box-title" style="font-size:15px;font-weight:800;color:var(--primary);margin-bottom:14px;display:flex;align-items:center;gap:8px;border-bottom:2px solid var(--accent);padding-bottom:8px">🔑 הכרעות נדרשות להרחבה</div>
+  <table class="dec-table">
+    <thead>
+      <tr><th>#</th><th>הכרעה</th><th>שאלה מרכזית</th><th>בעלים</th><th>דחיפות</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><strong>סל בסיס — מה חובה?</strong></td>
+        <td>מתאמת (1:65-85) + שייכות קהילתית + הערכה תפקודית?</td>
+        <td>ביטוח לאומי + רווחה</td>
+        <td><span class="urg-red">🔴 מיידי</span></td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><strong>זרימת תקציב</strong></td>
+        <td>אינטגרטור ארצי מרכזי? עקיפת הליכי רכש רשויות?</td>
+        <td>אוצר + ביטוח לאומי</td>
+        <td><span class="urg-red">🔴 שבוע 1-2</span></td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><strong>מחירון שירותים</strong></td>
+        <td>תעריפי תקרה ל-15 שירותי ליבה</td>
+        <td>ביטוח לאומי + ספקים</td>
+        <td><span class="urg-yellow">🟡 שבוע 3</span></td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><strong>מודל הפעלת מלווה</strong></td>
+        <td>יחס שירות, סמכויות, מעטפת חובה — אחיד ל-8 פיילוטים</td>
+        <td>רווחה + מפעיל שטח</td>
+        <td><span class="urg-red">🔴 שבועיים</span></td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><strong>מדידה ו-KPI</strong></td>
+        <td>6 מדדים, שיטת מדידה, דיווח — אחיד בין פיילוטים</td>
+        <td>ביטוח לאומי + אוצר</td>
+        <td><span class="urg-yellow">🟡 30 יום</span></td>
+      </tr>
+      <tr>
+        <td><strong>6</strong></td>
+        <td><strong>גבולות מערכת ודאטה</strong></td>
+        <td>מה מחובר, מה ידני, אבטחת מידע</td>
+        <td>טכנולוגיה + אבטחת מידע</td>
+        <td><span class="urg-yellow">🟡 30 יום</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Basket proposal -->
+  <div class="box">
+    <div class="box-title">💰 הצעת סל בסיס — לדיון</div>
+    <div class="basket-row" style="margin-bottom:14px">
+      <div class="basket-item">
+        <div class="basket-cost">250–350₪</div>
+        <div class="basket-label">מתאמת שירות</div>
+        <div class="basket-desc">ליווי אישי, ביקורי בית, תיאום ספקים, מעקב תכנית (1:65-85)</div>
+      </div>
+      <div class="basket-item">
+        <div class="basket-cost">100–150₪</div>
+        <div class="basket-label">שייכות קהילתית</div>
+        <div class="basket-desc">חברות בקהילה מקומית, פעילות חברתית קבועה</div>
+      </div>
+      <div class="basket-item">
+        <div class="basket-cost">~50₪</div>
+        <div class="basket-label">הערכה + מדידה</div>
+        <div class="basket-desc">שאלון צרכים, פרופיל תפקודי, מדידת שינוי</div>
+      </div>
+    </div>
+    <div style="background:#F0FAF4;border-radius:10px;padding:14px;font-size:13px;border-right:4px solid var(--success)">
+      <strong>⚠️ יתרת הגמלה</strong> עוברת לארנק דיגיטלי: שירותים לבחירה ב-6 קטגוריות (תפקודי, חברתי, בריאותי, קוגניטיבי, טכנולוגי, סביבתי) — דרך מרקטפלייס עם תיקוף מתאמת. <em>המספרים הם הערכה ראשונית בלבד.</em>
+    </div>
+  </div>
+
+  <!-- VC alignment -->
+  <div class="box">
+    <div class="box-title">🏛 הקשר לדוח ועדת הסיעוד</div>
+    <div class="axes-grid" style="margin-bottom:0">
+      <div class="axis-item">
+        <div class="axis-title">דחיקת תלות</div>
+        <div class="axis-rec">הוועדה: מעבר ממודל שעות לשירותים שמקדמים עצמאות</div>
+        <div class="axis-impl">✅ ארנק גמיש + סל מניעה + הערכה תפקודית</div>
+      </div>
+      <div class="axis-item">
+        <div class="axis-title">שירותים בעין</div>
+        <div class="axis-rec">הוועדה: שירותים אמיתיים לאזרח, לא רק שעות סיעוד</div>
+        <div class="axis-impl">✅ קטלוג ספקים, מחירון תקרה, ארנק הזמנה</div>
+      </div>
+      <div class="axis-item">
+        <div class="axis-title">שירותים בקהילה</div>
+        <div class="axis-rec">הוועדה: שייכות, חברה ורשת קהילתית כחלק מהמענה</div>
+        <div class="axis-impl">✅ מלווה חברתית + שירותי קהילה כחובה בסל</div>
+      </div>
+      <div class="axis-item">
+        <div class="axis-title">מניעה ומדידה</div>
+        <div class="axis-rec">הוועדה: מדידת תוצאות — תפקוד, הידרדרות, ניצול</div>
+        <div class="axis-impl">✅ הערכה רבעונית, KPIs מוסכמים</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="box-title" style="font-size:15px;font-weight:800;color:var(--primary);margin-bottom:14px;display:flex;align-items:center;gap:8px;border-bottom:2px solid var(--accent);padding-bottom:8px">📅 לוח זמנים</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-period">אפריל 2026</div>
+      <div class="tl-content">גיוס צוות הכרעות | אישרור סל בסיס | הכרעות פיננסיות</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-period">מאי–יוני</div>
+      <div class="tl-content">ספרינט 1-2: מתאמת | ספקים | מחירון</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-period">יולי–אוגוסט</div>
+      <div class="tl-content">ספרינט 3-4: מנוע + דשבורד | סמכויות | בקרה</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-period">Q4 2026</div>
+      <div class="tl-content">פיילוט מורחב 6-8 שכונות ירושלמיות | הכנה לסקייל ארצי</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="cta-text">
+      <h3>קריאה לפעולה: 3 הכרעות עד שבוע הבא</h3>
+      <p>סל בסיס | זרימת כסף | הרכב צוות הכרעות<br>נדרש בחדר: ביטוח לאומי + אוצר + רווחה + ייעוץ משפטי</p>
+    </div>
+    <div class="cta-links">
+      <a href="https://avi1840.github.io/SAL-ISHI-SIUD/" target="_blank" class="cta-btn cta-btn-primary">🟢 ממשק מתאמת</a>
+      <a href="https://libi-landing.vercel.app" target="_blank" class="cta-btn cta-btn-secondary">🟢 LIBI — ממשק אזרח</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    ביטוח לאומי | מינהל גמלאות | מסמך לדיון עם הנהלה בכירה | אפריל 2026 | אביעד יצחקי
+  </div>
+
+</div>
+</body>
+</html>
